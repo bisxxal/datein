@@ -1,0 +1,15 @@
+{
+  "name": "tinder-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "both": "concurrently \"cd tinder && npm run dev\" \"cd backendTinder && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
