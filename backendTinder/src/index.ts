@@ -5,7 +5,6 @@ import like from './router/like.js';
 import chat from './router/chart.js'; 
 import { createServer } from 'http';
 import { initSocket } from './socket.js';
-// import { initSocket } from './socket';
 
 const app = express();
 dotenv.config();
@@ -13,16 +12,20 @@ dotenv.config();
 const httpServer = createServer(app);
 
 app.use(express.json())
-app.use(cors()) 
+app.use(cors({
+  origin: ['http://localhost:3000','' ],// Adjust this to your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true, // Allow cookies to be sent with requests
+})) 
 
 app.use("/api/likes" ,like) 
 
 app.use("/api/chart" ,chat) 
 
-app.get('/' , (req,res)=>{
-    const {data} = req.body;
-    console.log('hello' , data); 
-} )
+// app.get('/' , (req,res)=>{
+//     const {data} = req.body;
+//     console.log('hello' , data); 
+// } )
 
 const port =8000
 
