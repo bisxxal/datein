@@ -1,4 +1,3 @@
-import { getUser } from "@/actions/user.action";
 import BottomBar from "@/components/bottomBar";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -17,7 +16,7 @@ export default async function RootLayout({
   return (
     <div className=" relative">
       {children}
-       {/* <BottomBar/> */}
+       <BottomBar/>
     </div>
   );
 }

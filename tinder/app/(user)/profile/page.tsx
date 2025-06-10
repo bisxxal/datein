@@ -13,7 +13,7 @@ import { redirect } from "next/navigation";
 const UserProfile = async() => {
     const pic = await getUserProfilePic()
     // console.dir(pic)
-    if(pic?.profile?.photos[1]?.url === undefined) {
+    if(pic?.profile?.photos[0]?.url === undefined) {
       redirect('/profile/editprofile')
     }
   return (
@@ -24,7 +24,7 @@ const UserProfile = async() => {
 
       <div className=" flex relative mt-[120px] w-fit mx-auto flex-col items-center  justify-center  ">
          
-      {/* <img className=" w-[150px] h-[150px] border border-black/10 rounded-full  " src={pic?.profile?.photos[1]?.url}  alt="" /> */}
+
       <GlareHover
         glareColor="#ffffff"
         glareOpacity={0.4}
@@ -34,7 +34,7 @@ const UserProfile = async() => {
         playOnce={false}
         className="bg-transparent !w-[150px] !border-none !rounded-full !h-[150px]"
       >
-    <img className=" w-[150px] h-[150px] border border-black/10 rounded-full  " src={pic?.profile?.photos[1]?.url}  alt="" />
+    <img className=" w-[150px] h-[150px] border border-black/10 rounded-full  " src={pic?.profile?.photos[0]?.url}  alt="" />
   </GlareHover>
 
       <Link href={'/profile/editprofile'} className="border-2 border-white/20 absolute bg-[#0000003b]  w-[100px] h-[50px] rounded-full backdrop-blur-[8px] top-40 left-7 right-0 flex justify-center items-center gap-3">

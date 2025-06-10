@@ -34,10 +34,11 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
   const [msgloading, setMsgLoading] = useState(false);
 
   const router = useRouter();
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL
   // Fetch initial messages
   useEffect(() => {
     const fetchMessages = async () => {
-      const res = await fetch(`http://localhost:8000/api/chart/getmessages/?chatId=${chatId}`);
+      const res = await fetch(`${url}/api/chart/getmessages/?chatId=${chatId}`);
       const data = await res.json();
       setMessages(data.messages || []);
     };
@@ -72,7 +73,7 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
     setMsgLoading(true);
     if (!newMessage.trim()) return;
 
-    await fetch('http://localhost:8000/api/chart/sendmessage', {
+    await fetch(`${url}/api/chart/sendmessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

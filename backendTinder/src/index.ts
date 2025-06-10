@@ -13,7 +13,7 @@ const httpServer = createServer(app);
 
 app.use(express.json())
 app.use(cors({
-  origin: ['http://localhost:3000','' ],// Adjust this to your frontend URL
+  origin: ['http://localhost:3000','https://datein.vercel.app/' ],// Adjust this to your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow cookies to be sent with requests
 })) 
@@ -21,16 +21,8 @@ app.use(cors({
 app.use("/api/likes" ,like) 
 
 app.use("/api/chart" ,chat) 
-
-// app.get('/' , (req,res)=>{
-//     const {data} = req.body;
-//     console.log('hello' , data); 
-// } )
-
 const port =8000
-
 initSocket(httpServer);
- 
 httpServer.listen(port, () => { 
   console.log(`🚀 Server running on on ${port}`);
 });

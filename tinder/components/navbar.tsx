@@ -11,7 +11,7 @@ const Navbar = async () => {
 
       <div className="flex items-center gap-9">
       {!session ? (
-      <Link href="/sign-in" className=" buttonbg p-6 py-2">Sign In</Link>
+      <Link href="/sign-in" className=" buttonbg p-3 text-sm rounded-full py-2">Sign In</Link>
       ) : (
         <>
           <span className=" font-bold textbase">{session?.user?.name} </span> 
