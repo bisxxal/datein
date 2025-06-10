@@ -15,7 +15,7 @@ const MatchesList = ({AllMatches}:{AllMatches:{image:string ,id:string, name:str
             const res = await createChartparticipent(id)
             if(res?.chatId){
                 console.log()
-                router.push(`/user/chat/${res.chatId}`)
+                router.push(`/chat/${res.chatId}`)
             }
             setLoading(false)
         } catch (error) {

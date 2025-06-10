@@ -1,4 +1,4 @@
-import { getAllChats, getMatches } from '@/actions/chart'; 
+import {   getMatches } from '@/actions/chart'; 
 import UserNavbar from '../_components/UserNavbar';
 import MatchesList from '../_components/matchesList';
 import Charts from '../_components/chartsList';
@@ -12,7 +12,6 @@ interface MatchesProps {
 const ChartPage = async () => {
 
     const data = await getMatches();
-    const chats = await getAllChats()
     const AllMatches: MatchesProps[] = []
      
  
@@ -48,11 +47,10 @@ if (data?.matches && data?.matches.length > 0) {
            <MatchesList AllMatches={AllMatches}/>
 
             <p className='my-3 mt-7'>Messges</p>
-                <Charts   chats={chats.chats} userId={chats.userId} />
+                <Charts    />
             </div>
 
 {/* <Try/> */}
-
     </div>
   )
 }

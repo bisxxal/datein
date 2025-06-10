@@ -21,9 +21,9 @@ export default withAuth(
 export const config = {
   matcher: [
     "/match/:path*",
-    "/user/:path*",  
-    "/user/profile/:path*",  
+    "/profile/:path*",  
     "/settings/:path*", 
-    "/user/profile/editphoto/interest",  
+    "/chat/:path*",
+    "/profile/editprofile"
   ],
 }

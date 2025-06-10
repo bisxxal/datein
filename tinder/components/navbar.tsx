@@ -15,8 +15,6 @@ const Navbar = async () => {
       ) : (
         <>
           <span className=" font-bold textbase">{session?.user?.name} </span> 
-      
-        {/* <Link href="/user/profile" className=" textbase font-semibold">profile</Link>  */}
         </>
       )}
       </div>

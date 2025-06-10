@@ -1,7 +1,8 @@
 // 'use client';
 import { authOptions } from '@/lib/auth';
-import ChatRoom from '../../../_components/ChatRoom';
 import { getServerSession } from "next-auth"
+import ChatRoom from '../../_components/ChatRoom';
+export const dynamic = 'force-dynamic'; // 👈 Add this line
 
 export default async function ChatPage({ params }: { params: { chatId: string } }) {
 

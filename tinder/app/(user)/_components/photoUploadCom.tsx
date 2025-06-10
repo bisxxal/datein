@@ -1,12 +1,8 @@
- 
 'use client';
-
 import { savePhotoUrlsToDB } from '@/actions/user.action';
 import LoadingCom from '@/components/ui/loading';
 import { useMutation , useQueryClient } from '@tanstack/react-query';
-
 import { useState, useRef } from 'react';
-import { Image } from "@imagekit/next";
 const PhotoUploadCom = ({data , isLoading}:{data:{url:string}[] , isLoading:boolean}) => {
   
   const [files, setFiles] = useState<File[]>([]);
@@ -52,7 +48,7 @@ const handleUpload = () => {
     <div className='w-full px-5  max-md:px-0 '>
       <h1 className='my-9 ml-4'>
         <p className='font-bold'>Media</p>
-        <span className='text-zinc-400'> Add up to 6 photos. </span>
+        <span className='text-zinc-300'> Add up to 6 photos. </span>
       </h1>
 
       <div className="w-full flex  flex-wrap justify-between px-5 gap-5 max-md:px-2 mt-4">
@@ -61,17 +57,17 @@ const handleUpload = () => {
        
         {existingImages && existingImages?.map((u: {url:string}, idx: number) =>  {
           return(
-          <img key={`existing-${idx}`} src={u?.url} alt="Uploaded" height={1000} width={1000} className=" max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border object-contain" />
+          <img key={`existing-${idx}`} src={u?.url} alt="Uploaded" height={1000} width={1000} className=" max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20 object-contain" />
           )
         })}
         { previews && previews?.map((src, idx) => (
-          <Image height={800} width={500} key={`preview-${idx}`} src={src} alt="Preview" className=" max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border object-contain" />
+          <img height={800} width={500} key={`preview-${idx}`} src={src} alt="Preview" className=" max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20 object-contain" />
         ))}
 
         {[...Array(len)].map((_, i) => (
-          <div key={i} className=' max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] flex items-center justify-center bg-[#0000004a] rounded-2xl border-dashed border'>
+          <div key={i} className=' max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] flex items-center justify-center bg-[#ffffff21] rounded-2xl border-dashed border border-black/20'>
             <button
-              className='bg-pink-500 h-10 w-10 flex text-2xl rounded-full items-center justify-center'
+              className='buttonbg h-10 w-10 flex text-2xl rounded-full items-center justify-center'
               onClick={() => fileInputRef.current?.click()}
             >
               +
@@ -97,7 +93,7 @@ const handleUpload = () => {
       <button
         hidden={previews.length === 0}
         onClick={handleUpload}
-        className="my-10 px-3 py-3 rounded-full w-[300px] mx-auto block bg-pink-500 text-white"
+        className="my-10 px-3 py-3 rounded-full w-[300px] mx-auto block buttonbg text-white"
       >
         Upload
       </button>
@@ -106,3 +102,5 @@ const handleUpload = () => {
 };
 
 export default PhotoUploadCom;
+
+ 

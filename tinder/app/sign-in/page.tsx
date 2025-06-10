@@ -10,7 +10,7 @@ const SignInPage = () => {
   async function myFunction() {
   const session = await getSession()
   if (session?.user?.name) {
-    router.push('/user/profile')
+    router.push('/profile')
   }
 }
 useEffect(()=>{

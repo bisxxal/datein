@@ -1,4 +1,7 @@
 'use client'
+import { getAllChats } from '@/actions/chart';
+import LoadingCom from '@/components/ui/loading';
+import { QueryClient, useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,14 +9,13 @@ import React from 'react'
 import { PiArrowBendUpLeft } from "react-icons/pi";
 
  
-interface ChartsProps {
-    chats: {
-        chatId: string;
-        name: string;
-        image: string;
-        chat:{
-            participants: {
-            user:{
+interface Chat {
+    chatId: string;
+    name: string;
+    image: string;
+    chat: {
+        participants: {
+            user: {
                 id: string;
                 name: string;
                 image: string;
@@ -23,14 +25,25 @@ interface ChartsProps {
             content: string;
             createdAt: string;
         }[];
-        }
-    }[];
-    userId?: string;  
+    }
 }
-const Charts = ({chats ,userId}:ChartsProps) => {
+
+type ChartsProps = Chat[];
+const Charts = () => {
+
+    const client = new QueryClient();
+       const { isLoading, data } = useQuery({
+           queryKey: ['fetchAllCharts', client],
+           queryFn: async () => {
+           const data  = await getAllChats();
+           return data;
+       },
+       staleTime: 60000,
+     });
+const chats: ChartsProps = data?.chats || [];
   return (
     <div className='flex flex-col w-full'>
-        {chats &&
+        {chats && !isLoading ?
             [...chats]
                 .sort((a, b) => {
                     const dateA = a?.chat?.messages[0]?.createdAt
@@ -44,12 +57,12 @@ const Charts = ({chats ,userId}:ChartsProps) => {
                 .map((item, i) => {
                     return (
                         <Link
-                            href={`/user/chat/${item.chatId}`}
+                            href={`/chat/${item.chatId}`}
                             key={i}
                             className=' base3 rounded-3xl center mb-3 shadow-lg border-black/10 p-2 !justify-start '
                         >
                             {item.chat.participants
-                                .filter((participant) => participant.user.id !== userId)
+                                .filter((participant) => participant.user.id !== data.userId)
                                 .map((participant, index) => (
                                     <div key={index} className='flex items-center gap-2'>
                                         <Image
@@ -79,7 +92,16 @@ const Charts = ({chats ,userId}:ChartsProps) => {
                                 ))}
                         </Link>
                     );
-                })}
+                })
+            :
+            (
+                isLoading ?
+               <LoadingCom boxes={3} width=" !rounded-3xl w-full h-[100px] " margin=" !items-start !justify-between  !px-0 gap-5 flex-col " />
+               : <p>No Message </p>
+            )
+                }
+
+            {/* <LoadingCom boxes={6} width=" !rounded-3xl w-full h-[100px] " margin=" !items-start !justify-between  !px-0 gap-5 flex-col " /> */}
     </div>
   )
 }

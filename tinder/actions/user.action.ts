@@ -164,12 +164,11 @@ export async function addInterests(interests: string[]) {
 
 
 export async function savePhotoUrlsToDB( formData:FormData) {
-const user = await getUser();
-
+  const user = await getUser();
   if(!user){
     return JSON.parse(JSON.stringify({status: 300, message: 'unauth user' }));    
   }
-uploadFile(formData ,user.id)
+  uploadFile(formData ,user.id)
   
 }
 

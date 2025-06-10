@@ -72,9 +72,6 @@ function DockItem({
   const size = useSpring(targetSize, spring);
  const parmas = usePathname()
  const p= parmas.split('/')[1]
- console.log(p)
- 
- console.log( String(label ? label.toString().toLowerCase() : "") === p )
   return (
     <motion.div
       ref={ref}

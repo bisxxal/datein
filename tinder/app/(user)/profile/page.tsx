@@ -8,10 +8,14 @@ import BackgroundPatten from "@/components/ui/backgroundPatten";
 import { RiVerifiedBadgeLine } from "react-icons/ri";
 import GlareHover from "@/components/ui/glassHover";
 import UserNavbar from "../_components/UserNavbar";
+import { redirect } from "next/navigation";
 
 const UserProfile = async() => {
     const pic = await getUserProfilePic()
     // console.dir(pic)
+    if(pic?.profile?.photos[1]?.url === undefined) {
+      redirect('/profile/editprofile')
+    }
   return (
       <BackgroundPatten>
     <div className=" w-full min-h-screen  relative overflow-hidden">
@@ -33,7 +37,7 @@ const UserProfile = async() => {
     <img className=" w-[150px] h-[150px] border border-black/10 rounded-full  " src={pic?.profile?.photos[1]?.url}  alt="" />
   </GlareHover>
 
-      <Link href={'/user/profile/editprofile'} className="border-2 border-white/20 absolute bg-[#0000003b]  w-[100px] h-[50px] rounded-full backdrop-blur-[8px] top-40 left-7 right-0 flex justify-center items-center gap-3">
+      <Link href={'/profile/editprofile'} className="border-2 border-white/20 absolute bg-[#0000003b]  w-[100px] h-[50px] rounded-full backdrop-blur-[8px] top-40 left-7 right-0 flex justify-center items-center gap-3">
       Edit  <AiTwotoneEdit size={21}/>
       </Link>
 
@@ -54,7 +58,7 @@ const UserProfile = async() => {
         playOnce={false}
         className="bg-transparent w-[30%] !rounded-3xl max-md:w-[90%] flex-col !h-full"
       >
-     {pic?.verified === false && <Link href={'/user/verified'} className=" w-full px-5 flex-col h-full border-2 border-green-600 bg-green-600/30  rounded-3xl center">
+     {pic?.verified === false && <Link href={'/verified'} className=" w-full px-5 flex-col h-full border-2 border-green-600 bg-green-600/30  rounded-3xl center">
         <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4">  Get Verified <VscVerified /></p>
         <p className=" max-md:text-xs">Not Verified yet.</p>
       </Link>}
@@ -83,7 +87,7 @@ const UserProfile = async() => {
         playOnce={false}
         className="bg-transparent w-[30%] !rounded-3xl max-md:w-[90%] flex-col !h-full"
       >
-      <Link href={'/user/report-spam'} className=" w-full px-5 flex-col h-full border-2 border-red-500 bg-red-600/30  rounded-3xl center">
+      <Link href={'/report-spam'} className=" w-full px-5 flex-col h-full border-2 border-red-500 bg-red-600/30  rounded-3xl center">
         <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4"> Report Bug  <FaBug /></p>
         <p className=" max-md:text-xs text-center ">Report a bug . helps us to enhance our app .</p>
       </Link>

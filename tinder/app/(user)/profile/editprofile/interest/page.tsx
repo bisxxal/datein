@@ -3,7 +3,6 @@
 import { addInterests } from '@/actions/user.action'
 import Back from '@/components/ui/back'
 import { interestsData } from '@/util'
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 

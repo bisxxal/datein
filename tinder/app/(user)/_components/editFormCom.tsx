@@ -75,7 +75,7 @@ const EditFormCom = ({data ,name}:{data:UserProfileProps,name:string}) => {
         </div>
         <div>
         <p className=' text-xl font-bold'>Intrests</p>
-            <Link className=' bg-[#00000026] flex justify-between items-center p-2 px-5 h-12 mt-4 rounded-xl' href={`/user/profile/editprofile/interest?interest=${interest}`}>
+            <Link className=' bg-[#00000026] flex justify-between items-center p-2 px-5 h-12 mt-4 rounded-xl' href={`/profile/editprofile/interest?interest=${interest}`}>
            <span> {data?.keywords?.map((i:{name:string} , index:number)=>( <span key={index} className=' mx-1.5'>{i?.name} ,</span> ))} </span><span className='tex-xl block'> &gt; </span></Link>
         </div>
 
