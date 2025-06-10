@@ -17,7 +17,6 @@ export default withAuth(
   }
 )
 
-// Apply to these routes only
 export const config = {
   matcher: [
     "/match/:path*",
