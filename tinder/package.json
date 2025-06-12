@@ -1,5 +1,5 @@
 {
-  "name": "tinder",
+  "name": "datein",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,12 @@
     "build": "next build",
     "postinstall": "prisma generate",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:migrate": "prisma migrate deploy",
+    "studio": "prisma studio",
+    "db:seed": "prisma db seed",
+    "prisma:docker": "npm run prisma:migrate && npm run db:seed && npm run studio",
+    "dev:docker": "npm run prisma:docker & next dev"
   },
   "dependencies": {
     "@faker-js/faker": "^9.8.0",

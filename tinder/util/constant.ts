@@ -39,7 +39,7 @@ export  interface PopUpProps {
       location: string;
       livingIn: string;
       lookingFor: string;
-      height: string;
+      height: number;
       bio: string;
       age: number;
       languages:string,

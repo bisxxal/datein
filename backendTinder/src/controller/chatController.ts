@@ -1,24 +1,20 @@
 import { Request, Response } from 'express';
 import prisma from '../db/prismaClient.js';
-import { getIO } from '../socket.js';
+import { getIO, getReceiverSocketId } from '../socket.js';
 
 export const sendMessage:any =  async (req: Request, res: Response) => {
   const { senderId, chatId, content } = req.body;
-
-    console.log(' sendMessage agin')
   if (!senderId || !chatId || !content) {
     return res.status(400).json({ error: 'senderId, chatId, and content are required' });
   }
 
   try {
-    // Optional: Check if user is a participant in the chat
-    const participant = await prisma.chatParticipant.findFirst({
-      where: {
-        userId: senderId,
-        chatId,
-      },
-    });
-
+      const participant = await prisma.chatParticipant.findFirst({
+          where: {
+            userId: senderId,
+            chatId,
+          },
+        })
     if (!participant) {
       return res.status(403).json({ error: 'User is not a participant in this chat' });
     }
@@ -37,7 +33,7 @@ export const sendMessage:any =  async (req: Request, res: Response) => {
       },
     });
 
-      const io = getIO();
+      const io = getIO(); 
     io.to(chatId).emit('new_message', message);
 
     return res.status(201).json({ message });
@@ -50,10 +46,10 @@ export const getMessages:any = async (req: Request, res: Response) => {
   const { chatId } = req.query;
 const userId = req.query.userId;
   if (!chatId || typeof chatId !== 'string' || userId === undefined || typeof userId !== 'string') {
-    console.log('not a string', chatId);
+
     return res.status(400).json({ error: 'chatId is required and must be a string' });
   }
-  console.log('fetching message agin')
+  // console.log('fetching message agin')
   try {
     const messages = await prisma.message.findMany({
       where: { chatId },
@@ -85,6 +81,7 @@ const userId = req.query.userId;
         }
       }
     })
+    getReceiverSocketId(user?.user.id as string);
     return res.status(200).json({ messages ,user});
   } catch (error) {
     console.error('Error fetching messages:', error);

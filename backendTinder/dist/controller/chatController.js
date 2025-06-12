@@ -1,13 +1,11 @@
 import prisma from '../db/prismaClient.js';
-import { getIO } from '../socket.js';
+import { getIO, getReceiverSocketId } from '../socket.js';
 export const sendMessage = async (req, res) => {
     const { senderId, chatId, content } = req.body;
-    console.log(' sendMessage agin');
     if (!senderId || !chatId || !content) {
         return res.status(400).json({ error: 'senderId, chatId, and content are required' });
     }
     try {
-        // Optional: Check if user is a participant in the chat
         const participant = await prisma.chatParticipant.findFirst({
             where: {
                 userId: senderId,
@@ -43,10 +41,9 @@ export const getMessages = async (req, res) => {
     const { chatId } = req.query;
     const userId = req.query.userId;
     if (!chatId || typeof chatId !== 'string' || userId === undefined || typeof userId !== 'string') {
-        console.log('not a string', chatId);
         return res.status(400).json({ error: 'chatId is required and must be a string' });
     }
-    console.log('fetching message agin');
+    // console.log('fetching message agin')
     try {
         const messages = await prisma.message.findMany({
             where: { chatId },
@@ -77,6 +74,7 @@ export const getMessages = async (req, res) => {
                 }
             }
         });
+        getReceiverSocketId(user?.user.id);
         return res.status(200).json({ messages, user });
     }
     catch (error) {

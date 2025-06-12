@@ -37,11 +37,11 @@ if (data?.matches && data?.matches.length > 0) {
   return (
     <div className=' relative w-full  min-h-screen'>
         <UserNavbar/>
-        <div className=' border border-black/20 rounded-3xl px-4 py-3  w-[90%] my-6 mx-auto'>
+        {/* <div className=' borde r glass border-black/20 rounded-3xl px-4 py-3  w-[90%] my-6 mx-auto'>
             <input className=' w-full  outline-none h-full ' type="text" placeholder='Search 3 matches' />
-        </div>
+        </div> */}
 
-        <div className='px-3 w-full '>
+        <div className='px-3 w-full mt-10 '>
           
 {
   AllMatches.length !== 0 ?   <>
@@ -52,11 +52,16 @@ if (data?.matches && data?.matches.length > 0) {
   </div>
 }
             
-                <Charts    />
+                <Charts/>
             </div>
 
 {/* <Try/> */}
-    </div>
+      <div>
+        <p className="logo3 ml-5 text-7xl max-md:text-6xl text-[100px]  flex flex-col font-bold my-10 text-[#8d8d8d82] block mb-10">Made</p>
+      <p className=" ml-5 logo3 text-7xl max-md:text-6xl text-[100px]  flex flex-col font-bold my-10 text-[#8d8d8d82]">
+         With Love ♡.</p>
+      </div>
+ </div>
   )
 }
 

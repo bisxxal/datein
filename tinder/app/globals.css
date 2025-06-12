@@ -59,9 +59,7 @@
 .buttonred{
   @apply bg-gradient-to-br text-white    from-[#de2626] font-medium to-[#840404];
 }
-.inputbg{
-  @apply bg-gradient-to-br  from-[#de262600] to-[#51515175]  ;
-}
+ 
 .sidebarbg{
   @apply bg-gradient-to-tl  from-[#DCE4FC] to-[#e5e7eb]  ;
 }
@@ -115,6 +113,35 @@ button{
   z-index: -10;
 }
 
+.logo{
+  background: rgb(17,17,17);
+  background: linear-gradient(179deg, #6366F1 -26%, #DCE4FC 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo2 {
+  background: #111111;
+  background: linear-gradient(90deg, #3050d2 16%, #DCE4FC 106%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.logo3{
+  background: rgb(17,17,17);
+  background:linear-gradient(179deg, #ffffff -22%, #00001261 98%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.logo4 {
+  background: rgb(17, 17, 17);
+  background: linear-gradient(179deg, #ffffffd1 1%, #090A15 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 /* .glass {
     border-top-style: solid !important;
     border-top-color: rgb(255, 255, 255) !important;

@@ -135,6 +135,12 @@ const [showPing, setShowPing] = useState(false);
 
                 <div className="absolute z-[10] bottom-0 w-[95%] left-2.5 text-white py-2">
 
+                    <button
+                      onClick={() => setDisplayed(!displayed)} hidden={!current || displayed}
+                      className={`${displayed ? 'hidden' : 'fixed'} glass top-[57vh] w-14 h-14 z-[30] right-[10%] center text-3xl`}>
+                      <AnimatedSwipe text={<MdKeyboardDoubleArrowUp size={23} />} />
+                    </button>
+
                   <div className="  glass   shadow-xl rounded-3xl px-5 py-2 text-2xl max-md:text-lg font-bold">
                     <p>{current?.name} { current?.age && <span>, {current?.age}</span>}</p>
                     <p className="text-base max-md:text-sm flex items-center gap-3 my-2 font-normal">
@@ -184,13 +190,7 @@ const [showPing, setShowPing] = useState(false);
         )}
       </AnimatePresence>
 
-      <button
-        onClick={() => setDisplayed(!displayed)}
-        hidden={!current || displayed}
-        className={`${displayed ? 'hidden' : 'fixed'} top-[87vh] w-14 h-14 z-[30] left-1/2 text-3xl`}
-      >
-        <AnimatedSwipe text={<MdKeyboardDoubleArrowUp size={23} />} />
-      </button>
+     
 
     </div>
   );

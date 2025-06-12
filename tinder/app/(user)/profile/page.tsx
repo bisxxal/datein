@@ -11,8 +11,7 @@ import UserNavbar from "../_components/UserNavbar";
 import { redirect } from "next/navigation";
 
 const UserProfile = async() => {
-    const user = await getUserProfilePic()
-    // console.dir(pic)
+    const user = await getUserProfilePic();
     if(user?.photos[0]?.url === undefined) {
       redirect('/profile/editprofile')
     }
@@ -32,21 +31,19 @@ const UserProfile = async() => {
         glareSize={300}
         transitionDuration={1000}
         playOnce={false}
-        className="bg-transparent !w-[150px] !border-none shadow-xl !rounded-full !h-[150px]"
-      >
+        className="bg-transparent !w-[150px] !border-none shadow-xl !rounded-full !h-[150px]">
+
     <img className=" w-[150px] h-[150px] object-cover border border-black/10 rounded-full  " src={user?.photos[0]?.url}  alt="" />
   </GlareHover>
 
-      <Link href={'/profile/editprofile'} className="border-2 border-white/20 absolute bg-[#0000003b]  w-[100px] h-[50px] rounded-full backdrop-blur-[8px] top-40 left-7 right-0 flex justify-center items-center gap-3">
-      Edit  <AiTwotoneEdit size={21}/>
-      </Link>
+      <Link href={'/profile/editprofile'} className="  glass text-white absolute   w-[50px] h-[50px]   backdrop-blur-[8px] -top-2 - right-2 flex justify-center items-center gap-3">  <AiTwotoneEdit size={21}/></Link>
 
       <p className="font-bold text-xl center gap-2 mt-20">{user?.name} , {user?.profile?.age} { user.verified ===true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span> }  </p>
 
      { user.verified === false && <p className="text-lg text-gray-400 center gap-3 mt-3">Not verified yet. ⚠️ </p>}
       </div>
 
-    <div className="mt-20 max-md:mt-10 max-md:px-2 px-10 text-white">
+    <div className="mt-20 pb-10 max-md:mt-10 max-md:px-2 px-10 text-white">
     <div className="  glass center gap-2 !justify-evenly h-[350px] max-md:h-[400px] max-md:flex-col w-full  max-md:rounded-3xl max-md:p-1 max-md:py-2 p-10">
 
     <GlareHover

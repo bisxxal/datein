@@ -1,6 +1,7 @@
 'use client'
 import { getAllChats } from '@/actions/chart';
 import LoadingCom from '@/components/ui/loading';
+import { useSocket } from '@/hooks/useSocket';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import Image from 'next/image'
@@ -44,7 +45,9 @@ const Charts = () => {
 
 const chats: ChartsProps = data?.chats || [];
 
-console.log(chats)
+
+const { onlineUser } = useSocket({ userId: data?.userId! }) as { socket: any; ready: boolean; onlineUser: string[] };
+
   return (
     <div className='flex flex-col w-full'>
          <p className='my-3 mt-7'>Messges</p>
@@ -64,14 +67,15 @@ console.log(chats)
                         <Link
                             href={`/chat/${item.chatId}`}
                             key={i}
-                            className=' base3 rounded-3xl center mb-3 shadow-lg border-black/10 p-2 !justify-start '
+                            className='   glass rounded-3xl center mb-3 shadow-lg border-black/10 p-2 !justify-start '
                         >
                             {item.chat.participants
                                 .filter((participant) => participant.user.id !== data.userId)
                                 .map((participant, index) => (
-                                    <div key={index} className='flex items-center gap-2'>
-                                        <img
-                                            className='!w-[80px] !h-[80px] rounded-full border border-black/20 object-cover'
+                                    <div key={index} className='flex  w-full items-center pr-6 justify-between gap-2'>
+                                        <div className=' flex items-center gap-2'>
+                                            <img
+                                            className='!w-[80px] !h-[80px] rounded-4xl border border-black/20 object-cover'
                                             src={participant?.user?.photos[0]?.url}
                                             alt={participant.user.name}
                                             width={300}
@@ -92,6 +96,17 @@ console.log(chats)
                                                     </span>
                                                 </p>
                                             )}
+                                        </div>
+                                        </div>
+
+                                        <div>
+                                            {
+                                            onlineUser &&participant.user.id && onlineUser.includes(participant?.user?.id) ? (
+                                                <span className='text-xs text-green-500'>Online</span>
+                                            ) : (
+                                                <span className='text-xs text-red-500'>Offline</span>
+                                            )
+                                            }
                                         </div>
                                     </div>
                                 ))}

@@ -15,6 +15,7 @@ type Message = {
   chatId: string;
   sender?: {
     name: string | null;
+    id:string
   };
 };
 
@@ -24,13 +25,13 @@ type Props = {
 };
 
 const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
-  const { socket, ready } = useSocket();
+  const { socket, ready ,onlineUser } = useSocket({ userId: currentUserId });
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [msgloading, setMsgLoading] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
-  const [user, setUser] = useState<{ name: string | null } | null>(null);
+  const [user, setUser] = useState<{ name: string | null , id:string } | null>(null);
   const url = process.env.NEXT_PUBLIC_BACKEND_URL
   // Fetch initial messages
   useEffect(() => {
@@ -88,7 +89,15 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
       <div className='fixed w-full h-[60px] pr-4 bg-[#c2c2c240] backdrop-blur-[18px] top-0 left-0 flex justify-between items-center shadow-xl '>
       <div className=' center gap-3'>
       <Back url={'/chat'} className=''/>
-        {user && <h1 className=' text-lg textbase font-semibold'>{user.name}</h1>}
+        {user &&<>
+       <h1 className=' text-lg textbase font-semibold'>{user.name}</h1>
+          {
+            onlineUser && onlineUser.includes(user?.id) ? (
+              <span className=' text-green-500'>Online</span>
+            ) : (
+              <span className=' text-red-500'>Offline</span>
+            )}
+            </>}
       </div>
       <p onClick={()=>setShowPopUp(!showPopUp)} ><AiTwotoneDelete className=' text-red-500' size={23}/></p>
 
