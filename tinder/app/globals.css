@@ -18,11 +18,13 @@
     --foreground: #ededed;
   }
 }
+
 /* body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 } */
+
 
 .center{
   display: flex;
@@ -46,14 +48,16 @@
   color: #DCE4FC
 }
 .buttonbg{
-  /* @apply bg-gradient-to-br text-white rounded-full #5154f2 from-[#3352CC] font-medium to-[#1C2D70]; */
   @apply bg-gradient-to-br text-white   from-[#a9beff] font-medium to-[#5154f2];
 }
+.buttonbg2{
+  @apply bg-gradient-to-t text-white   from-[#7595f9] font-medium to-[#5154f2];
+}
 .buttongreen{
-  @apply bg-gradient-to-br text-white rounded-full   from-[#2db02a] font-medium to-[#004c12];
+  @apply bg-gradient-to-br text-white   from-[#2db02a] font-medium to-[#004c12];
 }
 .buttonred{
-  @apply bg-gradient-to-br text-white rounded-full   from-[#de2626] font-medium to-[#840404];
+  @apply bg-gradient-to-br text-white    from-[#de2626] font-medium to-[#840404];
 }
 .inputbg{
   @apply bg-gradient-to-br  from-[#de262600] to-[#51515175]  ;
@@ -65,7 +69,7 @@
   @apply bg-gradient-to-t  from-[#ffffffba] to-[#c8c8c8] ;
 }
 select{
-  @apply border-[#5f5f5fa9] border bg-transparent rounded-xl py-2;
+  @apply border-[#5f5f5fa9] border border-black/10 px-2 bg-transparent rounded-xl py-1.5;
 }
 
 label{
@@ -80,6 +84,8 @@ button{
 }
 
 .pulseShimmer{
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), inset 0 4px 20px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px) saturate(180%);
   animation:   pulseShimmer 6.2s infinite linear; ;
  }
   @keyframes pulseShimmer {
@@ -107,4 +113,82 @@ button{
 .background {  
   background: radial-gradient(125% 125% at 50% 100%, #fff 40%, #63e 100%);
   z-index: -10;
+}
+
+/* .glass {
+    border-top-style: solid !important;
+    border-top-color: rgb(255, 255, 255) !important;
+    border-left-style: solid !important;
+    border-left-color: rgb(255, 255, 255) !important;
+} */
+
+
+.glass {
+  /* position: relative; */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
+              inset 0 4px 20px rgba(255, 255, 255, 0.3);
+}
+.glass2 {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
+              inset 0 4px 20px rgba(255, 255, 255, 0.3);
+}
+/* .glass3 {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
+              inset 0 4px 20px rgba(255, 255, 255, 0.3);
+} */
+.glass3 ,select {
+  @apply backdrop-blur-[2px] backdrop-saturate-[180%] border shadow-[0_8px_32px_rgba(31,38,135,0.2),inset_0_4px_20px_rgba(255,255,255,0.3)] border-solid border-[rgba(255,255,255,0.8)] after:content-[''] after:absolute after:w-full after:h-full after:backdrop-blur-[1px] after:shadow-[inset_-10px_-8px_0px_-11px_rgba(255,255,255,1),inset_0px_-9px_0px_-8px_rgba(255,255,255,1)] after:opacity-60 after:z-[-1] after:rounded-[2rem] after:left-0 after:top-0;
+  background: rgba(255, 255, 255, 0.15);
+  /* border-radius: 2rem; */
+}
+.glass::after , .glass2::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  backdrop-filter: blur(1px);
+  box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
+              inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
+  opacity: 0.6;
+  z-index: -1;
+  filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(115%);
+}
+/* .glass3::after  {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  @apply rounded-2xl;
+  backdrop-filter: blur(1px);
+  box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
+              inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
+  opacity: 0.6;
+  z-index: -1;
+  filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(115%);
+} */
+
+.glass3::after , select::after {
+  background: rgba(255, 255, 255, 0.1);
+  @apply rounded-2xl;
+  filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(115%);
 }

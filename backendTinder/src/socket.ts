@@ -1,4 +1,4 @@
- 
+//socket.ts
 import { Server } from 'socket.io';
 import { Server as HttpServer } from 'http';
 
@@ -13,15 +13,15 @@ export const initSocket = (server: HttpServer) => {
   });
 
   io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
+    // console.log('User connected:', socket.id);
 
     socket.on('join', (chatId) => {
       socket.join(chatId);
-      console.log(`User joined room: ${chatId}`);
+      // console.log(`User joined room: ${chatId}`);
     });
 
     socket.on('disconnect', () => {
-      console.log('User disconnected:', socket.id);
+      // console.log('User disconnected:', socket.id);
     });
   });
 
@@ -31,4 +31,5 @@ export const initSocket = (server: HttpServer) => {
 export const getIO = () => {
   if (!io) throw new Error('Socket.io not initialized');
   return io;
-};
+}; 
+  

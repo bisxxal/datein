@@ -6,7 +6,7 @@ import Charts from '../_components/chartsList';
 interface MatchesProps {
     id: string;
     name: string;
-    image: string;
+photos:{url:string}[]
 }
 
 const ChartPage = async () => {
@@ -41,12 +41,17 @@ if (data?.matches && data?.matches.length > 0) {
             <input className=' w-full  outline-none h-full ' type="text" placeholder='Search 3 matches' />
         </div>
 
-        <div className='px-3 w-full'>
+        <div className='px-3 w-full '>
+          
+{
+  AllMatches.length !== 0 ?   <>
             <h1 className='mb-3'>New Matches</h1>
-
-           <MatchesList AllMatches={AllMatches}/>
-
-            <p className='my-3 mt-7'>Messges</p>
+          <MatchesList AllMatches={AllMatches}/>
+          </> : <div>
+    <p className='text-center text-gray-500'>No Matches Found</p>
+  </div>
+}
+            
                 <Charts    />
             </div>
 

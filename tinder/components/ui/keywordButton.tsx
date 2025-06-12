@@ -10,7 +10,7 @@ const KeywordButton = ({current , user}:PopUpProps) => {
             return (
             <span key={index}
                 className={`${
-                isMatch ? "rounded-full bg-radial from-pink-400  from-40% to-fuchsia-700  text-white border-red-500"
+                isMatch ? "rounded-full bg-ra dial buttonbg2 from-pink-400  from-40% to-fuchsia-700  text-white border-red-500"
                     : "bg-white/10 border border-white/40" } backdrop-blur-[8px]  px-3 py-1.5 center  rounded-full mr-2 mb-1`}>
                 {i.name}
             </span>

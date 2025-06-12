@@ -21,9 +21,9 @@ export default  function PhotoUploader() {
 
     <div className=' w-full min-h-screen mx-auto pt-5 px-10 max-md:px-2 '>
 
-      <Back/>
+       <Back url={'/profile'} className=''/>
           <h1 className="text-3xl my-5 ml-7 max-md:text-center textsecond font-bold ">Edit Profile</h1>
-      <PhotoUploadCom data={data?.profile?.photos} isLoading={isLoading}/>
+      <PhotoUploadCom data={data?.photos} isLoading={isLoading}/>
 
       <EditFormCom data={data?.profile} name={data?.name} />
         

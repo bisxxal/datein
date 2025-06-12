@@ -18,7 +18,7 @@ interface Chat {
             user: {
                 id: string;
                 name: string;
-                image: string;
+                photos:any
             }
         }[];
         messages: {
@@ -40,10 +40,15 @@ const Charts = () => {
        },
        staleTime: 60000,
      });
+
+
 const chats: ChartsProps = data?.chats || [];
+
+console.log(chats)
   return (
     <div className='flex flex-col w-full'>
-        {chats && !isLoading ?
+         <p className='my-3 mt-7'>Messges</p>
+        {chats.length !==0 && !isLoading ?
             [...chats]
                 .sort((a, b) => {
                     const dateA = a?.chat?.messages[0]?.createdAt
@@ -65,9 +70,9 @@ const chats: ChartsProps = data?.chats || [];
                                 .filter((participant) => participant.user.id !== data.userId)
                                 .map((participant, index) => (
                                     <div key={index} className='flex items-center gap-2'>
-                                        <Image
+                                        <img
                                             className='!w-[80px] !h-[80px] rounded-full border border-black/20 object-cover'
-                                            src={participant?.user.image}
+                                            src={participant?.user?.photos[0]?.url}
                                             alt={participant.user.name}
                                             width={300}
                                             height={300}
@@ -97,11 +102,9 @@ const chats: ChartsProps = data?.chats || [];
             (
                 isLoading ?
                <LoadingCom boxes={3} width=" !rounded-3xl w-full h-[100px] " margin=" !items-start !justify-between  !px-0 gap-5 flex-col " />
-               : <p>No Message </p>
+               :  <p className='text-center text-gray-500'>No Messages found</p>
             )
                 }
-
-            {/* <LoadingCom boxes={6} width=" !rounded-3xl w-full h-[100px] " margin=" !items-start !justify-between  !px-0 gap-5 flex-col " /> */}
     </div>
   )
 }

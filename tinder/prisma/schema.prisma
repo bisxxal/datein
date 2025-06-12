@@ -19,7 +19,8 @@ model User {
   likesGiven    Like[]    @relation("LikesGiven")
   likesReceived Like[]    @relation("LikesReceived")
   emailVerified  DateTime? @map("email_verified")
-    
+  photos        Photo[]
+
   messages     Message[]
   participants ChatParticipant[]
 
@@ -77,7 +78,7 @@ model Profile{
   location      String?
 
   keywords    Keyword[]  
-  photos        Photo[]
+  // photos        Photo[]
   user          User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -90,7 +91,7 @@ model Photo {
  id       String @id @default(cuid())
   userId    String
   url       String
-  user      Profile   @relation(fields: [userId], references: [userId])
+  user      User   @relation(fields: [userId], references: [id])
 }
 
 model Like {

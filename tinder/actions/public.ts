@@ -41,19 +41,24 @@ export const AllPublicUsers = async () => {
   const [allUsers] = await prisma.$transaction([
       prisma.user.findMany({
       // skip: (page - 1) * limit,  
-      take: limit,
+      // take: limit,
       where:{
           id: {
           notIn: [session.user.id, ...likedUserIds],
       },
       },
-      // orderBy: {
-      //   createdAt: 'desc',
-      // },
+      orderBy: {
+        createdAt: 'desc',
+      },
       select:{
         id: true,
         name: true,
         createdAt: true,
+        photos:{
+                  select:{
+                    url: true,
+                  }
+                },
         profile:{
             select:{
                 job: true,
@@ -65,11 +70,7 @@ export const AllPublicUsers = async () => {
                 bio: true,
                 age: true,
                 languages:true,
-                photos:{
-                  select:{
-                    url: true,
-                  }
-                },
+                 
                 keywords:{
                     select:{
                         name: true
@@ -125,15 +126,16 @@ export const UnseenUsers = async () => {
                 id: true,
                 name: true,
                 createdAt: true,
-                profile:{
-                    select:{
-                        bio: true,
-                        age: true,
-                        photos:{
+                  photos:{
                             select:{
                                 url: true,
                             }
                         },
+                profile:{
+                    select:{
+                        bio: true,
+                        age: true,
+                      
                         keywords:{
                             select:{
                                 name: true

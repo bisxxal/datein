@@ -30,15 +30,14 @@ export async function getUserProfilePic() {
             select:{
               name:true,
               verified:true,
-              profile:{
-                select:{
-                  age:true,
-                  
-                  photos:{
+               photos:{
                     select:{
                       url:true
                     }
-                  }
+                  },
+              profile:{
+                select:{
+                  age:true,
                 }
               }
             }
@@ -61,9 +60,9 @@ export async function getUserProfile() {
           where:{id:user.id},
           select:{
             name:true,
+            photos: { select: { url: true ,id:true} },
             profile:{
                select:{
-                photos: { select: { url: true } },
                 keywords: {select: { name: true }},
                 bio: true,
                 age: true,
@@ -114,10 +113,10 @@ export async function updateProfile(data:TCreateProfileForm) {
             return JSON.parse(JSON.stringify({status: 404, message: 'Error while creating profile' })); 
         }
         console.log(res)
-      return JSON.parse(JSON.stringify({status: 200, message: 'Profile created successfully' }));    
+      return JSON.parse(JSON.stringify({status: 200, message: 'Profile Updated successfully' }));    
     } catch (error) {
         console.error('Error creating profile:', error);
-        return JSON.parse(JSON.stringify({status: 404, message: 'Error while creating profile' }));    
+        return JSON.parse(JSON.stringify({status: 404, message: 'Error while Update profile' }));    
     }
 }
  
@@ -127,8 +126,6 @@ export async function addInterests(interests: string[]) {
     if (!user || !user.id) {
       return { status: 401, message: 'Unauthorized' }
     }
-
-    // Step 1: Upsert all keywords by name (idempotent)
     const upserts = await Promise.all(
       interests.map((name) =>
         prisma.keyword.upsert({
@@ -261,27 +258,27 @@ export const likeUser = async (receiverId: string) => {
 
   return { message: 'User liked', status: 'liked' };
 };
+ 
+export const deletePhotos = async (ids: string[]) => {
+  try {
+    if (!ids || ids.length === 0) {
+      return JSON.parse(JSON.stringify({ status: 404, message: "No IDs provided" }));
+    }
 
+    const res = await prisma.photo.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
 
-
-// middleware.ts
-// import { withAuth } from "next-auth/middleware"
-// import { NextResponse } from "next/server"
-// import type { NextRequest } from "next/server"
-
-// export default withAuth(
-//   function middleware(req: NextRequest) {
-//     // All authenticated users are allowed — no role checks
-//     return NextResponse.next()
-//   },
-//   {
-//     callbacks: {
-//       authorized: ({ token }) => !!token, // Allow if user is logged in
-//     },
-//   }
-// )
-
-// // Define which routes to protect
-// export const config = {
-//   matcher: ["/dashboard/:path*", "/profile/:path*", "/settings/:path*"],
-// }
+    if (res.count > 0) {
+      return JSON.parse(JSON.stringify({ status: 200, deleted: res.count }));
+    } else {
+      return JSON.parse(JSON.stringify({ status: 300, message: "No records deleted" }));
+    }
+  } catch (error) {
+    return JSON.parse(JSON.stringify({ status: 500, message: "Server error", error }));
+  }
+};

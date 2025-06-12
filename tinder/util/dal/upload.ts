@@ -10,7 +10,6 @@ const imagekit = new ImageKit({
 
 export async function uploadFile(formData:FormData ,userId:string) {
   const files = formData.getAll('photos') as File[];
- 
   const urls: string[] = []
 
   for (const file of files) {

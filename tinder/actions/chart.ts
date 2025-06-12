@@ -19,26 +19,37 @@ export const getMatches = async () => {
                     { receiverId: session.user.id }
                 ],
                 // matched: true
-
             },
             include: {
                 giver: {
                     select: {
                         id: true,
                         name: true,
-                        image: true
+                        photos:{
+                            take:1,
+                            select:{
+                                url:true
+                            }
+                        }
                     }
                 },
                 receiver: {
                     select: {
                         id: true,
                         name: true,
-                        image: true
+                        photos:{
+                            take:1,
+                            select:{
+                                url:true
+                            }
+                        }
                     }
                 }
             },
             
         })
+
+         
         if(session.user.id && matches){
             return JSON.parse(JSON.stringify({matches , userId: session.user.id}));
         }
@@ -78,8 +89,13 @@ export const getAllChats = async () => {
                                 user: {
                                     select: {
                                         name: true,
-                                        image: true,
-                                        id: true
+                                        id: true,
+                                        photos:{
+                                            select:{
+                                                url:true
+                                            },
+                                            take:1,
+                                        }
                                     }
                                 }
                             }

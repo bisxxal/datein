@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { FiLoader } from "react-icons/fi";
  import { motion } from "framer-motion";
 import { useRouter } from 'next/navigation';
-const MatchesList = ({AllMatches}:{AllMatches:{image:string ,id:string, name:string}[]}) => {
+const MatchesList = ({AllMatches}:{AllMatches:{photos:{url:string}[] ,id:string, name:string}[]}) => {
   
     const router = useRouter()
     const [loading, setLoading] = useState<boolean>(false)
@@ -21,7 +21,6 @@ const MatchesList = ({AllMatches}:{AllMatches:{image:string ,id:string, name:str
         } catch (error) {
             
         }
-        
     }
     // console.log(AllMatches)
     return (
@@ -29,15 +28,14 @@ const MatchesList = ({AllMatches}:{AllMatches:{image:string ,id:string, name:str
         { loading && <motion.div 
           initial={{ scale:0 , opacity: 0 }} animate={{ y: 0, scale:1 , opacity: 1 }}  exit={{ y: 500, opacity: 0 }}  
         transition={{ type: "spring", stiffness: 100, damping: 15 }}
-        className=' absolute top-0 text-2xl text-blue-600  font-bold  bg-[#c2c2c240] backdrop-blur-[12px] flex-col rounded-4xl  center w-[90%] h-[90%]  '> Creating Chart 
+        className=' fixed top-5 text-2xl textbase border border-white font-bold  bg-[#c2c2c240] backdrop-blur-[12px] flex-col rounded-4xl z-[50]  center w-[95vw] h-[95vh]  '>
+             Creating Chart 
             <FiLoader className='text-xl mt-5 animate-spin '/>
         </motion.div>}
-
-            
       <div className='flex gap-5 overflow-x-auto '>
         {AllMatches && AllMatches?.map((item, i)=> (
-            <div onClick={()=>handelClicked(item?.id)} key={i} className=' flex flex-col  ! w-[130px]'>
-                    <Image className=' object-cover  w-full  h-[200px] rounded-xl border border-black/20' src={item?.image} alt={item.name} width={400} height={600}/>
+            <div onClick={()=>handelClicked(item?.id)} key={i} className=' cursor-pointer flex flex-col  ! w-[130px]'>
+                    <Image className=' object-cover  w-full  h-[200px] rounded-xl border border-black/20' src={item?.photos[0].url} alt={item.name} width={400} height={600}/>
                     <h1 className='pl-1 pt-1 text-sm text-gray-400'>{item.name}</h1>
                 </div>
             ))}

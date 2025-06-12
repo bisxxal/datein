@@ -15,7 +15,7 @@ const VerifiedPage = () => {
   }
   return (
     <div className=' w-full h-screen overflow-hidden'>
-       <Back/>
+       <Back url={'/profile'} className=''/>
         <div className="flex flex-col w-full items-center justify-center mt-20">
           <h1 className="text-3xl center gap-4 font-bold">Get verified! <VscVerified className=' text-green-500' /></h1>
           <p className="mt-4 text-lg">get verified by entering your role no of your batch.</p>

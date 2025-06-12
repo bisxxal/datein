@@ -36,7 +36,6 @@ export const interestsData = [
   "Comedy",
   "Theater",
   "Languages",
-  "Wine Tasting",
   "Coffee Lover",
   "Foodie",
   "Live Music"

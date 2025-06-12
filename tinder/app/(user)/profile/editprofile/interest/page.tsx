@@ -2,6 +2,7 @@
 'use client'
 import { addInterests } from '@/actions/user.action'
 import Back from '@/components/ui/back'
+import BackgroundPatten from '@/components/ui/backgroundPatten'
 import { interestsData } from '@/util'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -53,15 +54,16 @@ const Intrestspage = () => {
   }
 
   return (
-    <div className='w-full px-10 py-10'>
-      <Back/>
+      <BackgroundPatten>
+    <div className='w-full px-10 max-md:px-2 py-10'>
+           <Back url={'/profile/editprofile'} className=''/>
       <h1 className='my-5 text-3xl font-bold'>Interests</h1>
 
-      <div className='w-full flex h-[50px] overflow-x-auto gap-5'>
+      <div className='w-full flex h-[50px] overflow-x-auto gap-5 '>
         {selected.map((i, index) => (
           <div
             key={index}
-            className='flex items-center gap-2 bg-zinc-700 text-white h-fit p-2 rounded-full px-5 whitespace-nowrap'
+            className='flex items-center gap-2 buttonbg text-white h-fit p-2 rounded-full px-5 whitespace-nowrap'
           >
             {i}
             <button onClick={() => toggleInterest(i)} className='text-red-400 font-bold hover:text-red-600'>
@@ -77,10 +79,8 @@ const Intrestspage = () => {
           <h3
             key={index}
             onClick={() => toggleInterest(i)}
-            className={`whitespace-nowrap cursor-pointer border-2 h-fit p-2 rounded-full px-5 ${
-              selected.includes(i) ? 'border-blue-500 bg-blue-700 text-white' : 'border-zinc-700'
-            }`}
-          >
+            className={`whitespace-nowrap cursor-pointer border-2 h-fit p-1.5 rounded-full px-5 max-md:px-4 ${
+              selected.includes(i) ? ' base border-indigo-600 text-white' : 'border-zinc-700/20 text-zinc-700/80 hover:bg-zinc-100'}`}>
             {i}
           </h3>
         ))}
@@ -98,6 +98,7 @@ const Intrestspage = () => {
         </button>
       </div>
     </div>
+    </BackgroundPatten>
   )
 }
 
