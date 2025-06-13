@@ -9,6 +9,7 @@ import { RiVerifiedBadgeLine } from "react-icons/ri";
 import GlareHover from "@/components/ui/glassHover";
 import UserNavbar from "../_components/UserNavbar";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 const UserProfile = async() => {
     const user = await getUserProfilePic();
@@ -22,8 +23,7 @@ const UserProfile = async() => {
       <UserNavbar/>
 
       <div className=" flex relative mt-[120px] w-fit mx-auto flex-col items-center  justify-center  ">
-         
-
+          
       <GlareHover
         glareColor="#ffffff"
         glareOpacity={0.4}
@@ -33,7 +33,7 @@ const UserProfile = async() => {
         playOnce={false}
         className="bg-transparent !w-[150px] !border-none shadow-xl !rounded-full !h-[150px]">
 
-    <img className=" w-[150px] h-[150px] object-cover border border-black/10 rounded-full  " src={user?.photos[0]?.url}  alt="" />
+    <Image loading="lazy" className=" w-[150px] h-[150px] object-cover border border-black/10 rounded-full  " src={user?.photos[0]?.url}  height={300} width={300} alt="" />
   </GlareHover>
 
       <Link href={'/profile/editprofile'} className="  glass text-white absolute   w-[50px] h-[50px]   backdrop-blur-[8px] -top-2 - right-2 flex justify-center items-center gap-3">  <AiTwotoneEdit size={21}/></Link>

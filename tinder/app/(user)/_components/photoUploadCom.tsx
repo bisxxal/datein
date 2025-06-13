@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { RxCross1 } from "react-icons/rx";
- import { FiMinus } from "react-icons/fi";
- 
+ import { FiMinus } from "react-icons/fi"; 
+import { resizeFile } from '@/util/imageCompress';
 
 const PhotoUploadCom = ({data , isLoading}:{data:{id:string; url:string}[] , isLoading:boolean}) => {
   const router = useRouter()
@@ -34,13 +34,24 @@ const PhotoUploadCom = ({data , isLoading}:{data:{id:string; url:string}[] , isL
 });
 
 const isUploading = uploadMutation?.isLoading;
+ 
+const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const selectedFiles = Array.from(e.target.files || []);
+  const limit = 6 - (data?.length || 6);
+  const newFiles = selectedFiles.slice(0, limit);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = Array.from(e.target.files || []);
-    const newFiles = [...files, ...selectedFiles].slice(0, 6 - (data?.length || 0)); // limit total to 6
-    setFiles(newFiles);
-    setPreviews(newFiles.map(file => URL.createObjectURL(file)));
-  };
+  const resizedFiles = await Promise.all(
+    newFiles.map((file) => resizeFile(file))
+  );
+
+  setFiles((prev) => [...prev, ...resizedFiles]);
+  setPreviews((prev) => [
+    ...prev,
+    ...resizedFiles.map((file) => URL.createObjectURL(file)),
+  ]);
+};
+
+
  
  // Remove a preview image (and corresponding file)
 const handleRemovePreview = (index: number) => {
@@ -58,7 +69,8 @@ const handleUpload = () => {
 
   const existingImages = data || [];
   const totalImagesCount = existingImages?.length + previews?.length;
-  const len = 6 - totalImagesCount;
+ const len = Math.max(0, 6 - totalImagesCount);
+  // const len = 6 - totalImagesCount; // Ensure we can add up to 6 images
 
   // console.log('Existing Images:', existingImages);
  
@@ -96,7 +108,6 @@ const handleUpload = () => {
       return [...prev, id];
     }
   });
-  console.log('Selected IDs:', deleteId);
 };
 
   return (
@@ -113,17 +124,17 @@ const handleUpload = () => {
         {existingImages && existingImages?.map((u:{id:string , url:string} , idx: number) =>  {
           return(
             
-            <div onClick={()=>handelChangeDelete(u?.id)} className='relative max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20'>
+            <div  key={`existing-${idx}`} onClick={()=>handelChangeDelete(u?.id)} className='relative max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20'>
               {deleteId.includes(u?.id) ? <div className=' absolute -top-2 -right-2 buttongreen rounded-full text-lg !p-1 !py-1  '> <FiMinus /> </div>
             :  
               <div className=' absolute -top-2 -right-2 buttonred rounded-full !p-1 !py-1  '><RxCross1 /></div>
             }
-              <img loading='lazy' key={`existing-${idx}`} src={u?.url} alt="Uploaded" height={1000} width={1000} className="  w-full h-full rounded-2xl  object-cover" />
+              <Image src={u?.url} alt="Uploaded" height={1000} width={1000} className="  w-full h-full rounded-2xl  object-cover" />
             </div>
           )
         })}
         { previews && previews?.map((src, idx) => (
-          <div className=' relative  max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20'>
+          <div key={idx} className=' relative  max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20'>
              <div onClick={() => handleRemovePreview(idx)} className=' absolute -top-2 -right-2 border-2 border-red-500/50 text-red-500 backdrop-blur-[10px] rounded-full !p-1 !py-1  '><RxCross1 /></div>
             <Image height={1800} width={1500} key={`preview-${idx}`} src={src} alt="Preview" className=" h-full w-full rounded-2xl  object-cover" />
           </div>

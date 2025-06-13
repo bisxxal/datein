@@ -9,38 +9,38 @@ import Link from 'next/link'
 import React from 'react'
 import { PiArrowBendUpLeft } from "react-icons/pi";
 
- 
+
 interface Chat {
     chatId: string;
     name: string;
     image: string;
     chat: {
-        participants: {
-            user: {
-                id: string;
-                name: string;
-                photos:any
-            }
-        }[];
-        messages: {
-            content: string;
-            createdAt: string;
-        }[];
-    }
+    participants: {
+        user: {
+            id: string;
+            name: string;
+            photos:any
+        }
+    }[];
+    messages: {
+        content: string;
+        createdAt: string;
+    }[];
+}
 }
 
 type ChartsProps = Chat[];
 const Charts = () => {
 
-    const client = new QueryClient();
-       const { isLoading, data } = useQuery({
-           queryKey: ['fetchAllCharts', client],
-           queryFn: async () => {
-           const data  = await getAllChats();
-           return data;
-       },
-       staleTime: 60000,
-     });
+const client = new QueryClient();
+    const { isLoading, data } = useQuery({
+        queryKey: ['fetchAllCharts', client],
+        queryFn: async () => {
+        const data  = await getAllChats();
+        return data;
+    },
+    staleTime: 60000,
+    });
 
 
 const chats: ChartsProps = data?.chats || [];
@@ -74,7 +74,8 @@ const { onlineUser } = useSocket({ userId: data?.userId! }) as { socket: any; re
                                 .map((participant, index) => (
                                     <div key={index} className='flex  w-full items-center pr-6 justify-between gap-2'>
                                         <div className=' flex items-center gap-2'>
-                                            <img
+                                            <Image
+                                            loading='lazy'
                                             className='!w-[80px] !h-[80px] rounded-4xl border border-black/20 object-cover'
                                             src={participant?.user?.photos[0]?.url}
                                             alt={participant.user.name}

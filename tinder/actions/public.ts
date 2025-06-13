@@ -48,13 +48,14 @@ export const AllPublicUsers = async () => {
       },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
       },
       select:{
         id: true,
         name: true,
         createdAt: true,
         photos:{
+                take: 6,
                   select:{
                     url: true,
                   }

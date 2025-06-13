@@ -13,8 +13,15 @@ import LoadingCom from "./ui/loading";
 import { FcLike } from "react-icons/fc";
 import { shuffleArray } from "@/util/algoLogic"; 
 import LookingFor from "./ui/lookingFor";
-import PopUp from "./popUpCard";
- 
+import dynamic from 'next/dynamic';
+import { FiLoader } from "react-icons/fi";
+
+const PopUp = dynamic(() => import('./popUpCard'), {
+  loading: () => <div className="text-white">  <FiLoader className='text-lg mt-5 animate-spin '/> </div>,
+  ssr: false,
+});
+
+
 const TinderCardsCom = () => { 
   const { isLoading, data } = useQuery({
     queryKey: ['fetchUsers'],
@@ -23,10 +30,7 @@ const TinderCardsCom = () => {
   });
 
   const person = data?.shuffled || [];
-  const user = data?.user;
-
-  // console.log("all users",person?.length)
-  // console.log("user like is ", user?.likesGiven?.length);
+  const user = data?.user; 
   const [shuffledPerson, setShuffledPerson] = useState<any[]>([]);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right" | null>(null);
@@ -134,14 +138,14 @@ const [showPing, setShowPing] = useState(false);
                 </AnimatePresence>
 
                 <div className="absolute z-[10] bottom-0 w-[95%] left-2.5 text-white py-2">
-
+ 
+                  <div className="  glass  relative shadow-xl rounded-3xl px-5 py-2 text-2xl max-md:text-lg font-bold">
                     <button
-                      onClick={() => setDisplayed(!displayed)} hidden={!current || displayed}
-                      className={`${displayed ? 'hidden' : 'fixed'} glass top-[57vh] w-14 h-14 z-[30] right-[10%] center text-3xl`}>
+                      onClick={() => setDisplayed(!displayed)}  
+                      className={` glass absolute   w-14 h-14 z-[30] right-[2%] center text-3xl`}>
                       <AnimatedSwipe text={<MdKeyboardDoubleArrowUp size={23} />} />
                     </button>
 
-                  <div className="  glass   shadow-xl rounded-3xl px-5 py-2 text-2xl max-md:text-lg font-bold">
                     <p>{current?.name} { current?.age && <span>, {current?.age}</span>}</p>
                     <p className="text-base max-md:text-sm flex items-center gap-3 my-2 font-normal">
                       <MdOutlineInterests size={22}/> Interests
@@ -149,7 +153,7 @@ const [showPing, setShowPing] = useState(false);
                     <KeywordButton current={current} user={user} />
                   </div>
 
-                  <div className="flex w-full justify-between max-md:mt-2 mt-4">
+                  <div className="flex w-full  justify-between max-md:mt-2 mt-4">
                     <button onClick={() => handleSwipe("right")} className="p-2 glass   cursor-pointer rounded-full hover:bg-[#ffffff1a] transition">
                       <RxCross2 size={30} />
                     </button>
@@ -189,9 +193,6 @@ const [showPing, setShowPing] = useState(false);
           </motion.div>
         )}
       </AnimatePresence>
-
-     
-
     </div>
   );
 };

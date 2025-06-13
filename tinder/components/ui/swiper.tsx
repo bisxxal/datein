@@ -4,6 +4,7 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 interface SwiperComponentProps {
   photo: {
@@ -27,14 +28,14 @@ const SwiperComponent = ({ photo }: SwiperComponentProps) => {
     <div className="relative w-[400px] max-md:w-[100%] h-full">
       {/* Custom segmented progress bar */}
       <div className="absolute top-5 left-1/2 transform -translate-x-1/2 z-20 flex w-[90%] gap-2">
-        {photo.photos.map((_, idx) => (
+        {photo.photos.length >1 && photo.photos.map((_, idx) => (
           <div
             key={idx}
             className={`
               flex-1 
               h-1.5 
               rounded-full 
-              ${idx === activeIndex ? 'bg-white' : ' bg-[#00000040] backdrop-blur-[8px] border border-white/20'}
+              ${idx === activeIndex ? 'bg-whit glass ' : ' bg-[#00000040] backdrop-blur-[8px] border border-white/20'}
               transition-all duration-300
             `}
           />
@@ -67,7 +68,8 @@ const SwiperComponent = ({ photo }: SwiperComponentProps) => {
             key={index}
             className="flex items-center justify-center h-full"
           >
-            <img
+            <Image
+            loading='lazy'
               className="w-[100%] h-full object-cover rounded-lg"
               src={p.url}
               alt={`Photo ${index + 1}`}

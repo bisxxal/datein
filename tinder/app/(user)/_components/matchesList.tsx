@@ -26,13 +26,13 @@ const MatchesList = ({AllMatches}:{AllMatches:{photos:{url:string}[] ,id:string,
     return (
         <>
         { loading && <motion.div 
-          initial={{ scale:0 , opacity: 0 }} animate={{ y: 0, scale:1 , opacity: 1 }}  exit={{ y: 500, opacity: 0 }}  
-        transition={{ type: "spring", stiffness: 100, damping: 15 }}
+          initial={{ scale:0 ,x:500 ,y:-500, opacity: 0 }} animate={{ y: 0,x:0, scale:1 , opacity: 1 }}  exit={{ y: 500, opacity: 0 }}  
+        transition={{ type: "spring", stiffness: 100, damping: 15 ,duration:0.9 }}
         className=' fixed top-5 text-2xl textbase border border-white font-bold  bg-[#c2c2c240] backdrop-blur-[12px] flex-col rounded-4xl z-[50]  center w-[95vw] h-[95vh]  '>
              Creating Chart 
             <FiLoader className='text-xl mt-5 animate-spin '/>
         </motion.div>}
-      <div className='flex gap-5 overflow-x-auto '>
+      <div className='flex gap-5 scrollbar overflow-x-auto '>
         {AllMatches && AllMatches?.map((item, i)=> (
             <div onClick={()=>handelClicked(item?.id)} key={i} className=' cursor-pointer flex flex-col  ! w-[130px]'>
                     <Image className=' object-cover  w-full  h-[200px] rounded-3xl border border-white/80' src={item?.photos[0].url} alt={item.name} width={400} height={600}/>
