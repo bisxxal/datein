@@ -25,7 +25,7 @@ export default  function PhotoUploader() {
           <h1 className="text-3xl my-5 ml-7 max-md:text-center textsecond font-bold ">Edit Profile</h1>
       <PhotoUploadCom data={data?.photos} isLoading={isLoading}/>
 
-      <EditFormCom data={data?.profile} name={data?.name} />
+      <EditFormCom data={data?.profile} name={data?.name} verified={data?.verified} />
         
     </div>
     </BackgroundPatten>

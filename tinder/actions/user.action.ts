@@ -60,6 +60,7 @@ export async function getUserProfile() {
           where:{id:user.id},
           select:{
             name:true,
+            verified:true,
             photos: { select: { url: true ,id:true} },
             profile:{
                select:{
@@ -112,7 +113,7 @@ export async function updateProfile(data:TCreateProfileForm) {
         if(!res) {
             return JSON.parse(JSON.stringify({status: 404, message: 'Error while creating profile' })); 
         }
-        console.log(res)
+        // console.log(res)
       return JSON.parse(JSON.stringify({status: 200, message: 'Profile Updated successfully' }));    
     } catch (error) {
         console.error('Error creating profile:', error);
@@ -282,3 +283,4 @@ export const deletePhotos = async (ids: string[]) => {
     return JSON.parse(JSON.stringify({ status: 500, message: "Server error", error }));
   }
 };
+ 

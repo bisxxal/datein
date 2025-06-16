@@ -6,7 +6,6 @@ const MatchPage = () => {
   
   return (
     <div className='w-full !h-screen overflow-hidden flex flex-col items-center justify-'>
-      {/* <Navbar  /> */}
         <UserNavbar/>
       <TinderCardsCom   />
     </div>

@@ -63,7 +63,6 @@ export const getAllChats = async () => {
     try {
          const session = await getServerSession(authOptions) 
         if (!session || !session.user) {
-            console.log('Not authorized user');
             return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
             } 
         const chats = await prisma.chatParticipant.findMany({

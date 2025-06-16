@@ -5,6 +5,8 @@ import { createProfileForm, TCreateProfileForm } from "@/lib/zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import toast from 'react-hot-toast';
+import GlareHover from '@/components/ui/glassHover'
+import { VscVerified } from 'react-icons/vsc'
  
  interface UserProfileProps{
     age?:number ,
@@ -24,13 +26,13 @@ import toast from 'react-hot-toast';
     }[],
 }
 
-const EditFormCom = ({data ,name}:{data:UserProfileProps,name:string}) => {
+const EditFormCom = ({data ,name ,verified}:{data:UserProfileProps,name:string,verified:boolean}) => {
     const interest = data?.keywords?.map((i:{name:string})=>i.name).join(',')
     const { register, handleSubmit , 
                 formState:{errors , isSubmitting  ,isLoading , isDirty}, } = useForm<TCreateProfileForm>({resolver:zodResolver(createProfileForm)})
         
         const onSubmit = async (data:TCreateProfileForm) => {
-            console.log( 'in submit' , data )
+            // console.log( 'in submit' , data )
             try {
                const res = await updateProfile(data)
                 if(res?.status === 200){
@@ -47,6 +49,23 @@ const EditFormCom = ({data ,name}:{data:UserProfileProps,name:string}) => {
             
   return (
     <div className=' px-5 my-6 w-full flex flex-col gap-6'>
+
+      { !verified &&  <div>
+        <GlareHover
+        glareColor="#ffffff"
+        glareOpacity={0.4}
+        glareAngle={-30}
+        glareSize={300}
+        transitionDuration={1000}
+        playOnce={false}
+        className="bg-transparent  !rounded-3xl mx-auto  w-full text-white flex-col !h-[300px]">
+
+        <Link href={'/verified'} className=" w-full px-5 flex-col h-full border-2 border-green-600 bg-green-600/30  rounded-3xl center">
+        <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4">  Get Verified <VscVerified /></p>
+        <p className=" max-md:text-xs">Not Verified yet.</p>
+      </Link>
+  </GlareHover>
+        </div>}
 
        <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col gap-6'>
 

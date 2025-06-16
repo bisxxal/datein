@@ -6,7 +6,7 @@ export const authCheck = async () => {
     try{
         const session = await getServerSession(authOptions) 
         if (!session || !session.user) {
-          console.log('Not authorized user');
+        //   console.log('Not authorized user');
            return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
           }
     }

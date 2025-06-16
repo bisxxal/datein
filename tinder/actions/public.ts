@@ -4,39 +4,61 @@ import prisma from "@/lib/prisma"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { shuffleArray } from "@/util/algoLogic"
+import { cookies } from "next/headers"
+import { rateLimit } from "@/util/rateLimit"
 
 export const AllPublicUsers = async () => {
     try {
-      const limit = 3
       console.log('featching agin' )
+
+      const cookieStore = await cookies();  
+      const ip = cookieStore.get('user-ip')?.value || 'anonymous';
+
+      const rl = await rateLimit({
+        key: ip,
+        limit: 3,
+        windowInSeconds: 60,
+      });
+
+      if (!rl.success) {
+        console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
+        return JSON.parse(JSON.stringify({status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.`}));
+      }
        const session = await getServerSession(authOptions) 
         if (!session || !session.user) {
-          console.log('Not authorized user');
            return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
           }
           const user = await prisma.user.findUnique({
             where: {
-              id: session?.user.id!
+              id: session?.user.id!,
             },
-            select:{
-              likesGiven:{
-                select:{
+            select: {
+              id: true,
+              likesGiven: {
+                select: {
                   receiverId: true,
                 },
               },
-              profile:{
-                select:{
+              profile: {
+                select: {
                   lookingFor: true,
-                  keywords:{
-                    select:{
+                  keywords: {
+                    select: {
                       name: true
                     }
                   }
                 }
+              },
+              reported: {
+                select: {
+                  reportedId: true
+                }
               }
             }
           })
-  const likedUserIds = user?.likesGiven.map(like => like.receiverId) || [];
+
+    const reportedUserIds = user?.reported?.map((u: { reportedId: string }) => u.reportedId) || [];
+    const likedUserIds = user?.likesGiven.map(like => like.receiverId) || [];
    
   const [allUsers] = await prisma.$transaction([
       prisma.user.findMany({
@@ -44,7 +66,7 @@ export const AllPublicUsers = async () => {
       // take: limit,
       where:{
           id: {
-          notIn: [session.user.id, ...likedUserIds],
+          notIn: [session.user.id, ...likedUserIds ,...reportedUserIds ],
       },
       },
       orderBy: {
@@ -53,6 +75,7 @@ export const AllPublicUsers = async () => {
       select:{
         id: true,
         name: true,
+        verified:true,
         createdAt: true,
         photos:{
                 take: 6,
@@ -80,15 +103,7 @@ export const AllPublicUsers = async () => {
             }
         }
       }
-    }),
-    // prisma.user.count({
-    //    where:{
-    //       id: {
-    //       notIn: [session.user.id, ...likedUserIds],
-    //   },
-    //   },
-    // })
-
+    }), 
   ])
         //  const shuffled = shuffleArray(allUsers);
         return JSON.parse(JSON.stringify({user ,shuffled:allUsers }))
@@ -104,7 +119,6 @@ export const UnseenUsers = async () => {
     const session = await getServerSession(authOptions) 
  
         if (!session || !session.user) {
-          console.log('Not authorized user');
            return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
           }
 

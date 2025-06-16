@@ -8,7 +8,7 @@ const PopUpCom = ({showPopUp , setShowPopUp ,chatId}:{showPopUp:boolean , setSho
     const router = useRouter();
     const deleteCharts = async ()=>{
     const res =await deleteAllMessages(chatId)
-    console.log(res.res === true)
+    // console.log(res.res === true)
     if(res.res){
       toast.success("deleted all messages")
       router.refresh()

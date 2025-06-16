@@ -1,11 +1,14 @@
-import UploadExample from "@/components/imageKit";
 import Navbar from "@/components/navbar";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-  
+import { redirect } from "next/navigation";
+
 export default async function Home() {
   const session = await getServerSession(authOptions) 
+  if(session?.user?.email ){
+    redirect('/match');
+  }
   return (
     <>
     

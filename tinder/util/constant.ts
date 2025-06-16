@@ -33,6 +33,8 @@ export interface TinderCardsProps {
 
 export  interface PopUpProps {
   current: {
+    id: string;
+    verified: boolean;
     profile: {
      job: string;
       batch: string;

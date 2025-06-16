@@ -19,7 +19,7 @@ useEffect(()=>{
   return (
     <div className=' w-full min-h-screen '>
 
-      <Back />
+      <Back url='/' className='' />
       <div className='flx center flex-col '>
       <h1 className=' text-7xl font-extrabold'>Date in.</h1>
       <div className=''>

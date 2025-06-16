@@ -1,5 +1,5 @@
 'use client'
-import { getVerified } from '@/actions/verifyReport'
+import { getVerified } from '@/actions/other.actions'
 import Back from '@/components/ui/back'
 import React from 'react'
 import { VscVerified } from 'react-icons/vsc'

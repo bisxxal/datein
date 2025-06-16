@@ -31,6 +31,6 @@ export async function uploadFile(formData:FormData ,userId:string) {
       },
   }); 
 
- console.log(res, 'files uploadd function');
+//  console.log(res, 'files uploadd function');
 }
 }

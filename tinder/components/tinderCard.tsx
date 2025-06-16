@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SwiperComponent from "./ui/swiper";
-import { MdOutlineRefresh, MdOutlineInterests, MdKeyboardDoubleArrowDown, MdKeyboardDoubleArrowUp } from "react-icons/md";
+import { MdOutlineRefresh, MdOutlineInterests, MdKeyboardDoubleArrowUp } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSwipe from "./ui/animatedSwipe";
@@ -15,6 +15,8 @@ import { shuffleArray } from "@/util/algoLogic";
 import LookingFor from "./ui/lookingFor";
 import dynamic from 'next/dynamic';
 import { FiLoader } from "react-icons/fi";
+import { useSocket } from "@/hooks/useSocket";
+import { RiVerifiedBadgeLine } from "react-icons/ri";
 
 const PopUp = dynamic(() => import('./popUpCard'), {
   loading: () => <div className="text-white">  <FiLoader className='text-lg mt-5 animate-spin '/> </div>,
@@ -23,20 +25,24 @@ const PopUp = dynamic(() => import('./popUpCard'), {
 
 
 const TinderCardsCom = () => { 
+
   const { isLoading, data } = useQuery({
     queryKey: ['fetchUsers'],
     queryFn: async ()=>await AllPublicUsers(),
     staleTime: 60000,
   });
-
+  
   const person = data?.shuffled || [];
   const user = data?.user; 
+
+  // console.log("person is",person , user)
+  const { onlineUser }: { onlineUser: string[] } = useSocket({ userId: user?.id })  ;
   const [shuffledPerson, setShuffledPerson] = useState<any[]>([]);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right" | null>(null);
   const [matchMessage, setMatchMessage] = useState<string | null>(null);
   const [displayed, setDisplayed] = useState(false);
-const [showPing, setShowPing] = useState(false);
+  const [showPing, setShowPing] = useState(false);
 
   const current = index >= 0 && index < shuffledPerson.length ? shuffledPerson[index] : null;
 
@@ -92,7 +98,7 @@ const [showPing, setShowPing] = useState(false);
   useEffect(() => { 
     if (  index < 0 && person.length > 0) {
       const timeout = setTimeout(() => {
-        console.log("Reshuffling cards...");
+        // console.log("Reshuffling cards...");
         const reshuffled = shuffleArray(person);
         setShuffledPerson(reshuffled);
         setIndex(reshuffled.length - 1);
@@ -100,7 +106,6 @@ const [showPing, setShowPing] = useState(false);
       return () => clearTimeout(timeout);
     }
   }, [index, person ]);
-  
   return (
     <div className="flex flex-col relative items-center mt-7 max-md:mt-2 space-y-6 w-full">
      
@@ -133,7 +138,7 @@ const [showPing, setShowPing] = useState(false);
 
                 <AnimatePresence>
                   {matchMessage && (
-                   <LookingFor text={matchMessage as string} />
+                   <LookingFor text={matchMessage} />
                       )}  
                 </AnimatePresence>
 
@@ -142,11 +147,16 @@ const [showPing, setShowPing] = useState(false);
                   <div className="  glass  relative shadow-xl rounded-3xl px-5 py-2 text-2xl max-md:text-lg font-bold">
                     <button
                       onClick={() => setDisplayed(!displayed)}  
-                      className={` glass absolute   w-14 h-14 z-[30] right-[2%] center text-3xl`}>
-                      <AnimatedSwipe text={<MdKeyboardDoubleArrowUp size={23} />} />
+                      className={` glass absolute   w-10 h-10 z-[30] right-[2%] center text-3xl`}>
+                      <AnimatedSwipe text={<MdKeyboardDoubleArrowUp size={22} />} />
                     </button>
 
-                    <p>{current?.name} { current?.age && <span>, {current?.age}</span>}</p>
+                    <p className=" !justify-start center">{current?.name} {current.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>} { current?.profile.age && <span>, {current?.profile.age}</span>}</p>
+                     {
+                      onlineUser && user.id && onlineUser.includes(current?.id) && (
+                          <span className='text-xs text-green-500'>Online</span>
+                      )  
+                      }
                     <p className="text-base max-md:text-sm flex items-center gap-3 my-2 font-normal">
                       <MdOutlineInterests size={22}/> Interests
                     </p>
@@ -160,7 +170,7 @@ const [showPing, setShowPing] = useState(false);
                     <button onClick={handleBack} disabled={index >= shuffledPerson.length - 1} className="px-2 glass py-1 cursor-pointer bg-[#c2c2c240] rounded-full hover:bg-[#ffffff1a] transition">
                       <MdOutlineRefresh size={30} />
                     </button>
-                    <button onClick={() => handleSwipe("left")} className="px-3  py-1 bg-[#c2c2c240] glass text-2xl cursor-pointer rounded-full hover:bg-[#ffffff1a] transition">
+                    <button onClick={() => handleSwipe("left")} className={` px-3  ${showPing ? '  text-red-500 ' : ' text-white ' }py-1 bg-[#c2c2c240] glass text-2xl cursor-pointer rounded-full hover:bg-[#ffffff1a] transition `}>
                       ♡
                     </button>
                   </div>

@@ -52,7 +52,7 @@ export const authOptions: AuthOptions = {
   events: {
     async createUser({ user }) {
       
-      console.log("New user created:", user.id);
+      // console.log("New user created:", user.id);
       const existingProfile = await prisma.profile.findUnique({
         where: { userId: user.id },
       });
