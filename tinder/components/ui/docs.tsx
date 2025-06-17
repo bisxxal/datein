@@ -10,7 +10,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { usePathname } from "next/navigation";
-import React, { Children,cloneElement,useEffect,useMemo,useRef,useState,} from "react";
+import React, { Children, cloneElement, useEffect, useMemo, useRef, useState, } from "react";
 
 export type DockItemData = {
   icon: React.ReactNode;
@@ -70,8 +70,8 @@ function DockItem({
     [baseItemSize, magnification, baseItemSize]
   );
   const size = useSpring(targetSize, spring);
- const parmas = usePathname()
- const p= parmas.split('/')[1]
+  const parmas = usePathname()
+  const p = parmas.split('/')[1]
   return (
     <motion.div
       ref={ref}

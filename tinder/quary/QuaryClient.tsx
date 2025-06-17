@@ -2,13 +2,13 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
- 
+
 
 type Props = { children: React.ReactNode }
 
 const client = new QueryClient({
-  defaultOptions:{
-    queries:{
+  defaultOptions: {
+    queries: {
       refetchOnWindowFocus: false,
       retry: false,
       refetchOnMount: false,
@@ -21,9 +21,9 @@ const client = new QueryClient({
 })
 
 const ReactQueryProvider = ({ children }: Props) => {
-  return (  <QueryClientProvider client={client}>
+  return (<QueryClientProvider client={client}>
     <SessionProvider>{children}</SessionProvider>
-    </QueryClientProvider>)
+  </QueryClientProvider>)
 }
 
 export default ReactQueryProvider

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import { IoEyeOutline } from 'react-icons/io5'
 
-const page = async() => {
+const page = async () => {
   const data = await getBugReports()
   return (
     <div>

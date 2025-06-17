@@ -1,4 +1,4 @@
- 
+
 'use client'
 import { addInterests } from '@/actions/user.action'
 import Back from '@/components/ui/back'
@@ -54,50 +54,49 @@ const Intrestspage = () => {
   }
 
   return (
-      <BackgroundPatten>
-    <div className='w-full px-10 max-md:px-2 py-10'>
-           <Back url={'/profile/editprofile'} className=''/>
-      <h1 className='my-5 text-3xl font-bold'>Interests</h1>
+    <BackgroundPatten>
+      <div className='w-full px-10 max-md:px-2 py-10'>
+        <Back url={'/profile/editprofile'} className='' />
+        <h1 className='my-5 text-3xl font-bold'>Interests</h1>
 
-      <div className='w-full flex h-[50px] overflow-x-auto gap-5 '>
-        {selected.map((i, index) => (
-          <div
-            key={index}
-            className='flex items-center gap-2 buttonbg text-white h-fit p-2 rounded-full px-5 whitespace-nowrap'
+        <div className='w-full flex h-[50px] overflow-x-auto gap-5 '>
+          {selected.map((i, index) => (
+            <div
+              key={index}
+              className='flex items-center gap-2 buttonbg text-white h-fit p-2 rounded-full px-5 whitespace-nowrap'
+            >
+              {i}
+              <button onClick={() => toggleInterest(i)} className='text-red-400 font-bold hover:text-red-600'>
+                ❌
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* All merged interests */}
+        <div className='w-full flex flex-wrap justify-evenly gap-3 mt-5'>
+          {allInterests.map((i, index) => (
+            <h3
+              key={index}
+              onClick={() => toggleInterest(i)}
+              className={`whitespace-nowrap cursor-pointer border-2 h-fit p-1.5 rounded-full px-5 max-md:px-4 ${selected.includes(i) ? ' base border-indigo-600 text-white' : 'border-zinc-700/20 text-zinc-700/80 hover:bg-zinc-100'}`}>
+              {i}
+            </h3>
+          ))}
+        </div>
+
+        {/* Submit Button */}
+        <div className='mt-8 flex justify-center'>
+          <button
+            onClick={handleSubmit}
+            disabled={submitting || selected.length === 0}
+            hidden={selected.length === 0}
+            className='bg-blue-600 text-white px-6 py-2 rounded-full disabled:opacity-50'
           >
-            {i}
-            <button onClick={() => toggleInterest(i)} className='text-red-400 font-bold hover:text-red-600'>
-              ❌
-            </button>
-          </div>
-        ))}
+            {submitting ? 'Submitting...' : 'Submit'}
+          </button>
+        </div>
       </div>
-
-      {/* All merged interests */}
-      <div className='w-full flex flex-wrap justify-evenly gap-3 mt-5'>
-        {allInterests.map((i, index) => (
-          <h3
-            key={index}
-            onClick={() => toggleInterest(i)}
-            className={`whitespace-nowrap cursor-pointer border-2 h-fit p-1.5 rounded-full px-5 max-md:px-4 ${
-              selected.includes(i) ? ' base border-indigo-600 text-white' : 'border-zinc-700/20 text-zinc-700/80 hover:bg-zinc-100'}`}>
-            {i}
-          </h3>
-        ))}
-      </div>
-
-      {/* Submit Button */}
-      <div className='mt-8 flex justify-center'>
-        <button
-          onClick={handleSubmit}
-          disabled={submitting || selected.length === 0}
-          hidden={selected.length === 0}
-          className='bg-blue-600 text-white px-6 py-2 rounded-full disabled:opacity-50'
-        >
-          {submitting ? 'Submitting...' : 'Submit'}
-        </button>
-      </div>
-    </div>
     </BackgroundPatten>
   )
 }

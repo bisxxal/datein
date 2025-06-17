@@ -1,7 +1,7 @@
- 
-const BackgroundPatten = ({children}:{children:React.ReactNode}) => {
+
+const BackgroundPatten = ({ children }: { children: React.ReactNode }) => {
   return (
-   <div className=" w-full h-full bg-white background">{children}</div>
+    <div className=" w-full h-full bg-white background">{children}</div>
   )
 }
 

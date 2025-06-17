@@ -1,9 +1,9 @@
- 
+
 import NextAuth, { AuthOptions, Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
- 
+
 declare module "next-auth" {
   interface Session {
     user: {
@@ -24,23 +24,23 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-   session: {
-    strategy: "jwt",    
+  session: {
+    strategy: "jwt",
   },
 
   callbacks: {
-  //   async session({ session, user }) {
-  //     // Attach user ID to the session object
-  //     if (session.user) {
-  //       session.user.id = user.id;
-  //     }
-  //     return session;
-  //   },
-   async jwt({ token, user }) {
+    //   async session({ session, user }) {
+    //     // Attach user ID to the session object
+    //     if (session.user) {
+    //       session.user.id = user.id;
+    //     }
+    //     return session;
+    //   },
+    async jwt({ token, user }) {
       return token;
     },
 
-   async session({ session, token , user }) {
+    async session({ session, token, user }) {
       if (token?.sub && session.user) {
         session.user.id = token.sub
         // session.user.id = user.id;      
@@ -48,11 +48,9 @@ export const authOptions: AuthOptions = {
       return session
     },
   },
-  
+
   events: {
     async createUser({ user }) {
-      
-      // console.log("New user created:", user.id);
       const existingProfile = await prisma.profile.findUnique({
         where: { userId: user.id },
       });
@@ -60,7 +58,7 @@ export const authOptions: AuthOptions = {
       if (!existingProfile) {
         await prisma.profile.create({
           data: {
-           userId: user.id,
+            userId: user.id,
           },
         });
       }

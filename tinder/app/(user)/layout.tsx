@@ -8,15 +8,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const session = await getServerSession(authOptions) 
-  if(!session) {
+  const session = await getServerSession(authOptions)
+  if (!session) {
     redirect("/sign-in");
   }
   return (
     <div className=" relative ">
-        {/* <UserNavbar/> */}
+      {/* <UserNavbar/> */}
       {children}
-       <BottomBar/>
+      <BottomBar />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import QuaryClient from "@/quary/QuaryClient";
 import BottomBar from "@/components/bottomBar";
 import { Poppins } from "next/font/google";
 
-const inter = Poppins({ subsets: ["latin"], weight:["400", "500","600","700","800","900"] });
+const inter = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
 
 
 export const metadata: Metadata = {
@@ -20,12 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body   className={inter.className}   >
-       <QuaryClient>
+      <body className={inter.className}   >
+        <QuaryClient>
           <Toaster />
-          <div className=" relative w-full min-h-screen     "> 
+          <div className=" relative w-full min-h-screen ">
             {children}
-             
+
           </div>
         </QuaryClient>
       </body>

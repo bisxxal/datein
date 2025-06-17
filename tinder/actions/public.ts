@@ -1,6 +1,6 @@
 'use server'
 
-import prisma from "@/lib/prisma" 
+import prisma from "@/lib/prisma"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { shuffleArray } from "@/util/algoLogic"
@@ -8,166 +8,109 @@ import { cookies } from "next/headers"
 import { rateLimit } from "@/util/rateLimit"
 
 export const AllPublicUsers = async () => {
-    try {
-      console.log('featching agin' )
+  try {
+    console.log('featching agin')
 
-      const cookieStore = await cookies();  
-      const ip = cookieStore.get('user-ip')?.value || 'anonymous';
+    const cookieStore = await cookies();
+    const ip = cookieStore.get('user-ip')?.value || 'anonymous';
 
-      const rl = await rateLimit({
-        key: ip,
-        limit: 3,
-        windowInSeconds: 60,
-      });
+    const rl = await rateLimit({
+      key: ip,
+      limit: 3,
+      windowInSeconds: 60,
+    });
 
-      if (!rl.success) {
-        console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
-        return JSON.parse(JSON.stringify({status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.`}));
-      }
-       const session = await getServerSession(authOptions) 
-        if (!session || !session.user) {
-           return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
-          }
-          const user = await prisma.user.findUnique({
-            where: {
-              id: session?.user.id!,
-            },
-            select: {
-              id: true,
-              likesGiven: {
-                select: {
-                  receiverId: true,
-                },
-              },
-              profile: {
-                select: {
-                  lookingFor: true,
-                  keywords: {
-                    select: {
-                      name: true
-                    }
-                  }
-                }
-              },
-              reported: {
-                select: {
-                  reportedId: true
-                }
+    if (!rl.success) {
+      console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
+      return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
+    }
+    const session = await getServerSession(authOptions)
+    if (!session || !session.user) {
+      return JSON.parse(JSON.stringify({ status: 500, message: 'Not authorized user' }));
+    }
+    const user = await prisma.user.findUnique({
+      where: {
+        id: session?.user.id!,
+      },
+      select: {
+        id: true,
+        likesGiven: {
+          select: {
+            receiverId: true,
+          },
+        },
+        profile: {
+          select: {
+            lookingFor: true,
+            keywords: {
+              select: {
+                name: true
               }
             }
-          })
+          }
+        },
+        reported: {
+          select: {
+            reportedId: true
+          }
+        }
+      }
+    })
 
     const reportedUserIds = user?.reported?.map((u: { reportedId: string }) => u.reportedId) || [];
     const likedUserIds = user?.likesGiven.map(like => like.receiverId) || [];
-   
-  const [allUsers] = await prisma.$transaction([
+
+    const [allUsers] = await prisma.$transaction([
       prisma.user.findMany({
-      // skip: (page - 1) * limit,  
-      // take: limit,
-      where:{
+        // skip: (page - 1) * limit,  
+        // take: limit,
+        where: {
           id: {
-          notIn: [session.user.id, ...likedUserIds ,...reportedUserIds ],
-      },
-      },
-      orderBy: {
-        createdAt: 'asc',
-      },
-      select:{
-        id: true,
-        name: true,
-        verified:true,
-        createdAt: true,
-        photos:{
-                take: 6,
-                  select:{
-                    url: true,
-                  }
-                },
-        profile:{
-            select:{
-                job: true,
-                batch: true,
-                location: true,
-                livingIn: true,
-                lookingFor: true,
-                height: true,
-                bio: true,
-                age: true,
-                languages:true,
-                 
-                keywords:{
-                    select:{
-                        name: true
-                    }
-                }
-            }
-        }
-      }
-    }), 
-  ])
-        //  const shuffled = shuffleArray(allUsers);
-        return JSON.parse(JSON.stringify({user ,shuffled:allUsers }))
-        // return JSON.parse(JSON.stringify({user ,allUsers , total}))
-
-    } catch (error) {
-        
-    }
-}
- 
-export const UnseenUsers = async () => {
-  try {
-    const session = await getServerSession(authOptions) 
- 
-        if (!session || !session.user) {
-           return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
-          }
-
-    const user = await prisma.user.findFirst({
-      where: {
-        id: session?.user.id!  
-      },
-    })
- 
-    const unseenUsers = await prisma.user.findMany({
-      where: {
-        id: {
-          notIn: [user?.id!] // Exclude seen and self
+            notIn: [session.user.id, ...likedUserIds, ...reportedUserIds],
+          },
         },
-        NOT: {
-          //  gender:user?.gender
-        }
-      },
-      select:{
-                id: true,
-                name: true,
-                createdAt: true,
-                  photos:{
-                            select:{
-                                url: true,
-                            }
-                        },
-                profile:{
-                    select:{
-                        bio: true,
-                        age: true,
-                      
-                        keywords:{
-                            select:{
-                                name: true
-                            }
-                        }
-                    }
-                }
+        orderBy: {
+          createdAt: 'asc',
+        },
+        select: {
+          id: true,
+          name: true,
+          verified: true,
+          createdAt: true,
+          photos: {
+            take: 6,
+            select: {
+              url: true,
             }
-    })
+          },
+          profile: {
+            select: {
+              job: true,
+              batch: true,
+              location: true,
+              livingIn: true,
+              lookingFor: true,
+              height: true,
+              bio: true,
+              age: true,
+              languages: true,
 
-    
-    // const shuffled = unseenUsers.sort(() => 0.5 - Math.random());
-    const shuffled = shuffleArray(unseenUsers);
-        return JSON.parse(JSON.stringify(shuffled))
+              keywords: {
+                select: {
+                  name: true
+                }
+              }
+            }
+          }
+        }
+      }),
+    ])
+    //  const shuffled = shuffleArray(allUsers);
+    return JSON.parse(JSON.stringify({ user, shuffled: allUsers }))
+    // return JSON.parse(JSON.stringify({user ,allUsers , total}))
 
   } catch (error) {
-    console.error("Error fetching unseen users:", error)
-    return []
+
   }
 }
+ 

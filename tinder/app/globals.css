@@ -19,111 +19,125 @@
   }
 }
 
-/* body {
-  background: #3f384c27;;
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-} */
- button , a {
+button,
+a {
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
- }
-.scrollbar::-webkit-scrollbar {
-         display: none;
-       }
+}
 
-.center{
+.scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.base{
+.base {
   background-color: #6366F1;
 }
-.base2{
+
+.base2 {
   background-color: #DCE4FC;
 }
-.base3{
+
+.base3 {
   background-color: #e5e7eb;
 }
-.textbase{
+
+.textbase {
   color: #6366F1;
 }
-.textsecond{
+
+.textsecond {
   color: #DCE4FC
 }
-.buttonbg{
+
+.buttonbg {
   @apply bg-gradient-to-br text-white from-[#a9beff] font-medium to-[#5154f2];
 }
-.buttonbg2{
+
+.buttonbg2 {
   @apply bg-gradient-to-t text-white from-[#7595f9] font-medium to-[#5154f2];
 }
-.buttongreen{
+
+.buttongreen {
   @apply bg-gradient-to-br text-white from-[#2db02a] font-medium to-[#004c12];
 }
-.buttonred{
+
+.buttonred {
   @apply bg-gradient-to-br text-white from-[#de2626] font-medium to-[#840404];
 }
-.buttonpink{
+
+.buttonpink {
   @apply bg-gradient-to-b text-white from-[#fc3dcfba] font-medium to-[#ff71d73d];
 }
- 
-.sidebarbg{
-  @apply bg-gradient-to-tl  from-[#DCE4FC] to-[#e5e7eb]  ;
+
+.sidebarbg {
+  @apply bg-gradient-to-tl from-[#DCE4FC] to-[#e5e7eb];
 }
-.sidebg{
-  @apply bg-gradient-to-t  from-[#ffffffba] to-[#c8c8c8] ;
+
+.sidebg {
+  @apply bg-gradient-to-t from-[#ffffffba] to-[#c8c8c8];
 }
-select{
+
+select {
   @apply border-[#5f5f5fa9] border border-black/10 px-2 bg-transparent rounded-xl py-1.5;
 }
 
-label{
+label {
   @apply font-bold text-lg;
 }
 
-.buttonhover{
+.buttonhover {
   @apply hover:scale-[1.001] hover:transition-all duration-300;
 }
-button{
-   @apply hover:scale-[1.01] hover:transition-all duration-300;
+
+button {
+  @apply hover:scale-[1.01] hover:transition-all duration-300;
 }
 
-.pulseShimmer{
+.pulseShimmer {
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), inset 0 4px 20px rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(2px) saturate(180%);
-  animation:   pulseShimmer 6.2s infinite linear; ;
- }
-  @keyframes pulseShimmer {
-    0% {
-      background-position: -1000px;
-    }
-    100% {
-      background-position: 1000px;
-    } }
- 
-    
-.swiper-button-prev{
+  animation: pulseShimmer 6.2s infinite linear;
+  ;
+}
+
+@keyframes pulseShimmer {
+  0% {
+    background-position: -1000px;
+  }
+
+  100% {
+    background-position: 1000px;
+  }
+}
+
+
+.swiper-button-prev {
   opacity: 0.5;
   color: #26e118;
 }
-.swiper-button-next{
+
+.swiper-button-next {
   opacity: 0.5;
   color: #26e118;
   height: 500px !important;
   background-color: red;
   position: absolute;
   top: 0;
-}  
+}
 
-.background {  
+.background {
   background: radial-gradient(125% 125% at 50% 100%, #fff 40%, #63e 100%);
   z-index: -10;
 }
 
-.logo{
-  background: rgb(17,17,17);
+.logo {
+  background: rgb(17, 17, 17);
   background: linear-gradient(179deg, #6366F1 -26%, #DCE4FC 95%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -137,13 +151,15 @@ button{
   background-clip: text;
   color: transparent;
 }
-.logo3{
-  background: rgb(17,17,17);
-  background:linear-gradient(179deg, #ffffff -22%, #00001261 98%);
+
+.logo3 {
+  background: rgb(17, 17, 17);
+  background: linear-gradient(179deg, #ffffff -22%, #00001261 98%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
+
 .logo4 {
   background: rgb(17, 17, 17);
   background: linear-gradient(179deg, #ffffffd1 1%, #090A15 95%);
@@ -151,6 +167,7 @@ button{
   background-clip: text;
   color: transparent;
 }
+
 /* .glass {
     border-top-style: solid !important;
     border-top-color: rgb(255, 255, 255) !important;
@@ -165,25 +182,28 @@ button{
   backdrop-filter: blur(2px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 2rem;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
-              inset 0 4px 20px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
+    inset 0 4px 20px rgba(255, 255, 255, 0.3);
 }
+
 .glass4 {
   /* position: relative; */
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(2px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 2rem;
-   
+
 }
+
 .glass2 {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(2px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 2rem;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
-              inset 0 4px 20px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
+    inset 0 4px 20px rgba(255, 255, 255, 0.3);
 }
+
 /* .glass3 {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(2px) saturate(180%);
@@ -192,12 +212,15 @@ button{
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
               inset 0 4px 20px rgba(255, 255, 255, 0.3);
 } */
-.glass3 ,select {
-  @apply backdrop-blur-[2px] backdrop-saturate-[180%] border shadow-[0_8px_32px_rgba(31,38,135,0.2),inset_0_4px_20px_rgba(255,255,255,0.3)] border-solid border-[rgba(255,255,255,0.8)] after:content-[''] after:absolute after:w-full after:h-full after:backdrop-blur-[1px] after:shadow-[inset_-10px_-8px_0px_-11px_rgba(255,255,255,1),inset_0px_-9px_0px_-8px_rgba(255,255,255,1)] after:opacity-60 after:z-[-1] after:rounded-[2rem] after:left-0 after:top-0;
+.glass3,
+select {
+  @apply backdrop-blur-[2px] backdrop-saturate-[180%] border shadow-[0_8px_32px_rgba(31, 38, 135, 0.2), inset_0_4px_20px_rgba(255, 255, 255, 0.3)] border-solid border-[rgba(255, 255, 255, 0.8)] after:content-[''] after:absolute after:w-full after:h-full after:backdrop-blur-[1px] after:shadow-[inset_-10px_-8px_0px_-11px_rgba(255, 255, 255, 1), inset_0px_-9px_0px_-8px_rgba(255, 255, 255, 1)] after:opacity-60 after:z-[-1] after:rounded-[2rem] after:left-0 after:top-0;
   background: rgba(255, 255, 255, 0.15);
   /* border-radius: 2rem; */
 }
-.glass::after , .glass2::after{
+
+.glass::after,
+.glass2::after {
   content: '';
   position: absolute;
   top: 0;
@@ -208,12 +231,13 @@ button{
   border-radius: 2rem;
   backdrop-filter: blur(1px);
   box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
-              inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
+    inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
   opacity: 0.6;
   z-index: -1;
   filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(115%);
 }
-.glass4::after{
+
+.glass4::after {
   content: '';
   position: absolute;
   top: 0;
@@ -224,13 +248,14 @@ button{
   border-radius: 2rem;
   backdrop-filter: blur(1px);
   box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
-              inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
+    inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
   opacity: 0.6;
   z-index: -1;
   filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(115%);
 }
- 
-.glass3::after , select::after  {
+
+.glass3::after,
+select::after {
   background: rgba(255, 255, 255, 0.1);
   @apply rounded-2xl;
   filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(115%);

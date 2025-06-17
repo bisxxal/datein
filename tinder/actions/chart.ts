@@ -1,34 +1,87 @@
 'use server'
-
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma"
 import { getServerSession } from "next-auth"
 
+interface MatchesProps {
+    id: string;
+    name: string;
+    photos: { url: string }[]
+}
+
 export const getMatches = async () => {
     try {
-        const session = await getServerSession(authOptions) 
-                if (!session || !session.user) {
-                  console.log('Not authorized user');
-                   return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
-                  }
+        const session = await getServerSession(authOptions)
+        if (!session || !session.user) {
+            return JSON.parse(JSON.stringify({ status: 500, message: 'Not authorized user' }));
+        }
+        const chats = await prisma.chatParticipant.findMany({
+            where: {
+                userId: session.user.id
+            },
+            select: {
+                chatId: true,
+                chat: {
+                    select: {
+                        messages: {
+                            orderBy: {
+                                createdAt: 'desc'
+                            },
+                            select: {
+                                content: true,
+                                createdAt: true,
+                            },
+                            take: 1
+                        },
+                        participants: {
+                            select: {
+                                user: {
+                                    select: {
+                                        name: true,
+                                        id: true,
+                                        photos: {
+                                            select: {
+                                                url: true
+                                            },
+                                            take: 1,
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    }
 
+                }
+            }
+        })
+
+        const alluseres: MatchesProps[] = []
+
+        if (chats && chats.length > 0) {
+            chats.forEach((chat: any) => {
+                chat.chat.participants.forEach((participant: any) => {
+                    if (participant.user.id !== session.user.id) {
+                        alluseres.push(participant.user);
+                    }
+                });
+            });
+        }
         const matches = await prisma.like.findMany({
             where: {
                 OR: [
                     { giverId: session.user.id },
                     { receiverId: session.user.id }
                 ],
-                // matched: true
             },
             include: {
                 giver: {
                     select: {
                         id: true,
                         name: true,
-                        photos:{
-                            take:1,
-                            select:{
-                                url:true
+                        photos: {
+                            take: 1,
+                            select: {
+                                url: true
                             }
                         }
                     }
@@ -37,119 +90,66 @@ export const getMatches = async () => {
                     select: {
                         id: true,
                         name: true,
-                        photos:{
-                            take:1,
-                            select:{
-                                url:true
+                        photos: {
+                            take: 1,
+                            select: {
+                                url: true
                             }
                         }
                     }
                 }
             },
-            
         })
-
-         
-        if(session.user.id && matches){
-            return JSON.parse(JSON.stringify({matches , userId: session.user.id}));
+        const chattedUserIds = new Set(alluseres.map(user => user.id));
+        const filteredMatches = matches.filter(match => {
+            const otherUser = match.giver.id === session.user.id ? match.receiver : match.giver;
+            return !chattedUserIds.has(otherUser.id);
+        });
+        if (session.user.id && matches) {
+            return JSON.parse(JSON.stringify({ matches: filteredMatches, userId: session.user.id, chats: chats }));
         }
-// console.log(matches, 'matches data');
     } catch (error) {
-        
+
     }
 }
 
-export const getAllChats = async () => {
+export const createChartparticipent = async (receiverId: string) => {
     try {
-         const session = await getServerSession(authOptions) 
+        const session = await getServerSession(authOptions)
         if (!session || !session.user) {
-            return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
-            } 
-        const chats = await prisma.chatParticipant.findMany({
-            where:{
-                userId: session.user.id
-            },
-            select:{
-                chatId: true,
-                chat: {
-                    select:{
-                        messages:{
-                               orderBy: {
-                                createdAt: 'desc'
-                            },
-                            select:{
-                                content: true,
-                                createdAt: true,
-                            },
-                            take: 1
-                        },
-                         participants: {
-                            select: {
-                                user: {
-                                    select: {
-                                        name: true,
-                                        id: true,
-                                        photos:{
-                                            select:{
-                                                url:true
-                                            },
-                                            take:1,
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                    }
-                  
-                }
-            }
-            // }
-        })
-        // console.log('session user id', chats);
-        return JSON.parse(JSON.stringify({chats , userId: session.user.id}));
-    } catch (error) {
-        console.error('Error fetching all chats:', error);
-        return JSON.parse(JSON.stringify({status: 500, message: 'Error fetching all chats' }));
-    }
-}
-
-export const createChartparticipent = async(receiverId:string)=>{
-    try {
-         const session = await getServerSession(authOptions) 
-        if (!session || !session.user) {
-        return JSON.parse(JSON.stringify({status: 500, message: 'Not authorized user' })); 
-        } 
+            return JSON.parse(JSON.stringify({ status: 500, message: 'Not authorized user' }));
+        }
 
         const chat = await prisma.chat.create({
-          data: {
-              participants: {
-                  create: [
-                      { user: { connect: { id: session?.user?.id } } },
-                      { user: { connect: { id: receiverId } } },
+            data: {
+                participants: {
+                    create: [
+                        { user: { connect: { id: session?.user?.id } } },
+                        { user: { connect: { id: receiverId } } },
                     ],
                 },
-            }, 
+            },
         });
 
-        return JSON.parse(JSON.stringify({chatId: chat.id}));
+        return JSON.parse(JSON.stringify({ chatId: chat.id }));
 
     } catch (error) {
-        
+
     }
 }
 
-export const deleteAllMessages = async (chatId:string)=>{
+export const deleteAllMessages = async (chatId: string) => {
     try {
         const res = await prisma.message.deleteMany({
-            where:{
+            where: {
                 chatId
             }
         })
-        if(!res){
-            return JSON.parse(JSON.stringify({res: false  }));
+        if (!res) {
+            return JSON.parse(JSON.stringify({ res: false }));
         }
-         return JSON.parse(JSON.stringify({res:true}));
+        return JSON.parse(JSON.stringify({ res: true }));
     } catch (error) {
-        
+
     }
 }

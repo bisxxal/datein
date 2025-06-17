@@ -8,23 +8,23 @@ import React, { useEffect } from 'react'
 const SignInPage = () => {
   const router = useRouter()
   async function myFunction() {
-  const session = await getSession()
-  if (session?.user?.name) {
-    router.push('/profile')
+    const session = await getSession()
+    if (session?.user?.name) {
+      router.push('/profile')
+    }
   }
-}
-useEffect(()=>{
-  myFunction()
-},[])
+  useEffect(() => {
+    myFunction()
+  }, [])
   return (
     <div className=' w-full min-h-screen '>
 
       <Back url='/' className='' />
       <div className='flx center flex-col '>
-      <h1 className=' text-7xl font-extrabold'>Date in.</h1>
-      <div className=''>
-      <SignInButton text={'Loging with google'} /> 
-      </div>
+        <h1 className=' text-7xl font-extrabold'>Date in.</h1>
+        <div className=''>
+          <SignInButton text={'Loging with google'} />
+        </div>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
- 
+
 import React from 'react';
 
-const LoadingCom = ({boxes ,width ,margin}:{boxes:number , width?:string, margin?:string}) => {
+const LoadingCom = ({ boxes, width, margin }: { boxes: number, width?: string, margin?: string }) => {
   return (
     <div className={`!${margin} w-full items-center justify-center flex flex-col px-3 gap-4 `}>
       {Array.from({ length: boxes }).map((_, index) => (

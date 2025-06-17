@@ -5,8 +5,8 @@ import { getUser } from "./user.action";
 import { cookies } from "next/headers";
 import { rateLimit } from "@/util/rateLimit";
 
-export async function getVerified( formData:FormData) {
-  const cookieStore = await cookies();  
+export async function getVerified(formData: FormData) {
+  const cookieStore = await cookies();
   const ip = cookieStore.get('user-ip')?.value || 'anonymous';
 
   const rl = await rateLimit({
@@ -17,29 +17,29 @@ export async function getVerified( formData:FormData) {
 
   if (!rl.success) {
     console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
-    return JSON.parse(JSON.stringify({status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.`}));
+    return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
   }
-const user = await getUser();
-  if(!user){
-    return JSON.parse(JSON.stringify({status: 300, message: 'unauth user' }));    
+  const user = await getUser();
+  if (!user) {
+    return JSON.parse(JSON.stringify({ status: 300, message: 'unauth user' }));
   }
   const roll = formData.get('roll') as string;
   const verify = await prisma.verified.create({
     data: {
       userId: user.id,
-      rollNo:roll
+      rollNo: roll
     },
   })
   // console.log(verify)
-  if(!verify){
-    return JSON.parse(JSON.stringify({status: 300, message: 'error in saving' }));    
+  if (!verify) {
+    return JSON.parse(JSON.stringify({ status: 300, message: 'error in saving' }));
   }
-  return JSON.parse(JSON.stringify({status: 200, message: 'success',})); 
+  return JSON.parse(JSON.stringify({ status: 200, message: 'success', }));
 }
 
-export const reportUser = async (receiverId: string , reason:string ) => {
+export const reportUser = async (receiverId: string, reason: string) => {
   try {
-     const user = await getUser()
+    const user = await getUser()
     if (!user || !user.id) {
       return { status: 401, message: 'Unauthorized' }
     }
@@ -61,10 +61,10 @@ export const reportUser = async (receiverId: string , reason:string ) => {
   }
 }
 
-export const reportBug = async (formData:FormData) => {
+export const reportBug = async (formData: FormData) => {
   try {
 
-    const cookieStore = await cookies();  
+    const cookieStore = await cookies();
     const ip = cookieStore.get('user-ip')?.value || 'anonymous';
     const rl = await rateLimit({
       key: ip,
@@ -74,25 +74,25 @@ export const reportBug = async (formData:FormData) => {
 
     if (!rl.success) {
       console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
-      return JSON.parse(JSON.stringify({status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.`}));
+      return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
     }
 
     const description = formData.get('description') as string;
     const title = formData.get('titel') as string;
-      const user = await getUser()
+    const user = await getUser()
     if (!user || !user.id || !title || !description) {
       return { status: 401, message: 'Unauthorized' }
     }
 
     const reports = await prisma.bug.create({
-      data:{
-        titel:title,
-        description:description,
-        userId:user.id
+      data: {
+        titel: title,
+        description: description,
+        userId: user.id
       }
     });
     if (reports) {
-      return JSON.parse(JSON.stringify({ status: 200, message: "User reported successfully" }));
+      return JSON.parse(JSON.stringify({ status: 200, message: "Bug reported successfully" }));
     } else {
       return JSON.parse(JSON.stringify({ status: 300 }));
     }

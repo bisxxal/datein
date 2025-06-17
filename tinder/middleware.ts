@@ -11,7 +11,7 @@ export default withAuth(
     callbacks: {
       authorized: ({ token }) => !!token, // Only allow if user is logged in
     },
-     pages: {
+    pages: {
       signIn: "/sign-in", // redirect here if not authenticated
     },
   }
@@ -19,9 +19,9 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    // "/match/:path*",
-    "/profile/:path*",  
-    "/settings/:path*", 
+    "/match/:path*",
+    "/profile/:path*",
+    "/settings/:path*",
     "/chat/:path*",
     "/profile/editprofile"
   ],

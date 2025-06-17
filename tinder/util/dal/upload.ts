@@ -8,7 +8,7 @@ const imagekit = new ImageKit({
   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT!,
 })
 
-export async function uploadFile(formData:FormData ,userId:string) {
+export async function uploadFile(formData: FormData, userId: string) {
   const files = formData.getAll('photos') as File[];
   const urls: string[] = []
 
@@ -18,19 +18,19 @@ export async function uploadFile(formData:FormData ,userId:string) {
 
     const uploaded = await imagekit.upload({
       file: buffer,
-      fileName: userId+'-'  + file.name,
+      fileName: userId + '-' + file.name,
     })
 
     urls.push(uploaded.url)
-   
 
-  const res = await prisma.photo.createMany({
-     data: {
+
+    const res = await prisma.photo.createMany({
+      data: {
         url: uploaded.url,
         userId: userId,
       },
-  }); 
+    });
 
-//  console.log(res, 'files uploadd function');
-}
+    //  console.log(res, 'files uploadd function');
+  }
 }

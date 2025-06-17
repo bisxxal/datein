@@ -2,15 +2,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // typescript: {
+  //   ignoreBuildErrors: true,
+  // },
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
   experimental: {
     serverActions: {
-      bodySizeLimit: '10mb', // ⬅️ Add this line here
+      bodySizeLimit: '10mb',  
     },
   },
   images: {

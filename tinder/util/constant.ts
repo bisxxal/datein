@@ -2,8 +2,8 @@ export interface TinderCardsProps {
   person: {
     name: string;
     image: string;
-    id:string,
-    profile:{
+    id: string,
+    profile: {
       job: string;
       batch: string;
       location: string;
@@ -12,16 +12,16 @@ export interface TinderCardsProps {
       height: string;
       bio: string;
       age: number;
-           languages: { name: string }[];
+      languages: { name: string }[];
       keywords: { name: string }[];
     };
     photos: {
-      url:string
+      url: string
     }[];
   }[];
 
-  user:{
-    profile:{
+  user: {
+    profile: {
       keywords: {
         name: string
       }[];
@@ -31,12 +31,12 @@ export interface TinderCardsProps {
   // onRefetch: () => Promise<any>; 
 }
 
-export  interface PopUpProps {
+export interface PopUpProps {
   current: {
     id: string;
     verified: boolean;
     profile: {
-     job: string;
+      job: string;
       batch: string;
       location: string;
       livingIn: string;
@@ -44,13 +44,13 @@ export  interface PopUpProps {
       height: number;
       bio: string;
       age: number;
-      languages:string,
-       keywords: { name: string }[];
+      languages: string,
+      keywords: { name: string }[];
     },
     name: string;
   }
-   
-  user:{
+
+  user: {
     profile: {
       keywords: { name: string }[];
       lookingFor: string;
@@ -59,6 +59,6 @@ export  interface PopUpProps {
 }
 
 export interface PopUpPropsExtended extends PopUpProps {
-displayed: boolean;
+  displayed: boolean;
   setDisplayed: (displayed: boolean) => void;
 }

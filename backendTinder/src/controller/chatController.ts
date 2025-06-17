@@ -2,19 +2,19 @@ import { Request, Response } from 'express';
 import prisma from '../db/prismaClient.js';
 import { getIO, getReceiverSocketId } from '../socket.js';
 
-export const sendMessage:any =  async (req: Request, res: Response) => {
+export const sendMessage: any = async (req: Request, res: Response) => {
   const { senderId, chatId, content } = req.body;
   if (!senderId || !chatId || !content) {
     return res.status(400).json({ error: 'senderId, chatId, and content are required' });
   }
 
   try {
-      const participant = await prisma.chatParticipant.findFirst({
-          where: {
-            userId: senderId,
-            chatId,
-          },
-        })
+    const participant = await prisma.chatParticipant.findFirst({
+      where: {
+        userId: senderId,
+        chatId,
+      },
+    })
     if (!participant) {
       return res.status(403).json({ error: 'User is not a participant in this chat' });
     }
@@ -33,7 +33,7 @@ export const sendMessage:any =  async (req: Request, res: Response) => {
       },
     });
 
-      const io = getIO(); 
+    const io = getIO();
     io.to(chatId).emit('new_message', message);
 
     return res.status(201).json({ message });
@@ -42,9 +42,9 @@ export const sendMessage:any =  async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
-export const getMessages:any = async (req: Request, res: Response) => {
+export const getMessages: any = async (req: Request, res: Response) => {
   const { chatId } = req.query;
-const userId = req.query.userId;
+  const userId = req.query.userId;
   if (!chatId || typeof chatId !== 'string' || userId === undefined || typeof userId !== 'string') {
 
     return res.status(400).json({ error: 'chatId is required and must be a string' });
@@ -66,15 +66,15 @@ const userId = req.query.userId;
     });
 
     const user = await prisma.chatParticipant.findFirst({
-      where:{
+      where: {
         chatId,
-        NOT:{
-          userId:userId as string, 
+        NOT: {
+          userId: userId as string,
         }
       },
-      select:{
-        user:{
-          select:{
+      select: {
+        user: {
+          select: {
             name: true,
             id: true,
           }
@@ -82,7 +82,7 @@ const userId = req.query.userId;
       }
     })
     getReceiverSocketId(user?.user.id as string);
-    return res.status(200).json({ messages ,user});
+    return res.status(200).json({ messages, user });
   } catch (error) {
     console.error('Error fetching messages:', error);
     return res.status(500).json({ error: 'Internal server error' });

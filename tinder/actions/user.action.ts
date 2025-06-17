@@ -7,120 +7,119 @@ import { uploadFile } from "@/util/dal/upload";
 import { getServerSession } from "next-auth";
 
 export async function getUser() {
-    try {
-       const session = await getServerSession(authOptions)
-        if (!session || !session.user) {
-            throw new Error('User not authenticated');
-        }
-        const user = session.user;
-        return user;
-    } catch (error) {
-        return JSON.parse(JSON.stringify({status: 404, message: 'Error while creating profile' })); 
+  try {
+    const session = await getServerSession(authOptions)
+    if (!session || !session.user) {
+      throw new Error('User not authenticated');
     }
+    const user = session.user;
+    return user;
+  } catch (error) {
+    return JSON.parse(JSON.stringify({ status: 404, message: 'Error while creating profile' }));
+  }
 }
 
 export async function getUserProfilePic() {
-    try {
-        const user = await getUser();
-        if (!user || !user.id) {
-            return JSON.parse(JSON.stringify({status: 404, message: 'Error while fetching profile picture' })); 
-        }
-        const profile = await prisma.user.findUnique({
-            where: { id: user.id },
-            select:{
-              name:true,
-              verified:true,
-               photos:{
-                    select:{
-                      url:true
-                    }
-                  },
-              profile:{
-                select:{
-                  age:true,
-                }
-              }
-            }
-
-        }) 
-        return JSON.parse(JSON.stringify(profile));
-    } catch (error) {
-        console.error('Error fetching profile :', error);
-        return JSON.parse(JSON.stringify({status: 500, message: 'Error while fetching profile picture' })); 
+  try {
+    const user = await getUser();
+    if (!user || !user.id) {
+      return JSON.parse(JSON.stringify({ status: 404, message: 'Error while fetching profile picture' }));
     }
+    const profile = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: {
+        name: true,
+        verified: true,
+        photos: {
+          select: {
+            url: true
+          }
+        },
+        profile: {
+          select: {
+            age: true,
+          }
+        }
+      }
+
+    })
+    return JSON.parse(JSON.stringify(profile));
+  } catch (error) {
+    console.error('Error fetching profile :', error);
+    return JSON.parse(JSON.stringify({ status: 500, message: 'Error while fetching profile picture' }));
+  }
 }
 
 export async function getUserProfile() {
-     try {
-        const user = await getUser();
-        if (!user || !user.id) {
-            return JSON.parse(JSON.stringify({status: 404, message: 'Error while fetching profile picture' })); 
-        }
-        const profile = await prisma.user.findUnique({
-          where:{id:user.id},
-          select:{
-            name:true,
-            verified:true,
-            photos: { select: { url: true ,id:true} },
-            profile:{
-               select:{
-                keywords: {select: { name: true }},
-                bio: true,
-                age: true,
-                lookingFor: true,
-                gender: true,
-                height: true,
-                batch: true,
-                job: true,
-                livingIn: true,
-                languages: true,
-            }
-            }
-          }
-        })
-        return JSON.parse(JSON.stringify(profile));
-    } catch (error) {
-        console.error('Error fetching profile picture:', error);
-        return JSON.parse(JSON.stringify({status: 404, message: 'Error while fetching profile picture' })); 
+  try {
+    const user = await getUser();
+    if (!user || !user.id) {
+      return JSON.parse(JSON.stringify({ status: 404, message: 'Error while fetching profile picture' }));
     }
+    const profile = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: {
+        name: true,
+        verified: true,
+        photos: { select: { url: true, id: true } },
+        profile: {
+          select: {
+            keywords: { select: { name: true } },
+            bio: true,
+            age: true,
+            lookingFor: true,
+            gender: true,
+            height: true,
+            batch: true,
+            job: true,
+            livingIn: true,
+            languages: true,
+          }
+        }
+      }
+    })
+    return JSON.parse(JSON.stringify(profile));
+  } catch (error) {
+    console.error('Error fetching profile picture:', error);
+    return JSON.parse(JSON.stringify({ status: 404, message: 'Error while fetching profile picture' }));
+  }
 }
 
-export async function updateProfile(data:TCreateProfileForm) {
-    try {
-        const user = await getUser();
-        if (!user || !user.id) {
-            return JSON.parse(JSON.stringify({status: 404, message: 'Unauth User' })); 
-        }
-        const res = await prisma.user.update({
-            where:{id:user.id!},
-            data:{
-                name: data.name,
-                profile: {
-                    update: {
-                        bio: data.bio ,
-                        age: data.age,
-                        lookingFor: data.relationshipGoals,
-                        batch: data.batch,
-                        gender: data.gender,
-                        height: Number(data?.height),
-                        languages: data.languages ,
-                        job: data.job,
-                        livingIn: data.livingIn,
-                    }
-                }
-            }
-        })
-        if(!res) {
-            return JSON.parse(JSON.stringify({status: 404, message: 'Error while creating profile' })); 
-        }
-        // console.log(res)
-      return JSON.parse(JSON.stringify({status: 200, message: 'Profile Updated successfully' }));    
-    } catch (error) {
-        console.error('Error creating profile:', error);
-        return JSON.parse(JSON.stringify({status: 404, message: 'Error while Update profile' }));    
+export async function updateProfile(data: TCreateProfileForm) {
+  try {
+    const user = await getUser();
+    if (!user || !user.id) {
+      return JSON.parse(JSON.stringify({ status: 404, message: 'Unauth User' }));
     }
+    const res = await prisma.user.update({
+      where: { id: user.id! },
+      data: {
+        name: data.name,
+        profile: {
+          update: {
+            bio: data.bio,
+            age: data.age,
+            lookingFor: data.relationshipGoals,
+            batch: data.batch,
+            gender: data.gender,
+            height: Number(data?.height),
+            languages: data.languages,
+            job: data.job,
+            livingIn: data.livingIn,
+          }
+        }
+      }
+    })
+    if (!res) {
+      return JSON.parse(JSON.stringify({ status: 404, message: 'Error while creating profile' }));
+    }
+    return JSON.parse(JSON.stringify({ status: 200, message: 'Profile Updated successfully' }));
+  } catch (error) {
+    console.error('Error creating profile:', error);
+    return JSON.parse(JSON.stringify({ status: 404, message: 'Error while Update profile' }));
+  }
 }
- 
+
 export async function addInterests(interests: string[]) {
   try {
     const user = await getUser()
@@ -131,7 +130,7 @@ export async function addInterests(interests: string[]) {
       interests.map((name) =>
         prisma.keyword.upsert({
           where: { name },
-          update: {}, 
+          update: {},
           create: { name },
         })
       )
@@ -161,30 +160,30 @@ export async function addInterests(interests: string[]) {
 
 
 
-export async function savePhotoUrlsToDB( formData:FormData) {
+export async function savePhotoUrlsToDB(formData: FormData) {
   const user = await getUser();
-  if(!user){
-    return JSON.parse(JSON.stringify({status: 300, message: 'unauth user' }));    
+  if (!user) {
+    return JSON.parse(JSON.stringify({ status: 300, message: 'unauth user' }));
   }
-  uploadFile(formData ,user.id)
-  
+  await uploadFile(formData, user.id)
+
 }
 
-export async function tryCatchMade (fn: () => Promise<any>) {
-    try {
-        return await fn();
-    } catch (error) {
-         return JSON.parse(JSON.stringify({status: 404, message: 'Error while creating profile' })); 
-    }
+export async function tryCatchMade(fn: () => Promise<any>) {
+  try {
+    return await fn();
+  } catch (error) {
+    return JSON.parse(JSON.stringify({ status: 404, message: 'Error while creating profile' }));
+  }
 }
- 
- 
+
+
 
 export const likeUser = async (receiverId: string) => {
-    const user = await getUser()
-    if (!user || !user.id) {
-      return { status: 401, message: 'Unauthorized' }
-    }
+  const user = await getUser()
+  if (!user || !user.id) {
+    return { status: 401, message: 'Unauthorized' }
+  }
   const giverId = user.id;
   if (!giverId) throw new Error('Unauthorized');
   if (giverId === receiverId) throw new Error("You can't like yourself.");
@@ -259,7 +258,7 @@ export const likeUser = async (receiverId: string) => {
 
   return { message: 'User liked', status: 'liked' };
 };
- 
+
 export const deletePhotos = async (ids: string[]) => {
   try {
     if (!ids || ids.length === 0) {
@@ -283,4 +282,4 @@ export const deletePhotos = async (ids: string[]) => {
     return JSON.parse(JSON.stringify({ status: 500, message: "Server error", error }));
   }
 };
- 
+

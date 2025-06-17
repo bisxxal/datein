@@ -68,7 +68,11 @@ async function main() {
         name: `${faker.person.firstName()}_${i}`,
         email: faker.internet.email(),
         image: samplePhotos[i],
-
+        photos: {
+            create: faker.helpers
+              .arrayElements(samplePhotos, 4)
+              .map(url => ({ url })),
+          },
         profile: {
           create: {
             bio: faker.lorem.sentence(),
@@ -81,15 +85,8 @@ async function main() {
             job: faker.person.jobTitle(),
             livingIn: faker.location.city(),
             batch: faker.helpers.arrayElement(['btech', 'mca', 'bba', 'bca']),
-
             keywords: {
               connect: keywordRecords.map(k => ({ id: k.id })),
-            },
-
-            photos: {
-              create: faker.helpers
-                .arrayElements(samplePhotos, 4)
-                .map(url => ({ url })),
             },
           },
         },
