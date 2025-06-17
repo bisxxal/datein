@@ -14,7 +14,6 @@ export default async function RootLayout({
   }
   return (
     <div className=" relative ">
-      {/* <UserNavbar/> */}
       {children}
       <BottomBar />
     </div>

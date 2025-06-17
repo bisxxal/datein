@@ -50,7 +50,7 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
                             <Link
                                 href={`/chat/${item.chatId}`}
                                 key={i}
-                                className='   glass rounded-3xl center mb-3 shadow-lg border-black/10 p-2 !justify-start '
+                                className='w-[90%]  mx-auto glass rounded-3xl center mb-3 shadow-lg border-black/10 p-2 !justify-start '
                             >
                                 {item.chat.participants
                                     .filter((participant) => participant.user.id !== userId)

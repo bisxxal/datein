@@ -1,5 +1,5 @@
 import { getMatches } from '@/actions/chart';
-import UserNavbar from '../../../components/UserNavbar';
+import UserNavbar from '../../../components/Navbar';
 import MatchesList from '../_components/matchesList';
 import dynamic from 'next/dynamic';
 import LoadingCom from '@/components/ui/loading';

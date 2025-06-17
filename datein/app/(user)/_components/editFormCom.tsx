@@ -56,7 +56,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                 name: name || "",
                 bio: data?.bio || "",
                 age: data?.age || undefined,
-                batch: data?.batch?.toLowerCase() || "bca",
+                batch: data?.batch  || "bca",
                 gender: data?.gender || "male",
                 height: data?.height || undefined,
                 languages: data?.languages || "",

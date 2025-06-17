@@ -1,6 +1,7 @@
 import React from 'react'
 import TinderCardsCom from '@/components/tinderCard';
-import UserNavbar from '../../../components/UserNavbar';
+import UserNavbar from '@/components/Navbar';
+
 
 const MatchPage = () => {
 

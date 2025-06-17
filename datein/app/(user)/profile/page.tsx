@@ -7,7 +7,7 @@ import { IoShareOutline } from "react-icons/io5";
 import BackgroundPatten from "@/components/ui/backgroundPatten";
 import { RiVerifiedBadgeLine } from "react-icons/ri";
 import GlareHover from "@/components/ui/glassHover";
-import UserNavbar from "../../../components/UserNavbar";
+import UserNavbar from "../../../components/Navbar";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 
