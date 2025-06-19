@@ -6,19 +6,19 @@ import { cookies } from "next/headers";
 import { rateLimit } from "@/util/rateLimit";
 
 export async function getVerified(formData: FormData) {
-  const cookieStore = await cookies();
-  const ip = cookieStore.get('user-ip')?.value || 'anonymous';
+  // const cookieStore = await cookies();
+  // const ip = cookieStore.get('user-ip')?.value || 'anonymous';
 
-  const rl = await rateLimit({
-    key: ip,
-    limit: 3,
-    windowInSeconds: 60,
-  });
+  // const rl = await rateLimit({
+  //   key: ip,
+  //   limit: 3,
+  //   windowInSeconds: 60,
+  // });
 
-  if (!rl.success) {
-    console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
-    return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
-  }
+  // if (!rl.success) {
+  //   console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
+  //   return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
+  // }
   const user = await getUser();
   if (!user) {
     return JSON.parse(JSON.stringify({ status: 300, message: 'unauth user' }));

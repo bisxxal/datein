@@ -29,7 +29,6 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
     },
 
     onError: (error) => {
-      console.error('Upload failed', error);
     },
   });
 
@@ -77,7 +76,6 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
     },
 
     onError: (error) => {
-      console.error('Upload failed', error);
     },
   });
   const handelDelete = async () => {

@@ -33,7 +33,6 @@ export const sendMessage = async (req, res) => {
         return res.status(201).json({ message });
     }
     catch (error) {
-        console.error('Error sending message:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 };
@@ -43,7 +42,6 @@ export const getMessages = async (req, res) => {
     if (!chatId || typeof chatId !== 'string' || userId === undefined || typeof userId !== 'string') {
         return res.status(400).json({ error: 'chatId is required and must be a string' });
     }
-    // console.log('fetching message agin')
     try {
         const messages = await prisma.message.findMany({
             where: { chatId },
@@ -78,7 +76,6 @@ export const getMessages = async (req, res) => {
         return res.status(200).json({ messages, user });
     }
     catch (error) {
-        console.error('Error fetching messages:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 };

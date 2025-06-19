@@ -22,20 +22,19 @@ const PopUp = dynamic(() => import('./popUpCard'), {
   loading: () => <div className="text-white">  <FiLoader className='text-lg mt-5 animate-spin ' /> </div>,
   ssr: false,
 });
-
-
 const TinderCardsCom = () => {
-
+  const [currentPage, setCurrentPage] = useState(1);
   const { isLoading, data } = useQuery({
-    queryKey: ['fetchUsers'],
-    queryFn: async () => await AllPublicUsers(),
+    queryKey: ['fetchUsers', currentPage],
+    queryFn: async () => {
+      return await AllPublicUsers(currentPage);
+    },
     staleTime: 60000,
   });
 
   const person = data?.shuffled || [];
   const user = data?.user;
-
-  // console.log("person is",person , user)
+  const [isPaginating, setIsPaginating] = useState(false);
   const { onlineUser }: { onlineUser: string[] } = useSocket({ userId: user?.id });
   const [shuffledPerson, setShuffledPerson] = useState<any[]>([]);
   const [index, setIndex] = useState(0);
@@ -58,11 +57,9 @@ const TinderCardsCom = () => {
   const handleSwipe = async (dir: "left" | "right") => {
     if (!current || index < 0) return;
     setDirection(dir);
-    if (dir === "left") {
-      setShowPing(true);
-    }
 
     if (dir === "left") {
+      setShowPing(true);
       const res = await likeUser(current.id);
       setShowPing(false);
       if (res?.status === "matched") {
@@ -94,22 +91,43 @@ const TinderCardsCom = () => {
     if (direction === "right") return 700;
     return 0;
   };
-
+ 
+  const totalPages = Math.ceil((data?.total || 0) / 15);
+ 
   useEffect(() => {
-    if (index < 0 && person.length > 0) {
-      const timeout = setTimeout(() => {
-        const reshuffled = shuffleArray(person);
-        setShuffledPerson(reshuffled);
-        setIndex(reshuffled.length - 1);
-      }, 500);
-      return () => clearTimeout(timeout);
+    const shouldPaginate = index < 0 && person.length > 0 && currentPage < totalPages;
+    const shouldReshuffle = index < 0 && person.length > 0 && currentPage >= totalPages;
+
+    if (shouldPaginate && !isPaginating) {
+      // console.log("➡️ Fetching next page...");
+      setIsPaginating(true);  
+      setCurrentPage((prev) => prev + 1);
     }
-  }, [index, person]);
+
+    if (shouldReshuffle && !isPaginating) {
+      console.log("🔄 Reshuffling cards...");
+      setIsPaginating(true);  
+      console.log("person in n" , person , )
+      // const timeout = setTimeout(() => {
+      //   const reshuffled = shuffleArray(person);
+      //   setShuffledPerson(reshuffled);
+      //   setIndex(reshuffled.length - 1);
+      //   setIsPaginating(false);
+      // }, 500);
+      // return () => clearTimeout(timeout);
+      setCurrentPage(1);
+    }
+
+    // Reset pagination guard once new data arrives
+    if (index >= 0 && isPaginating) {
+      setIsPaginating(false);
+    }
+  }, [index, person, currentPage, totalPages, isPaginating]);
 
   return (
     <div className="flex flex-col relative items-center mt-7 max-md:mt-2 space-y-6 w-full">
 
-      <div className=" w-[370px] absolute rounded-xl top-4 bg-[#00000042] h-[80vh] max-md:w-[90%]"></div>
+    { !isLoading && <div className=" w-[380px] absolute rounded-xl top-4 bg-[#00000042] h-[80vh] max-md:w-[90%]"></div>}
 
       {isLoading && <LoadingCom boxes={1} width='w-[500px] !rounded-3xl h-[80vh] max-md:w-[99%]' margin=' !rounded-xl' />}
 
@@ -117,10 +135,10 @@ const TinderCardsCom = () => {
         {current && !isLoading ? (
           <>
             <motion.div
-              key={current.id}
-              initial={{ x: 0, opacity: 1 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{
+                key={current.id}
+                initial={{ x: 0, opacity: 1 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{
                 x: getExitX(),
                 opacity: 0,
                 scale: 0.95,
@@ -190,7 +208,7 @@ const TinderCardsCom = () => {
               )}
             </AnimatePresence>
           </>
-        ) : (!isLoading && !current &&
+        ) : (!isLoading &&  
           <motion.div
             key="empty"
             initial={{ opacity: 0 }}
@@ -198,7 +216,6 @@ const TinderCardsCom = () => {
             exit={{ opacity: 0 }}
             className="text-center  max-md:w-[95%] w-[400px] h-[80vh] text-gray-500 text-lg font-medium"
           >
-            {/* <p>Shuffling new cards... 🌀</p> */}
             <LookingFor text={'Looking for '} />
           </motion.div>
         )}

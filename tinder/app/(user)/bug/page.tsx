@@ -25,7 +25,6 @@ const BugPage = () => {
 
     onError: (error) => {
       toast.error(error.message || 'Failed to report bug');
-      console.error('Upload failed', error);
     },
   });
   return (
@@ -37,10 +36,10 @@ const BugPage = () => {
 
         {!show ? <form action={handleSubmit} className='w-full flex flex-col items-center justify-center mt-10'>
           <div className='flex flex-col !justify-start w-[40%]  max-md:w-[85%] '>
-            <p className=' !text-gray-800 text-xl'>Title</p>
+            <p className=' !text-gray-800  max-md:text-base text-xl'>Title</p>
             <input name='titel' required className='textbase font-semibold  border-2 outline-none bg-white/70 text-xl px-5 max-md:px-3 my-3    w-full mx-auto max-md:text-base rounded-3xl h-14 max-md:h-10' type="text" />
 
-            <p className='!text-gray-800 text-xl'>Description</p>
+            <p className='!text-gray-800  max-md:text-base text-xl'>Description</p>
             <textarea rows={1212} name='description' required className='  border-black/20  border-2 outline-none bg-white/70 text-xl px-5 py-1 max-md:px-3 my-3  w-full mx-auto max-md:text-base rounded-3xl max-md:h-10 h-14 ' />
 
           </div>

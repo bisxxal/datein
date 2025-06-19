@@ -79,7 +79,6 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
 
         onError: (error) => {
             toast.error('Failed to update Profile ')
-            console.error('Upload failed', error);
         },
     });
     const onSubmit = (data: TCreateProfileForm) => {

@@ -37,7 +37,6 @@ const Reportpage = ( ) => {
 
   onError: (error) => {
     toast.error(  'Failed to report user');
-    console.error('Upload failed', error);
   },
 });
 

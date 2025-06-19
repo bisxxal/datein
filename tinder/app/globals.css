@@ -63,7 +63,7 @@
   @apply bg-gradient-to-br text-white from-[#2db02a] font-medium to-[#004c12];
 }
 .buttonred{
-  @apply bg-gradient-to-br text-white from-[#de2626] font-medium to-[#840404];
+  @apply bg-gradient-to-b shadow-xl text-white from-[#de2626] font-medium to-[#840404];
 }
 .buttonpink{
   @apply bg-gradient-to-b text-white from-[#fc3dcfba] font-medium to-[#ff71d73d];

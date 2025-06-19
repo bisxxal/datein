@@ -8,13 +8,12 @@ const ReportPage = async () => {
   const data = await getReportedUsers()
   return (
     <div>
-      <h1 className='text-2xl font-bold'>Reported Users</h1>
-      <div className='flex flex-col  gap-4'>
+      <h1 className='text-2xl text-center textbase my-10 font-bold'>Reported Users ({data.length})</h1>
+      <div className='flex flex-col gap-4'>
         {data.map((user: any) => (
-          <div key={user.id} className='p-4 w-[70%] max-md:w-[90%] mx-auto glass px-6 center !justify-between rounded-lg shadow-md'>
+          <div key={user.id} className='p-4 w-[70%] max-md:w-[90%] mx-auto border border-black/20 shadow-xl px-6 center !justify-between rounded-3xl shadow-md'>
             <div>
-              <h2 className='text-xl font-semibold'>{user.reportedId}</h2>
-              <p className='text-red-600 tex-lg'>Reason: {user.reason}</p>
+              <p className='text-red-600 font-semibold text-xl tex-lg'>Reason: {user.reason}</p>
               <p className='text-gray-500'>Reported by: {user.reporter.name} ({user.reporter.email})</p>
               <p className='text-gray-500'>Reported on: {new Date(user?.createdAt).toLocaleDateString()}</p>
             </div>

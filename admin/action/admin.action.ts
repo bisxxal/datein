@@ -24,12 +24,17 @@ export const getUser = async (userId: string) => {
                         url: true
                     }
                 },
+                profile:{
+                    select:{
+                        age: true,
+                    batch: true
+                    }
+                }
 
             }
         });
         return data;
     } catch (error) {
-        console.error("Error fetching user verification:", error);
 
     }
 }
@@ -62,7 +67,6 @@ export const verifyUser = async (userId: string, id: string) => {
         }
         return { status: 200, message: "User verified successfully", data: verified };
     } catch (error) {
-        console.error("Error verifying user:", error);
 
     }
 }
@@ -83,7 +87,6 @@ export const deleteVerification = async (id: string) => {
         }
         return { status: 200, message: "Verification deleted successfully" };
     } catch (error) {
-        console.error("Error deleting verification:", error);
 
     }
 }
@@ -118,5 +121,22 @@ export const getBugReports = async () => {
         return JSON.parse(JSON.stringify(res));
     } catch (error) {
         return JSON.parse(JSON.stringify({ status: 500, message: 'Error while fetching reported users' }));
+    }
+}
+
+export const fixBug = async (id: string) => {
+    try {
+        const res = await prisma.bug.delete({
+            where: {
+                id: id
+            }
+        });
+        if (!res) {
+            return JSON.parse(JSON.stringify({ status: 500, message: 'Error while fixing bug' }));
+        }
+        return JSON.parse(JSON.stringify({ status: 200, message: 'Bug fixed successfully' }));
+    } catch (error) {
+        return JSON.parse(JSON.stringify({ status: 500, message: 'Error while fixing bug' }));
+        
     }
 }

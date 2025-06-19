@@ -30,7 +30,5 @@ export async function uploadFile(formData: FormData, userId: string) {
         userId: userId,
       },
     });
-
-    //  console.log(res, 'files uploadd function');
   }
 }

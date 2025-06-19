@@ -10,7 +10,6 @@ export const authCheck = async () => {
           }
     }
     catch (error) {
-        // console.error('Error in authCheck:', error);
         return { status: 500, message: 'Internal Server Error' };
     }
 }

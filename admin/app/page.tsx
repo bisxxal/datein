@@ -7,8 +7,8 @@ import { IoSettingsOutline } from "react-icons/io5";
  
 export default function Home() {
   return (
-  <div>
-   
+  <div className="  flex flex-col items-center justify-center min-h-[90vh] p-4 ">
+      wellcome to the admin page
   </div>
   );
 }

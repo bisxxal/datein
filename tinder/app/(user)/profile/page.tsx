@@ -37,7 +37,7 @@ const UserProfile = async () => {
             playOnce={false}
             className="bg-transparent relative overflow-hidden !w-[300px] !border-none shadow-xl !rounded-3xl !h-[400px]">
             <div className=" rounded-2xl absolute top-5 shadow-xl left-5 w-fit h-fit px-4 py-3 backdrop-blur-[4px] bg-gradient-to-b from-black/20 to-transparent  f center">
-              <p className="font-bold text-xl text-white center gap-2 ">{user?.name} , {user?.profile?.age} {user?.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>}  </p>
+              <p className="font-bold text-lg  text-white center gap-2 ">{user?.name} , {user?.profile?.age} {user?.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>}  </p>
             </div>
             <Image loading="lazy" className=" w-full h-full object-cover border border-black/10   " src={user?.photos[0]?.url} height={300} width={300} alt="" />
           </GlareHover>

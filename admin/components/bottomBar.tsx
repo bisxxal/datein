@@ -8,7 +8,7 @@ const BottomBar = () => {
   const router = useRouter()
 
   const items = [
-    { icon: <RiHome2Line className=" text-black/50" size={18} />, label: 'Homs', onClick: () => router.push(`/home`) },
+    { icon: <RiHome2Line className=" text-black/50" size={18} />, label: 'Home', onClick: () => router.push(`/`) },
     { icon: <MdOutlineVerified className=" text-black/50" size={18} />, label: 'Verification', onClick: () => router.push(`/verification`) },
     { icon: <MdReport className=" text-black/50" size={18} />, label: 'Report', onClick: () => router.push(`/report`) },
     { icon: <IoBugSharp className=" text-black/50" size={18} />, label: 'Bug', onClick: () => router.push(`/bug`) },

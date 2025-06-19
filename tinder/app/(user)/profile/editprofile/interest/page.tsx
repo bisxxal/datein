@@ -46,7 +46,6 @@ const Intrestspage = () => {
         toast.error('Failed to submit interests.')
       }
     } catch (err) {
-      console.error(err)
       toast.error('Failed to submit interests.')
     } finally {
       setSubmitting(false)

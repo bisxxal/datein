@@ -45,7 +45,7 @@ export async function getUserProfilePic() {
     })
     return JSON.parse(JSON.stringify(profile));
   } catch (error) {
-    console.error('Error fetching profile :', error);
+
     return JSON.parse(JSON.stringify({ status: 500, message: 'Error while fetching profile picture' }));
   }
 }
@@ -80,7 +80,6 @@ export async function getUserProfile() {
     })
     return JSON.parse(JSON.stringify(profile));
   } catch (error) {
-    console.error('Error fetching profile picture:', error);
     return JSON.parse(JSON.stringify({ status: 404, message: 'Error while fetching profile picture' }));
   }
 }
@@ -115,7 +114,6 @@ export async function updateProfile(data: TCreateProfileForm) {
     }
     return JSON.parse(JSON.stringify({ status: 200, message: 'Profile Updated successfully' }));
   } catch (error) {
-    console.error('Error creating profile:', error);
     return JSON.parse(JSON.stringify({ status: 404, message: 'Error while Update profile' }));
   }
 }
@@ -142,7 +140,7 @@ export async function addInterests(interests: string[]) {
       data: {
         keywords: {
           set: [], // optional: remove old keywords first
-          connect: upserts.map((kw) => ({ id: kw.id })),
+          connect: upserts.map((kw:{id:string}) => ({ id: kw.id })),
         },
       },
     })
@@ -153,7 +151,6 @@ export async function addInterests(interests: string[]) {
       data: updated,
     }
   } catch (error) {
-    console.error('Error in addInterests:', error)
     return { status: 500, message: 'Server error updating interests' }
   }
 }

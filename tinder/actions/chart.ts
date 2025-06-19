@@ -153,3 +153,49 @@ export const deleteAllMessages = async (chatId: string) => {
 
     }
 }
+
+// To be implemented for group chat creation
+// async function createGroupChat(  userIds: string,  ) {
+//   const chat = await prisma.chat.create({
+//     data: { 
+//     participants:{
+//         user:   { connect: { id: userIds } },
+//     }
+//     },
+//     include: {
+//       participants: true,
+//     },
+//   });
+
+//   return chat;
+// }
+// async function addUserToGroupChat(chatId: string, userId: string) {
+//   try {
+//     // First, check if user is already a participant
+//     const existing = await prisma.chatParticipant.findUnique({
+//       where: {
+//         userId_chatId: {
+//           userId,
+//           chatId,
+//         },
+//       },
+//     });
+
+//     if (existing) {
+//       throw new Error('User is already in the group chat');
+//     }
+
+//     const participant = await prisma.chatParticipant.create({
+//       data: {
+//         user: { connect: { id: userId } },
+//         chat: { connect: { id: chatId } },
+//         role: 'MEMBER',
+//       },
+//     });
+
+//     return participant;
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// }

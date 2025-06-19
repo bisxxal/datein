@@ -43,7 +43,7 @@ const VerificationForm = ({ userId, id }: { userId: string, id: string }) => {
     <div className=' flex items-center gap-4'>
       <Link className=' base2 text-4xl rounded-full glass p-3 textbase' href={`/view/${userId}`}><IoEyeOutline /></Link>
       <div className='flex items-center gap-4'>
-        <button onClick={() => handelSumbit()} className=' buttonbg2 p-3 rounded-full shadow-xl px-7' type='submit'>Verified</button>
+        <button onClick={() => handelSumbit()} className=' buttonbg p-3 rounded-full shadow-xl px-7' type='submit'>Verified</button>
         <button onClick={() => deleteVerificationSumbit()} className=' buttonred p-3 rounded-full shadow-xl px-7' type='submit'>Delete </button>
       </div>
     </div>

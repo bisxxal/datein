@@ -1,5 +1,5 @@
 import React from 'react'
-import TinderCardsCom from '@/components/tinderCard';
+import TinderCardsCom from '@/components/matchCard';
 import UserNavbar from '@/components/Navbar';
 
 
