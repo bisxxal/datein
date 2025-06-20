@@ -25,6 +25,10 @@ export const initSocket = (server) => {
             socket.join(chatId);
             // console.log(`User joined room: ${chatId}`);
         });
+        // Example Node.js socket code
+        socket.on('message_deleted', ({ chatId, messageIds }) => {
+            socket.to(chatId).emit('message_deleted', { chatId, messageIds });
+        });
         socket.on('disconnect', () => {
             // console.log('User disconnected:', socket.id);
             delete userSocketMap[userId];

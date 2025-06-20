@@ -1,5 +1,4 @@
 'use server'
-
 import prisma from "@/lib/prisma";
 import { getUser } from "./user.action";
 import { cookies } from "next/headers";
@@ -37,13 +36,13 @@ export async function getVerified(formData: FormData) {
   return JSON.parse(JSON.stringify({ status: 200, message: 'success', }));
 }
 
-export const reportUser = async (receiverId: string, reason: string) => {
+export const reportUser = async (receiverId: string, reason: string , giverId :string , chatId: string ) => {
   try {
+    // console.log(receiverId, giverId, chatId, 'reportUser');
     const user = await getUser()
     if (!user || !user.id) {
       return { status: 401, message: 'Unauthorized' }
     }
-    // console.log(receiverId)
     const res = await prisma.reportedUsers.create({
       data: {
         reporterId: user.id,
@@ -51,12 +50,50 @@ export const reportUser = async (receiverId: string, reason: string) => {
         reportedId: receiverId,
       },
     });
+    const existingLike = await prisma.like.findFirst({
+        where: {
+          // giverId_receiverId: {
+          //   giverId,
+          //   receiverId,
+          // },
+          OR:[
+            { giverId, receiverId },
+            { giverId: receiverId, receiverId: giverId }
+          ]
+        },
+      });
+      if (existingLike) {
+        console.log('lalalal')
+          await prisma.like.delete({
+             where: {
+                  id: existingLike.id,
+                },
+          });
+        }
+    if(chatId!== undefined && res){
+      const isChat = await prisma.chat.findUnique({
+        where: {
+          id: chatId,
+        },
+      });
+      if (!isChat) {
+        return JSON.parse(JSON.stringify({ status: 200, message: "User reported successfully" }));
+      }
+      const res = await prisma.chat.delete({
+        where: {
+          id: chatId,
+        },
+      });
+      console.log('Chat deleted successfully' , res);
+      return JSON.parse(JSON.stringify({ status: 200, message: "User reported successfully" }));
+    }
     if (res) {
       return JSON.parse(JSON.stringify({ status: 200, message: "User reported successfully" }));
     } else {
       return JSON.parse(JSON.stringify({ status: 300, message: "Failed to report user" }));
     }
   } catch (error) {
+    console.error("Error reporting user:", error);
     return JSON.parse(JSON.stringify({ status: 500, message: "Server error", error }));
   }
 }

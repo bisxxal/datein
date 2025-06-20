@@ -148,9 +148,29 @@ export const deleteAllMessages = async (chatId: string) => {
         if (!res) {
             return JSON.parse(JSON.stringify({ res: false }));
         }
+        console.log('deleteAllMessages', res)
         return JSON.parse(JSON.stringify({ res: true }));
     } catch (error) {
+ return JSON.parse(JSON.stringify({ status: false }));
+    }
+}
+export const deleteSelectMessages = async (messageId:string[]) => {
+    try {
+        const res = await prisma.message.deleteMany({
+            where: {
+                id: {
+                    in: messageId
+                }
+            }
+        })
+        if (!res) {
+            return JSON.parse(JSON.stringify({ status: false }));
+        }
 
+        console.log(res)
+        return JSON.parse(JSON.stringify({ status: true }));
+    } catch (error) {
+ return JSON.parse(JSON.stringify({ status: false }));
     }
 }
 

@@ -3,15 +3,17 @@ import { reportUser } from '@/actions/other.actions';
 import Back from '@/components/ui/back';
 import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'; 
 import { FiLoader } from 'react-icons/fi';
 const Reportpage = ( ) => {
   const param = useParams()
   const id = param.id as string ;
+  const userId = param.userid as string;
   const [show , setShow ]= useState(false)
-
+  const p = usePathname();
+  const chatId = p?.split('&')[1]?.split('=')[1]
   const handleClick = async(formData:FormData) => {
     try {
         const reason = formData.get('reason') as string;
@@ -19,19 +21,25 @@ const Reportpage = ( ) => {
           toast.error('Please provide a reason for reporting');
           return;
         }
-        report({ id, reason }); 
+        report({ id, reason ,userId , chatId }); 
     } catch (error) {
       
     }
   }
  
   const  { mutate: report,  isPending  } = useMutation({
-  mutationFn: async ({ id, reason }: { id: string; reason: string }) => {
-    return await reportUser(id, reason);
+  mutationFn: async ({ id, reason ,userId , chatId }: { id: string; userId:string , chatId:string, reason: string }) => {
+    return await reportUser(id, reason , userId?.split('%26')[0] , chatId );
   },
   onSuccess: (data) => {
-    toast.success(data.message || 'User reported successfully');
-    setShow(true);
+    if (data.status === 200) {
+      toast.success(data.message  );
+      setShow(true);
+      return;
+    }
+    else{
+      toast.error(data.message  );
+    }
     // queryClient.invalidateQueries({ queryKey: ['fetchUsers'] });  
   },
 
@@ -40,6 +48,8 @@ const Reportpage = ( ) => {
   },
 });
 
+
+// console.log( chatId, 'chatId');
 
   return (
     <div>

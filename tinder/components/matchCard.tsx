@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSwipe from "./ui/animatedSwipe";
 import KeywordButton from "./ui/keywordButton";
 import { likeUser } from "@/actions/user.action";
-import { AllPublicUsers } from '@/actions/public';
+import { AllPublicUsers } from '@/actions/match';
 import { useQuery } from '@tanstack/react-query';
 import LoadingCom from "./ui/loading";
 import { FcLike } from "react-icons/fc";
@@ -26,9 +26,7 @@ const TinderCardsCom = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { isLoading, data } = useQuery({
     queryKey: ['fetchUsers', currentPage],
-    queryFn: async () => {
-      return await AllPublicUsers(currentPage);
-    },
+    queryFn: async () => await AllPublicUsers(currentPage),
     staleTime: 60000,
   });
 
@@ -108,14 +106,14 @@ const TinderCardsCom = () => {
       console.log("🔄 Reshuffling cards...");
       setIsPaginating(true);  
       console.log("person in n" , person , )
-      // const timeout = setTimeout(() => {
-      //   const reshuffled = shuffleArray(person);
-      //   setShuffledPerson(reshuffled);
-      //   setIndex(reshuffled.length - 1);
-      //   setIsPaginating(false);
-      // }, 500);
-      // return () => clearTimeout(timeout);
-      setCurrentPage(1);
+      const timeout = setTimeout(() => {
+        const reshuffled = shuffleArray(person);
+        setShuffledPerson(reshuffled);
+        setIndex(reshuffled.length - 1);
+        setIsPaginating(false);
+      }, 500);
+      return () => clearTimeout(timeout);
+      // setCurrentPage(1);
     }
 
     // Reset pagination guard once new data arrives

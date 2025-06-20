@@ -72,7 +72,7 @@ const PopUp = ({ current, displayed, setDisplayed, user }: PopUpPropsExtended) =
           <p className="flex items-center gap-3 my-2 "><MdOutlineInterests size={21} /> Interests</p>
           <KeywordButton current={current} user={user} />
         </div>
-        <Link href={`/report/${current.id}`} className=" bg-[#b34d4d9c] block my-4 border border-red-500 rounded-3xl px-5 py-4 ">
+        <Link href={`/report/${current.id}/${user.id}`} className=" bg-[#b34d4d9c] block my-4 border border-red-500 rounded-3xl px-5 py-4 ">
           <p className=" text-center ">Block & Report {current.name}</p>
         </Link>
 

@@ -5,20 +5,15 @@ import Link from "next/link";
 import moment from "moment";
 import { useState } from "react";
 import { FiLoader } from "react-icons/fi";
+import { dummyMessages, dummyUserId } from "@/util";
 const GroupPage = () => {
   const isVerified = true;
-
-  const messages = [
-    { id: 1, content: "Hello everyone!", senderId: "user1", createdAt: new Date() },
-    { id: 2, content: "Welcome to the group chat!", senderId: "user2", createdAt: new Date() },
-    { id: 3, content: "Feel free to share your thoughts.", senderId: "user1", createdAt: new Date() },
-  ];
-  const currentUserId = "user1"; //
+ 
   const [newMessage, setNewMessage] = useState('');
 
   return (
     <div className=" w-full relative h-screen overflow-hidden">
-      {isVerified ?
+      {!isVerified ?
         <>
           <div className=" w-[90%] glass mt-5 h-[60px] left-[5%] center !justify-between px-4 fixed ">
             <Link href={'/match'} className=" text-xl textbas logo font-semibold">Date in.</Link>
@@ -39,12 +34,12 @@ const GroupPage = () => {
             <div className='  bg-[url(/bg2.png)] bg-cover flex flex-col mt-[70px]  mx-auto max-w-2xl rounded-2xl max-md:border-none max-md:shadow-none border border-black/10 shadow-xl p-2  w-full max-md:h-[83vh] h-[80vh]'>
               <div className=" w-full overflow-y-auto space-y-3 flex flex-col !justify-between rounded-2xl h-[75vh] max-md:h-[76vh] ">
                 <div>
-                  {messages?.map((msg) => (
+                  {dummyMessages?.map((msg) => (
                     <div className="flex items-center gap-1 " key={msg.id}>
-                      {msg.senderId !== currentUserId && <div className="rounded-full h-12 w-12 border-black/30 border">
+                      {msg.senderId !== dummyUserId && <div className="rounded-full h-12 w-12 border-black/30 border">
                       </div>}
                       <div
-                        className={`max-w-[80%] shadow-xl mt-3 w-fit py-1.5 overflow-hidden flex flex-col flex-wrap text-base font-normal px-5  ${msg.senderId === currentUserId ? 'bg-blue-60 buttonbg2 text-white rounded-b-2xl rounded-l-2xl ml-auto '
+                        className={`max-w-[80%] shadow-xl mt-3 w-fit py-1.5 overflow-hidden flex flex-col flex-wrap text-base font-normal px-5  ${msg.senderId === dummyUserId ? 'bg-blue-60 buttonbg2 text-white rounded-b-2xl rounded-l-2xl ml-auto '
                             : 'bg-gray-10 sidebarbg text-black/60 rounded-b-2xl rounded-r-2xl'
                           }`}
                       >

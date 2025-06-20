@@ -25,10 +25,11 @@ const PopUpCom = ({ showPopUp, setShowPopUp, chatId }: { showPopUp: boolean, set
 
       <div className='bg- bg-[#ffffffa8] glass text-white backdrop-blur-[10px] p-6 rounded-lg shadow-lg max-md:w[80%] mx-auto max-w-sm w-full'>
         <h2 className='text-xl font-semibold mb-4'>Delete all Message</h2>
-        <p className='text-gray-100 mb-4'>Are you want to delete all the messages ?</p>
+        <p className='text-gray-100 mb-1'>Are you want to delete all the messages ?</p>
+        <p className='text-gray-100 mb-4'>Also it delete for everyone ?</p>
 
         <div className=' flex w-full justify-between rounded-full overflow-hiddden  items-center'>
-          <button onClick={() => setShowPopUp(!showPopUp)} className='bg-blue-500 text-white px-4 py-2 w-1/2 rounded-l-full hover:bg-gray-600'>Close</button>
+          <button onClick={() => setShowPopUp(!showPopUp)} className='buttonbg2 text-white px-4 py-2 w-1/2 rounded-l-full hover:bg-gray-600'>Close</button>
           <button onClick={() => deleteCharts()} className='bg-blue-500 text-white px-4 py-2 w-1/2 !rounded-r-full buttonred'>Delete</button>
         </div>
 

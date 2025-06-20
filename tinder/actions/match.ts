@@ -68,6 +68,9 @@ export const AllPublicUsers = async (page:number) => {
           id: {
             notIn: [session.user.id, ...likedUserIds, ...reportedUserIds],
           },
+          photos:{
+            some:{}
+          },
           profile:{
             gender
           }

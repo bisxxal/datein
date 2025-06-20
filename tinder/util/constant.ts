@@ -51,6 +51,7 @@ export interface PopUpProps {
   }
 
   user: {
+    id:true,
     profile: {
       keywords: { name: string }[];
       lookingFor: string;

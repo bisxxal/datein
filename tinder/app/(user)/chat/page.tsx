@@ -53,7 +53,7 @@ const ChartPage = async () => {
             <p className='text-center text-gray-500'>No Matches Found</p>
           </div>
         }
-        <Charts userId={data.userId} chats={data.chats} />
+        <Charts userId={data?.userId} chats={data?.chats} />
       </div>
       <div>
         <p className="logo3 ml-5 text-7xl max-md:text-6xl text-[100px]  flex flex-col font-bold my-10 text-[#8d8d8d82] block mb-10">Made</p>
