@@ -20,9 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}   >
+      <body className={` relative ${inter.className}`  } >
           <Toaster />
-          <div className=" relative w-full min-h-screen ">
+          <div className="   w-full min-h-screen ">
             <UserNavbar/>
             {children}
             <BottomBar/>

@@ -212,7 +212,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     {errors?.livingIn && <span className=' text-red-500'>{errors?.livingIn?.message}</span>}
                 </div>
 
-                <button disabled={updatedMutation.isPending || !isDirty} className={` ${!isDirty || isSubmitting ? ' opacity-[0.5] ' : ' '} center disabled:cursor-notallowed py-2 w-[300px w-full mx-auto !rounded-3xl  buttonbg`} type="submit">
+                <button disabled={updatedMutation.isPending || !isDirty} className={` ${!isDirty || isSubmitting ? ' opacity-[0.5] ' : ' '} center disabled:cursor-notallowed py-2 w-[300px w-full mx-auto !rounded-3xl  buttonbg2`} type="submit">
                     {updatedMutation.isPending ? <FiLoader className='text-xl animate-spin ml-2' /> : 'Save Changes'}
                 </button>
             </form>

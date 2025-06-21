@@ -6,7 +6,7 @@ const SignInButton = ({ text }: { text: string }) => {
   return (
     <div className=" cursor-pointer flex justify-center items-center h-screen w-full">
 
-      <button className="cursor-pointer center gap-3 text-xl px-8 py-3 rounded-full buttonbg " onClick={() => signIn('google')}><FaGoogle />{text}</button>
+      <button className="cursor-pointer shadow-xl center gap-3 text-xl px-8 py-3 rounded-full buttonbg2 " onClick={() => signIn('google')}><FaGoogle />{text}</button>
     </div>
   );
 };

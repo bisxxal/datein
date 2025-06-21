@@ -14,7 +14,7 @@ interface MatchesProps {
   photos: { url: string }[]
 }
 
-const ChartPage = async () => {
+const ChartMainPage = async () => {
 
   const data = await getMatches();
   const AllMatches: MatchesProps[] = []
@@ -64,5 +64,5 @@ const ChartPage = async () => {
   )
 }
 
-export default ChartPage
+export default ChartMainPage
 

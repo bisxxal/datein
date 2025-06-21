@@ -27,7 +27,7 @@ const TinderCardsCom = () => {
   const { isLoading, data } = useQuery({
     queryKey: ['fetchUsers', currentPage],
     queryFn: async () => await AllPublicUsers(currentPage),
-    staleTime: 60000,
+    staleTime: Infinity,
   });
 
   const person = data?.shuffled || [];
@@ -89,23 +89,23 @@ const TinderCardsCom = () => {
     if (direction === "right") return 700;
     return 0;
   };
- 
+
   const totalPages = Math.ceil((data?.total || 0) / 15);
- 
+
   useEffect(() => {
     const shouldPaginate = index < 0 && person.length > 0 && currentPage < totalPages;
     const shouldReshuffle = index < 0 && person.length > 0 && currentPage >= totalPages;
 
     if (shouldPaginate && !isPaginating) {
       // console.log("➡️ Fetching next page...");
-      setIsPaginating(true);  
+      setIsPaginating(true);
       setCurrentPage((prev) => prev + 1);
     }
 
     if (shouldReshuffle && !isPaginating) {
-      console.log("🔄 Reshuffling cards...");
-      setIsPaginating(true);  
-      console.log("person in n" , person , )
+      // console.log("🔄 Reshuffling cards...");
+      setIsPaginating(true);
+      // console.log("person in n", person,)
       const timeout = setTimeout(() => {
         const reshuffled = shuffleArray(person);
         setShuffledPerson(reshuffled);
@@ -125,7 +125,7 @@ const TinderCardsCom = () => {
   return (
     <div className="flex flex-col relative items-center mt-7 max-md:mt-2 space-y-6 w-full">
 
-    { !isLoading && <div className=" w-[380px] absolute rounded-xl top-4 bg-[#00000042] h-[80vh] max-md:w-[90%]"></div>}
+      {!isLoading && <div className=" w-[380px] absolute rounded-xl top-4 bg-[#00000042] h-[80vh] max-md:w-[90%]"></div>}
 
       {isLoading && <LoadingCom boxes={1} width='w-[500px] !rounded-3xl h-[80vh] max-md:w-[99%]' margin=' !rounded-xl' />}
 
@@ -133,10 +133,10 @@ const TinderCardsCom = () => {
         {current && !isLoading ? (
           <>
             <motion.div
-                key={current.id}
-                initial={{ x: 0, opacity: 1 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{
+              key={current.id}
+              initial={{ x: 0, opacity: 1 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{
                 x: getExitX(),
                 opacity: 0,
                 scale: 0.95,
@@ -206,7 +206,7 @@ const TinderCardsCom = () => {
               )}
             </AnimatePresence>
           </>
-        ) : (!isLoading &&  
+        ) : (!isLoading &&
           <motion.div
             key="empty"
             initial={{ opacity: 0 }}

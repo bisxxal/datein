@@ -10,8 +10,8 @@ export async function getVerified(formData: FormData) {
 
   // const rl = await rateLimit({
   //   key: ip,
-  //   limit: 3,
-  //   windowInSeconds: 60,
+  //   limit: 1,
+  //   windowInSeconds: 6000,
   // });
 
   // if (!rl.success) {
@@ -26,19 +26,17 @@ export async function getVerified(formData: FormData) {
   const verify = await prisma.verified.create({
     data: {
       userId: user.id,
-      rollNo: roll
+      rollNo: roll,
     },
   })
-  // console.log(verify)
   if (!verify) {
     return JSON.parse(JSON.stringify({ status: 300, message: 'error in saving' }));
   }
   return JSON.parse(JSON.stringify({ status: 200, message: 'success', }));
 }
 
-export const reportUser = async (receiverId: string, reason: string , giverId :string , chatId: string ) => {
+export const reportUser = async (receiverId: string, reason: string, giverId: string, chatId: string) => {
   try {
-    // console.log(receiverId, giverId, chatId, 'reportUser');
     const user = await getUser()
     if (!user || !user.id) {
       return { status: 401, message: 'Unauthorized' }
@@ -51,26 +49,22 @@ export const reportUser = async (receiverId: string, reason: string , giverId :s
       },
     });
     const existingLike = await prisma.like.findFirst({
+      where: { 
+        OR: [
+          { giverId, receiverId },
+          { giverId: receiverId, receiverId: giverId }
+        ]
+      },
+    });
+    if (existingLike) {
+
+      await prisma.like.delete({
         where: {
-          // giverId_receiverId: {
-          //   giverId,
-          //   receiverId,
-          // },
-          OR:[
-            { giverId, receiverId },
-            { giverId: receiverId, receiverId: giverId }
-          ]
+          id: existingLike.id,
         },
       });
-      if (existingLike) {
-        console.log('lalalal')
-          await prisma.like.delete({
-             where: {
-                  id: existingLike.id,
-                },
-          });
-        }
-    if(chatId!== undefined && res){
+    }
+    if (chatId !== undefined && chatId !== null  && res) {
       const isChat = await prisma.chat.findUnique({
         where: {
           id: chatId,
@@ -84,7 +78,6 @@ export const reportUser = async (receiverId: string, reason: string , giverId :s
           id: chatId,
         },
       });
-      console.log('Chat deleted successfully' , res);
       return JSON.parse(JSON.stringify({ status: 200, message: "User reported successfully" }));
     }
     if (res) {
@@ -93,7 +86,7 @@ export const reportUser = async (receiverId: string, reason: string , giverId :s
       return JSON.parse(JSON.stringify({ status: 300, message: "Failed to report user" }));
     }
   } catch (error) {
-    console.error("Error reporting user:", error);
+console.log(error)
     return JSON.parse(JSON.stringify({ status: 500, message: "Server error", error }));
   }
 }
@@ -105,12 +98,12 @@ export const reportBug = async (formData: FormData) => {
     const ip = cookieStore.get('user-ip')?.value || 'anonymous';
     const rl = await rateLimit({
       key: ip,
-      limit: 3,
-      windowInSeconds: 60,
+      limit: 1,
+      windowInSeconds: 6000,
     });
 
     if (!rl.success) {
-      console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
+      // console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
       return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
     }
 

@@ -14,14 +14,15 @@ const BottomBar = () => {
     { icon: <IoChatbubbleOutline className=" text-black/50" size={18} />, label: 'Chat', onClick: () => router.push(`/chat`) },
     { icon: <FaRegUser className=" text-black/50" size={18} />, label: 'Profile', onClick: () => router.push(`/profile`) },
   ];
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
   return (
-    <div className=' fixed top-[92vh] z-[100] left-[5%] justify-between px-3    w-[90%] h-[60px]  rounded-3xl '>
-      <Dock
-        className=' glass2 z-[50   shadow-xl  '
+    <div className=' fixed bottom-[15px]   z-[100] left-[5%] justify-between px-3    w-[90%] h-[60px]  rounded-3xl '>
+     <Dock
+        className=' glass2   shadow-xl  '
         items={items}
         panelHeight={68}
         baseItemSize={50}
-        magnification={100}
+        magnification={ isMobile ? 50 : 100 }
       />
     </div>
 

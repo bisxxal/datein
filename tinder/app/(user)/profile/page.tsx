@@ -9,7 +9,7 @@ import { RiVerifiedBadgeLine } from "react-icons/ri";
 import GlareHover from "@/components/ui/glassHover";
 import UserNavbar from "../../../components/Navbar";
 import { redirect } from "next/navigation";
-import Image from "next/image";
+import KitImage from "@/components/ui/KitImage";
 
 const UserProfile = async () => {
   const user = await getUserProfilePic()
@@ -39,20 +39,10 @@ const UserProfile = async () => {
             <div className=" rounded-2xl absolute top-5 shadow-xl left-5 w-fit h-fit px-4 py-3 backdrop-blur-[4px] bg-gradient-to-b from-black/20 to-transparent  f center">
               <p className="font-bold text-lg  text-white center gap-2 ">{user?.name} , {user?.profile?.age} {user?.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>}  </p>
             </div>
-            <Image loading="lazy" className=" w-full h-full object-cover border border-black/10   " src={user?.photos[0]?.url} height={300} width={300} alt="" />
+            {/* <Image loading="lazy" className=" w-full h-full object-cover border border-black/10   " src={user?.photos[0]?.url} height={300} width={300} alt="" /> */}
+            <KitImage loading="lazy" className=" w-full h-full object-cover border border-black/10 rounded-3xl  " src={user?.photos[0]?.url} height={300} width={300} alt="" />
           </GlareHover>
-          {/* <GlareHover
-        glareColor="#ffffff"
-        glareOpacity={0.4}
-        glareAngle={-30}
-        glareSize={300}
-        transitionDuration={1000}
-        playOnce={false}
-        className="bg-transparent !w-[150px] !border-none shadow-xl !rounded-full !h-[150px]">
-
-    <Image loading="lazy" className=" w-[150px] h-[150px] object-cover border border-black/10 rounded-full  " src={user?.photos[0]?.url}  height={300} width={300} alt="" />
-  </GlareHover> */}
-
+          
           <Link href={'/profile/editprofile'} className="  glass text-white absolute   w-[50px] h-[50px]   backdrop-blur-[8px] - bottom-2 - right-2 flex justify-center items-center gap-3">  <AiTwotoneEdit size={21} /></Link>
 
           {/* <p className="font-bold text-xl center gap-2 mt-20">{user?.name} , {user?.profile?.age} { user?.verified ===true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span> }  </p> */}

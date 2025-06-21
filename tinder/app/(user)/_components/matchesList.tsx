@@ -1,10 +1,10 @@
 'use client'
 import { createChartparticipent } from '@/actions/chart'
-import Image from 'next/image'
 import React, { useState } from 'react'
 import { FiLoader } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useRouter } from 'next/navigation';
+import KitImage from '@/components/ui/KitImage';
 const MatchesList = ({ AllMatches }: { AllMatches: { photos: { url: string }[], id: string, name: string }[] }) => {
 
     const router = useRouter()
@@ -33,7 +33,7 @@ const MatchesList = ({ AllMatches }: { AllMatches: { photos: { url: string }[], 
             <div className='flex gap-5 scrollbar overflow-x-auto '>
                 {AllMatches && AllMatches?.map((item, i) => (
                     <div onClick={() => handelClicked(item?.id)} key={i} className=' cursor-pointer flex flex-col  ! w-[130px]'>
-                        <Image className=' object-cover  w-full  h-[200px] rounded-3xl border border-white/80' src={item?.photos[0]?.url} alt={item?.name} width={400} height={600} />
+                        <KitImage className=' object-cover  w-full  h-[200px] rounded-3xl border border-white/80' src={item?.photos[0]?.url} alt={item?.name} width={400} height={600} />
                         <h1 className='pl-1 pt-1 text-sm text-gray-400'>{item.name}</h1>
                     </div>
                 ))}

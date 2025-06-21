@@ -8,7 +8,7 @@ import { rateLimit } from "@/util/rateLimit"
 
 export const AllPublicUsers = async (page:number) => {
   try {
-    console.log('featching agin',page)
+    // console.log('featching agin',page)
     const limit = 15; 
     // const cookieStore = await cookies();
     // const ip = cookieStore.get('user-ip')?.value || 'anonymous';

@@ -14,13 +14,16 @@ const BugPage = () => {
     reportBugs({ formData });
   }
 
-  const { mutate: reportBugs, isPending } = useMutation({
+  const { mutate: reportBugs,data , isPending } = useMutation({
     mutationFn: async ({ formData }: { formData: FormData }) => {
       return await reportBug(formData);
     },
     onSuccess: (data) => {
-      toast.success(data.message || 'Bug reported successfully 👍');
-      setShow(true);
+    
+      if(data.status === 200) {
+        toast.success(data.message || 'Bug reported successfully 👍');
+      setShow(true)
+    }
     },
 
     onError: (error) => {
@@ -34,7 +37,8 @@ const BugPage = () => {
         <h1 className="text-3xl center gap-4 font-bold">Report a bug ! <FaBug className=' text-gray-500' /></h1>
         <p className="mt-4 text-gray-500 text-center text-lg">Report a bug ! help us to improve our app.</p>
 
-        {!show ? <form action={handleSubmit} className='w-full flex flex-col items-center justify-center mt-10'>
+        {!show ?<>
+        <form action={handleSubmit} className='w-full flex flex-col items-center justify-center mt-10'>
           <div className='flex flex-col !justify-start w-[40%]  max-md:w-[85%] '>
             <p className=' !text-gray-800  max-md:text-base text-xl'>Title</p>
             <input name='titel' required className='textbase font-semibold  border-2 outline-none bg-white/70 text-xl px-5 max-md:px-3 my-3    w-full mx-auto max-md:text-base rounded-3xl h-14 max-md:h-10' type="text" />
@@ -47,6 +51,11 @@ const BugPage = () => {
 
             {isPending ? <FiLoader className='text-xl animate-spin ' /> : ' Sumbit'}</button>
         </form>
+
+         {
+           data?.status === 429  && <p className=' text-red-500 text-sm border border-red-500/30 w-[70%] mx-auto py-5 rounded-2xl center bg-red-500/20  mt-5'>{data?.message}</p>
+          }
+          </> 
           :
           <div className=' mt-[100px] '>
             <p className=' text-center text-green-500 text-2xl font-semibold'>Thanks for reporting the bug !</p>

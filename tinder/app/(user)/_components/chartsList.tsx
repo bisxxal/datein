@@ -1,4 +1,5 @@
 'use client'
+import KitImage from '@/components/ui/KitImage';
 import { useSocket } from '@/hooks/useSocket';
 import moment from 'moment';
 import Image from 'next/image'
@@ -57,7 +58,7 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
                                     .map((participant, index) => (
                                         <div key={index} className='flex  w-full items-center pr-6 justify-between gap-2'>
                                             <div className=' flex items-center gap-2'>
-                                                <Image
+                                                <KitImage
                                                     loading='lazy'
                                                     className='!w-[80px] !h-[80px] rounded-4xl border border-black/20 object-cover'
                                                     src={participant?.user?.photos[0]?.url}

@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { RxCross1 } from "react-icons/rx";
 import { FiLoader, FiMinus } from "react-icons/fi";
 import { resizeFile } from '@/util/imageCompress';
+import KitImage from '@/components/ui/KitImage';
 
 const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }[], isLoading: boolean }) => {
   const router = useRouter()
@@ -119,7 +120,8 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
                   :
                   <div className=' absolute -top-2 -right-2 buttonred rounded-full !p-1 !py-1  '><RxCross1 /></div>
                 }
-                <Image src={u?.url} alt="Uploaded" height={1000} width={1000} className="  w-full h-full rounded-2xl  object-cover" />
+                {/* <Image src={u?.url} alt="Uploaded" height={1000} width={1000} className="  w-full h-full rounded-2xl  object-cover" /> */}
+                <KitImage src={u?.url} alt="Uploaded" height={1000} width={1000} className="  w-full h-full rounded-2xl  object-cover" />
               </div>
             )
           })}

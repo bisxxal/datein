@@ -349,7 +349,7 @@ const deleteSelectedMessages = async () => {
                 <span className=' text-red-500'>Offline</span>
               )}
           </>:
-          <LoadingCom  width='w-60' boxes={1} margin=' w-10 h-10' />
+          <LoadingCom  width='w-60 max-md:w-38 max-md:h-8' boxes={1} margin=' w-10 h-10' />
           }
         </div>
 
@@ -360,7 +360,7 @@ const deleteSelectedMessages = async () => {
             <div className=' hidden  group-hover:flex absolute  py-4 w-52 flex flex-col gap-2 border  text-white p-2 border-black/30 rounded-3xl bg-black/20 backdrop-blur-[10px] -left-[180px] '>
               <p className='pl-10 border-b pb-2 border-black/20 '>Chat theame</p>
               <h1 className=' pl-10 cursor-pointer border-b pb-2 border-black/20 'onClick={() => setShowPopUp(!showPopUp)}>Delete chat</h1>
-              <Link className=' pl-10'  href={`/report/${user?.id}/${currentUserId}&chatid=${chatId}`}>Report & block </Link>
+              <Link className=' pl-10'  href={`/report/${user?.id}?userid=${currentUserId}&chatid=${chatId}`}>Report & block </Link>
             </div>
             </div>
           }
@@ -423,7 +423,7 @@ const deleteSelectedMessages = async () => {
               return (
                   <div
                     className={`max-w-[80%] mt-3 w-fit  h-20  flex flex-col   ${msg.senderId === dummyUserId ? '  ml-auto ': ' '}`}> 
-                      <LoadingCom  width={`  border border-white/20 w-60 `} boxes={1} margin=' w-10 h-full' />
+                      <LoadingCom  width={` max-md:h-10 border border-white/20 w-60 max-md:w-52`} boxes={1} margin=' w-10 h-full' />
                   </div>
               );
             }
