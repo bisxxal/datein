@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import KitImage from './KitImage';
 
 interface SwiperComponentProps {
   photo: {
@@ -68,7 +69,7 @@ const SwiperComponent = ({ photo }: SwiperComponentProps) => {
             key={index}
             className="flex items-center justify-center h-full"
           >
-            <Image
+            <KitImage
               loading='lazy'
               className="w-[100%] h-full object-cover rounded-lg"
               src={p.url}

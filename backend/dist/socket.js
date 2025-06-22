@@ -9,6 +9,7 @@ export const initSocket = (server) => {
         cors: {
             origin: ['http://localhost:3000', 'http://localhost:3001', 'https://datein.vercel.app'],
             methods: ['GET', 'POST'],
+            credentials: true
         },
     });
     io.on('connection', (socket) => {
