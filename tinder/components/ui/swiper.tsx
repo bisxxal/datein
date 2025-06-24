@@ -26,7 +26,7 @@ const SwiperComponent = ({ photo }: SwiperComponentProps) => {
   const goPrev = () => swiperRef.current?.slidePrev();
 
   return (
-    <div className="relative w-[400px] max-md:w-[100%] h-full">
+    <div className="relative w-[450px] max-md:w-[100%] h-full">
       {/* Custom segmented progress bar */}
       <div className="absolute top-5 left-1/2 transform -translate-x-1/2 z-20 flex w-[90%] gap-2">
         {photo.photos.length > 1 && photo.photos.map((_, idx) => (

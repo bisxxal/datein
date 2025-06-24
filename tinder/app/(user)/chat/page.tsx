@@ -47,7 +47,7 @@ const ChartMainPage = async () => {
 
         {
           AllMatches.length !== 0 ? <>
-            <h1 className='mb-3'>New Matches</h1>
+            <h1 className='mb-3 pl-10 max-md:pl-2 textbase font-semibold'>New Matches</h1>
             <MatchesList AllMatches={AllMatches} />
           </> : <div>
             <p className='text-center text-gray-500'>No Matches Found</p>

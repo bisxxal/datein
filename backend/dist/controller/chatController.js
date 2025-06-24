@@ -43,6 +43,16 @@ export const getMessages = async (req, res) => {
         return res.status(400).json({ error: 'chatId is required and must be a string' });
     }
     try {
+        const participant = await prisma.chatParticipant.findMany({
+            where: {
+                chatId: chatId,
+                userId: userId
+            },
+        });
+        if (participant.length === 0) {
+            console.log('User is not a participant in this chat');
+            return res.status(403).json({ status: 403, error: 'User is not a participant in this chat' });
+        }
         const messages = await prisma.message.findMany({
             where: { chatId },
             orderBy: { createdAt: 'asc' },

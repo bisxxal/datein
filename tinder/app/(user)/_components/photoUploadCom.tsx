@@ -127,8 +127,8 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
           })}
           {previews && previews?.map((src, idx) => (
             <div key={idx} className=' relative  max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20'>
-              {isUploading && <div className=' absolute top-[40%] left-[20%] border border-white/20 text-white text-sm bg-black/30 backdrop-blur-sm rounded-full px-3 py-1 z-10'>
-                processing..
+              {!isUploading && <div className=' absolute top-[40%] left-[20%] border border-white/20 text-white text-xs bg-[#ffffff2e] backdrop-blur-sm rounded-full px-3 py-1 z-10'>
+                Processing..
               </div>}
               <div onClick={() => handleRemovePreview(idx)} className=' absolute -top-2 -right-2 border-2 border-red-500/50 text-red-500 backdrop-blur-[10px] rounded-full !p-1 !py-1  '><RxCross1 /></div>
               <Image height={1800} width={1500} key={`preview-${idx}`} src={src} alt="Preview" className=" h-full w-full rounded-2xl  object-cover" />

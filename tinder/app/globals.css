@@ -147,14 +147,7 @@ button,a{
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-/* .glass {
-    border-top-style: solid !important;
-    border-top-color: rgb(255, 255, 255) !important;
-    border-left-style: solid !important;
-    border-left-color: rgb(255, 255, 255) !important;
-} */
-
+} 
 
 .glass {
   /* position: relative; */
@@ -244,16 +237,64 @@ text-shadow: -2px 1px 20px #ffffff;
   top: 50%;
   left: 50%;
   z-index: -1;
-
   transform: translate(-50%,-50%);
+  background: transparent;
+  backdrop-filter: blur (28px);
+  -webkit-backdrop-filter: blur(8px);
+  mask: radial-gradient(ellipse at center,black 0%,black 20%,transparent 80%);
+  -webkit-mask: radial-gradient(ellipse at center,black 0%,black 20%,transparent 80%);
+}
 
-background: transparent;
+.menuanimation {
+  animation: menuanimation 1.2s ease-in-out forwards;
+}
+@keyframes menuanimation {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+    width: 0;
+  }
+  50% {
+      transform: translateY(30px); 
+    }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+    width: 90%;
+  }
+}
+.bottombaranimation {
+  animation: bottombaranimation 1s ease-in-out forwards;
+}
+@keyframes bottombaranimation {
+  0% {
+    transform: translateY(100px);
+    opacity: 0; 
+  }
+  50% {
+      transform: translateY(-30px); 
+       
+    }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
 
-backdrop-filter: blur (28px);
-
--webkit-backdrop-filter: blur(8px);
-
-mask: radial-gradient(ellipse at center,black 0%,black 20%,transparent 80%);
-
--webkit-mask: radial-gradient(ellipse at center,black 0%,black 20%,transparent 80%);
+.appear {
+  animation: appear 0.9s ease-in-out forwards;
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  50% {
+      opacity: 0.5;
+      transform: translateY(10px);
+    }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

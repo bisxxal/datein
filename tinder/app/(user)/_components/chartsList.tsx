@@ -34,8 +34,8 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
 
     return (
         <div className='flex flex-col w-full'>
-            <p className='my-3 mt-7'>Messges</p>
-            {chats.length !== 0 ?
+            <p className='my-3 mt-7 pl-10 max-md:pl-2 textbase font-semibold'>Messges</p>
+            {chats?.length !== 0 ?
                 [...chats]
                     .sort((a, b) => {
                         const dateA = a?.chat?.messages[0]?.createdAt
@@ -51,7 +51,7 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
                             <Link
                                 href={`/chat/${item.chatId}`}
                                 key={i}
-                                className='w-[90%]  mx-auto glass rounded-3xl center mb-3 shadow-lg border-black/10 p-2 !justify-start '
+                                className='w-[95%] max-md:w-[98%] mx-auto glass rounded-3xl center mb-3 shadow-lg border-black/10 p-2 !justify-start '
                             >
                                 {item.chat.participants
                                     .filter((participant) => participant.user.id !== userId)

@@ -125,9 +125,9 @@ const TinderCardsCom = () => {
   return (
     <div className="flex flex-col relative items-center mt-7 max-md:mt-2 space-y-6 w-full">
 
-      {!isLoading && <div className=" w-[380px] absolute rounded-xl top-4 bg-[#00000042] h-[80vh] max-md:w-[90%]"></div>}
+      {!isLoading && <div className=" w-[380px] bottombaranimation absolute rounded-3xl top-4 bg-[#0000001f] h-[80vh] max-md:w-[90%]"></div>}
 
-      {isLoading && <LoadingCom boxes={1} width='w-[500px] !rounded-3xl h-[80vh] max-md:w-[99%]' margin=' !rounded-xl' />}
+      {isLoading && <LoadingCom boxes={1} width='w-[450px] appear !rounded-3xl h-[80vh] max-md:w-[99%]' margin=' !rounded-xl' />}
 
       <AnimatePresence mode="wait">
         {current && !isLoading ? (
@@ -142,7 +142,7 @@ const TinderCardsCom = () => {
                 scale: 0.95,
                 transition: { duration: 0.3 },
               }}
-              className="relative max-md:w-[95%] w-[400px] rounded-3xl shadow-xl h-[80vh]"
+              className="relative max-md:w-[95%] w-[450px] rounded-3xl shadow-xl h-[80vh]"
             >
 
               <div className="w-full relative h-full bg-white shadow-xl rounded-3xl overflow-hidden flex flex-col justify-between">

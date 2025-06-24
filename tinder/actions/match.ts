@@ -58,7 +58,7 @@ export const AllPublicUsers = async (page:number) => {
 
     const reportedUserIds = user?.reported?.map((u: { reportedId: string }) => u.reportedId) || [];
     const likedUserIds = user?.likesGiven?.map((like:{receiverId:string}) => like.receiverId) || [];
-    const gender = user.profile.gender === 'male' ? 'female' :'male'
+    const gender = user?.profile?.gender === 'male' ? 'female' :'male'
 
     const [allUsers , total] = await prisma.$transaction([
       prisma.user.findMany({

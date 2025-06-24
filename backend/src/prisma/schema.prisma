@@ -116,16 +116,7 @@ model blockedUser {
   blockedUserId String
   user      User     @relation(fields: [userId], references: [id])
   // blocked   User     @relation(fields: [blockedId], references: [id])
-}
-
-// model reportedUsers{
-//   id  String @id @default(cuid())
-//   userId String
-//   reportedUserId String
-//   message String?
-// }
-
- 
+} 
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
