@@ -285,14 +285,8 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
               ) : <p className='text-white px-4 py-3 rounded-3xl  border w-fit mt-[30vh] mx-auto border-white/80 font-medium  backdrop-blur-[40px] '>say hii 👋🏻  to start message </p>
             )
           }
-
-          {
-
-          }
-
-          <div ref={messagesEndRef} /></div>
-
-
+ 
+        <div ref={messagesEndRef} /></div>
         <div className=" flex justify-between items-end gap-3   max-md:pr-[2px]  ">
 
           <textarea

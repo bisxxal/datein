@@ -8,11 +8,11 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '10mb',  
-    },
-  },
+  // experimental: {
+  //   serverActions: {
+  //     bodySizeLimit: '10mb',  
+  //   },
+  // },
   images: {
     remotePatterns: [
       {
@@ -29,11 +29,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+  // logging: {
+  //   fetches: {
+  //     fullUrl: true,
+  //   },
+  // },
   devIndicators:false,
 };
 

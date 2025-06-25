@@ -4,7 +4,7 @@ import React from 'react'
 
 const UserIdPage = async ({ params }: { params: { id: string } }) => {
 
-    const userId = params?.id;
+    const userId =  params?.id;
     const user = await getUser(userId)
     return (
         <div>

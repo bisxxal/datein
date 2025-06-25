@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { getUser } from "./user.action";
 import { cookies } from "next/headers";
 import { rateLimit } from "@/util/rateLimit";
+import { TReportABug } from "@/lib/zod";
 
 export async function getVerified(formData: FormData) {
   // const cookieStore = await cookies();
@@ -91,33 +92,31 @@ console.log(error)
   }
 }
 
-export const reportBug = async (formData: FormData) => {
+export const reportBug = async (data:TReportABug) => {
   try {
 
-    const cookieStore = await cookies();
-    const ip = cookieStore.get('user-ip')?.value || 'anonymous';
-    const rl = await rateLimit({
-      key: ip,
-      limit: 1,
-      windowInSeconds: 6000,
-    });
+    // const cookieStore = await cookies();
+    // const ip = cookieStore.get('user-ip')?.value || 'anonymous';
+    // const rl = await rateLimit({
+    //   key: ip,
+    //   limit: 1,
+    //   windowInSeconds: 6000,
+    // });
 
-    if (!rl.success) {
-      // console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
-      return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
-    }
+    // if (!rl.success) {
+    //   // console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
+    //   return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
+    // }
 
-    const description = formData.get('description') as string;
-    const title = formData.get('titel') as string;
     const user = await getUser()
-    if (!user || !user.id || !title || !description) {
+    if (!user || !user.id || !data) {
       return { status: 401, message: 'Unauthorized' }
     }
 
     const reports = await prisma.bug.create({
       data: {
-        titel: title,
-        description: description,
+        titel: data.title,
+        description: data.description,
         userId: user.id
       }
     });

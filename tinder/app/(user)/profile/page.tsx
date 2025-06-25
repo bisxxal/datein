@@ -35,7 +35,7 @@ const UserProfile = async () => {
             <p className="font-bold text-lg  text-white center gap-2 ">{user?.name} , {user?.profile?.age} {user?.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>}  </p>
             </div>
             {
-              user?.photo &&
+              user?.photos &&
               <KitImage loading="lazy" className=" w-full h-full object-cover border border-black/10 rounded-3xl  " src={user?.photos[0]?.url} height={300} width={300} alt="" />
               }
           </GlareHover>
@@ -45,7 +45,7 @@ const UserProfile = async () => {
         </div>
 
         <div className="mt-20 pb-10   max-md:mt-10 max-md:px-2 px-10 text-white">
-          <div className=" mx-auto glass appear center gap-2 !justify-evenly h-[350px] max-md:h-[400px] max-md:flex-col w-fit  max-md:rounded-3xl max-md:p-1 max-md:py-2 p-10">
+          <div className=" mx-auto glass appear center gap-2 !justify-evenly h-[350px] max-md:h-[400px] max-md:flex-col w-fit  max-md:w-full max-md:rounded-3xl max-md:p-1 max-md:py-2 p-10">
 
             {user?.verified === false && <GlareHover
               glareColor="#ffffff"
