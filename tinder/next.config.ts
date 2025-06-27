@@ -7,12 +7,7 @@ const nextConfig: NextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
-  },
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '10mb',  
-    },
-  },
+  }, 
   images: {
     remotePatterns: [
       {
@@ -28,12 +23,7 @@ const nextConfig: NextConfig = {
         hostname: "ik.imagekit.io",
       },
     ],
-  },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+  }, 
   devIndicators:false,
 };
 

@@ -104,11 +104,11 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
   return (
     <div className='w-full px-5  max-md:px-0 '>
       <h1 className='my-9 ml-4'>
-        <p className='font-bold'>Media</p>
-        {!existingImages[0]?.url && !isLoading && <div className='border border-yellow-500 center rounded-2xl p-3 bg-yellow-500/20 text-yellow-300 mt-3'> Add atleast 2 photo !! To visible user ⚠️</div>}
+        <p className='font-bold text-gray-200'>Media</p>
+        {!existingImages[0]?.url && !isLoading && <div className='max-md:text-xs border border-yellow-500 center rounded-2xl p-3 bg-yellow-500/20 text-yellow-300 mt-3'> Add atleast 2 photo !! To visible user ⚠️</div>}
       </h1>
 
-      <div className="w-full flex  flex-wrap justify-between px-5 gap-5 max-md:px-2 mt-4">
+      <div className="w-full flex max-sm:gap-2.5 flex-wrap justify-evenly px-5 gap-5 max-md:px-2 mt-4">
 
         {!isLoading ? <>
 
@@ -120,15 +120,14 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
                   :
                   <div className=' absolute -top-2 -right-2 buttonred rounded-full !p-1 !py-1  '><RxCross1 /></div>
                 }
-                {/* <Image src={u?.url} alt="Uploaded" height={1000} width={1000} className="  w-full h-full rounded-2xl  object-cover" /> */}
                 <KitImage src={u?.url} alt="Uploaded" height={1000} width={1000} className="  w-full h-full rounded-2xl  object-cover" />
               </div>
             )
           })}
           {previews && previews?.map((src, idx) => (
             <div key={idx} className=' relative  max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20'>
-              {!isUploading && <div className=' absolute top-[40%] left-[20%] border border-white/20 text-white text-xs bg-[#ffffff2e] backdrop-blur-sm rounded-full px-3 py-1 z-10'>
-                Processing..
+              {isUploading && <div className=' absolute top-[40%] left-[20%] border border-white/20 text-white text-xs bg-[#ffffff2e] backdrop-blur-sm rounded-full px-3 py-1 z-10'>
+                Processing...
               </div>}
               <div onClick={() => handleRemovePreview(idx)} className=' absolute -top-2 -right-2 border-2 border-red-500/50 text-red-500 backdrop-blur-[10px] rounded-full !p-1 !py-1  '><RxCross1 /></div>
               <Image height={1800} width={1500} key={`preview-${idx}`} src={src} alt="Preview" className=" h-full w-full rounded-2xl  object-cover" />
@@ -147,7 +146,7 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
           ))}
         </> :
 
-          <LoadingCom boxes={6} width=" max-md:w-[47%] max-md:h-[230px] !rounded-2xl w-[200px] h-[300px] " margin=" !items-start !justify-between  py-0 flex-wrap px-5 max-md:px-0 gap-5 flex-row " />
+          <LoadingCom boxes={6} width=" max-md:w-[47%] max-md:h-[230px] !rounded-2xl w-[200px] h-[300px] " margin=" !items-start !justify-between  py-0 flex-wrap px-5 max-md:px-0 gap-5 max-sm:gap-2.5 flex-row " />
 
         }
       </div>

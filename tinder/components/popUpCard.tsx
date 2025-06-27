@@ -9,19 +9,18 @@ import { motion } from "framer-motion";
 import dynamic from 'next/dynamic';
 import Link from "next/link";
 import { RiVerifiedBadgeLine } from "react-icons/ri";
+import { useState } from "react";
 const KeywordButton = dynamic(() => import("./ui/keywordButton"), { ssr: false });
 const AnimatedSwipe = dynamic(() => import("./ui/animatedSwipe"), { ssr: false });
 
 const PopUp = ({ current, displayed, setDisplayed, user }: PopUpPropsExtended) => {
-
+  const [animating, setAnimating] = useState(false);
   return (
-    <motion.div key="details-panel"
-      initial={{ y: 500, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 500, opacity: 0 }}
-      transition={{ type: "spring", stiffness: 100, damping: 15 }}
-      className="text-white h-[80vh] shadow-xl absolute z-[20] border-t border-white/70 bg-[#0000002e] py-3 backdrop-blur-[10px] justify-between w-[400px] max-md:w-[95%] mt-4 px-5 bottom-0 pt-[5px] rounded-3xl flex">
+    <div
+      className={`${animating ? ' popupcardExit ' : ' popupcardEnter '} text-white h-[80vh] shadow-xl absolute z-[20] border-t border-white/70 bg-[#0000002e] py-3 backdrop-blur-[20px] justify-between w-[400px] max-md:w-[95%] mt-4 px-5 bottom-0 pt-[5px] rounded-3xl flex`}>
 
       <div className="  flex text-lg flex-col gap-5 w-full  rounded-3xl scrollbar overflow-y-auto">
-        <button onClick={() => setDisplayed(!displayed)} className={` ${displayed ? ' flex ' : ' hidden '} w-1/2 text-white mx-auto center cursor-pointer  w-14 h-14   text-3xl `}>
+        <button onClick={() => {setDisplayed(!displayed); setAnimating(!animating)}} className={` ${displayed ? ' flex ' : ' hidden '} w-1/2 text-white mx-auto center cursor-pointer  w-14 h-14   text-3xl `}>
           <AnimatedSwipe text={<MdKeyboardDoubleArrowDown size={23} />} /> </button>
 
         <div className="mb-5 center gap-3">
@@ -77,7 +76,7 @@ const PopUp = ({ current, displayed, setDisplayed, user }: PopUpPropsExtended) =
         </Link>
 
       </div>
-    </motion.div>
+    </div>
   )
 }
 export default PopUp;

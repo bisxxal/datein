@@ -11,7 +11,7 @@ const UserNavbar = async () => {
   }
 
   return (
-    <div className=" h-[60px] menuanimation glass w-[90%] mx-auto mt-5 shadow-lg rounded-4xl  items-center text-white flex justify-between px-20 max-md:px-5">
+    <div className=" h-[60px] menuanimation border-t border-x border-black/10 backdrop-blur-[20px] w-[95%] mx-auto mt-5 shadow-lg rounded-4xl  items-center text-white flex justify-between px-20 max-md:px-5">
       <Link className="text-2xl font-bold   logo2" href={'/match'}>Date in.</Link>
       <div className="flex !text-3xl  items-center gap-5">
         <Link className=" text-gray-400 " href={'/bug'}><IoBugSharp /></Link>
