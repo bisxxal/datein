@@ -20,7 +20,7 @@ const UserProfile = async () => {
   }
   return (
     <BackgroundPatten>
-      <div className=" w-full min-h-screen  relative overflow-hidden">
+      <div className=" w-full min-h-screen  relativ overflow-hidden">
         <UserNavbar />
         <div className=" flex relative mt-[100px] w-fit mx-auto flex-col items-center  justify-center  ">
           <GlareHover
@@ -31,8 +31,8 @@ const UserProfile = async () => {
             transitionDuration={1000}
             playOnce={false}
             className="bg-transparent appear relative overflow-hidden !w-[300px] !border-none shadow-xl !rounded-3xl !h-[400px]">
-            <div className=" rounded-2xl   bottombaranimation absolute top-5 shadow-xl left-5 w-fit h-fit px-4 py-3 backdrop-blur-[4px] bg-gradient-to-b from-black/20 to-transparent  f center">
-            <p className="font-bold text-lg  text-white center gap-2 ">{user?.name} , {user?.profile?.age} {user?.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>}  </p>
+            <div className=" rounded-3xl     absolute top-5 shadow-xl left-5 w-fit h-fit px-4 py-3 backdrop-blur-[4px] bg-gradient-to-b from-black/20 to-transparent  f center">
+            <p className="font-semibold  text-white center gap-2 ">{user?.name} , {user?.profile?.age} {user?.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>}  </p>
             </div>
             {
               user?.photos &&
@@ -40,7 +40,7 @@ const UserProfile = async () => {
               }
           </GlareHover>
 
-          <Link href={'/profile/editprofile'} className=" bottombaranimation glass text-white absolute   w-[50px] h-[50px]   backdrop-blur-[8px] - bottom-2 - right-2 flex justify-center items-center gap-3">  <AiTwotoneEdit size={21} /></Link>
+          <Link href={'/profile/editprofile'} className="   glass text-white absolute   w-[50px] h-[50px]   backdrop-blur-[8px] - bottom-2 - right-2 flex justify-center items-center gap-3">  <AiTwotoneEdit size={21} /></Link>
           {user?.verified === false && <p className="text-lg text-gray-400 center gap-3 mt-3">Not verified yet. ⚠️ </p>}
         </div>
 

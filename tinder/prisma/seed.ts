@@ -4,6 +4,46 @@ import { faker } from "@faker-js/faker";
 
 const prisma = new PrismaClient();
 
+
+const portraitUrls = [
+  "https://images.unsplash.com/photo-1519681393784-d120267933ba?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1517841905240-472988babdf9?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1513451713350-dee890297c4a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1457449940276-e8deed18bfff?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=800&h=1200"
+  // (You can add more unique URLs similarly)
+];
+
 async function main() {
   const lookingForOptions = ['long-term', 'short-term'];
   const sampleKeywords = [  "Poetry","Music","Traveling","Hiking","Photography",
@@ -53,7 +93,7 @@ async function main() {
   for (let i = 0; i < 20; i++) {
     const keywordNames = faker.helpers.arrayElements(sampleKeywords, faker.number.int({ min: 2, max: 4 }));
     const keywordRecords = [];
-
+const userPhotos = portraitUrls.slice(i * 4, i * 4 + 4);
     for (const keyword of keywordNames) {
       const keywordEntry = await prisma.keyword.upsert({
         where: { name: keyword },
@@ -69,9 +109,9 @@ async function main() {
         email: faker.internet.email(),
         image: samplePhotos[i],
         photos: {
-            create: faker.helpers
-              .arrayElements(samplePhotos, 4)
-              .map(url => ({ url })),
+            create:  userPhotos.map((url) => ({
+          url,
+        })),
           },
         profile: {
           create: {
@@ -107,58 +147,4 @@ main()
     return prisma.$disconnect();
   });
 
- 
-
-  // const samplePhotos = [
-  //   'https://randomuser.me/api/portraits/men/1.jpg',
-  //   'https://randomuser.me/api/portraits/women/2.jpg',
-  //   'https://randomuser.me/api/portraits/men/3.jpg',
-  //   'https://randomuser.me/api/portraits/women/4.jpg',
-  //   'https://randomuser.me/api/portraits/men/5.jpg',
-  //   'https://randomuser.me/api/portraits/women/6.jpg',
-  //   'https://randomuser.me/api/portraits/men/7.jpg',
-  //   'https://randomuser.me/api/portraits/women/8.jpg',
-  //   'https://randomuser.me/api/portraits/men/9.jpg',
-  //   'https://randomuser.me/api/portraits/women/10.jpg',
-  //   'https://randomuser.me/api/portraits/men/11.jpg',
-  //   'https://randomuser.me/api/portraits/women/12.jpg',
-  //   'https://randomuser.me/api/portraits/men/13.jpg',
-  //   'https://randomuser.me/api/portraits/women/14.jpg',
-  //   'https://randomuser.me/api/portraits/men/15.jpg',
-  //   'https://randomuser.me/api/portraits/women/16.jpg',
-  //   'https://randomuser.me/api/portraits/men/17.jpg',
-  //   'https://randomuser.me/api/portraits/women/18.jpg',
-  //   'https://randomuser.me/api/portraits/men/19.jpg',
-  //   'https://randomuser.me/api/portraits/women/20.jpg',
-  // ];
-
-   // for (let i = 0; i < 20; i++) {
-  //   const user = await prisma.user.create({
-  //     data: {
-  //       name: faker .person.fullName(),
-  //       email: faker.internet.email(),
-  //       bio: faker.lorem.sentence(),
-  //       age: faker.number.int({ min: 18, max: 45 }),
-  //       lookingFor: faker.helpers.arrayElement(lookingForOptions),
-  //       height: faker.number.int({ min: 150, max: 200 }),
-  //       relationshipStatus: faker.helpers.arrayElement(relationshipStatuses),
-  //       emailVerified: faker.date.past(),
-  //       image: samplePhotos[i],
-  //       location: faker.location.city(),
-  //       createdAt: faker.date.past(),
-  //       gender: faker.person.gender(),
-  //       keywords: {
-  //         create: faker.helpers
-  //           .arrayElements(sampleKeywords, faker.number.int({ min: 2, max: 4 }))
-  //           .map((keyword) => ({ name: keyword })),
-  //       },
-
-  //       photos: {
-  //         create: [
-  //           {
-  //             url: samplePhotos[i],
-  //           },
-  //         ],
-  //       },
-  //     },
-  //   });
+  

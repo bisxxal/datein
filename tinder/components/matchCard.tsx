@@ -60,6 +60,7 @@ const TinderCardsCom = () => {
       setShowPing(true);
       const res = await likeUser(current.id);
       setShowPing(false);
+      console.log(  res.status)
       if (res?.status === "matched") {
         setMatchMessage(`🎉 It's a match with ${current.name}!`);
         setTimeout(() => {
@@ -90,30 +91,27 @@ const TinderCardsCom = () => {
     return 0;
   };
 
-  const totalPages = Math.ceil((data?.total || 0) / 15);
+  const totalPages = Math.ceil((data?.total || 0) / 10);  // Adjusted to 10 for pagination
 
   useEffect(() => {
     const shouldPaginate = index < 0 && person.length > 0 && currentPage < totalPages;
     const shouldReshuffle = index < 0 && person.length > 0 && currentPage >= totalPages;
 
     if (shouldPaginate && !isPaginating) {
-      // console.log("➡️ Fetching next page...");
       setIsPaginating(true);
       setCurrentPage((prev) => prev + 1);
     }
 
     if (shouldReshuffle && !isPaginating) {
-      // console.log("🔄 Reshuffling cards...");
       setIsPaginating(true);
-      // console.log("person in n", person,)
-      const timeout = setTimeout(() => {
-        const reshuffled = shuffleArray(person);
-        setShuffledPerson(reshuffled);
-        setIndex(reshuffled.length - 1);
-        setIsPaginating(false);
-      }, 500);
-      return () => clearTimeout(timeout);
-      // setCurrentPage(1);
+      // const timeout = setTimeout(() => {
+        // const reshuffled = shuffleArray(person);
+        // setShuffledPerson(reshuffled);
+        // setIndex(reshuffled.length - 1);
+        // setIsPaginating(false);
+      // }, 500);
+      // return () => clearTimeout(timeout);
+      setCurrentPage(1);
     }
 
     // Reset pagination guard once new data arrives
@@ -122,8 +120,9 @@ const TinderCardsCom = () => {
     }
   }, [index, person, currentPage, totalPages, isPaginating]);
 
+  console.log(totalPages)
   return (
-    <div className="flex flex-col relative items-center mt-7 max-md:mt-2 space-y-6 w-full">
+    <div className="flex flex-col mt-[100px] relative items-center    space-y-6 w-full">
 
       {!isLoading && <div className=" w-[380px] bottombaranimation absolute rounded-3xl top-4 bg-[#0000001f] h-[80vh] max-md:w-[90%]"></div>}
 
@@ -142,7 +141,7 @@ const TinderCardsCom = () => {
                 scale: 0.95,
                 transition: { duration: 0.3 },
               }}
-              className="relative max-md:w-[95%] w-[450px] rounded-3xl shadow-xl h-[80vh]"
+              className="relative  overflow-hidden max-md:w-[95%] w-[450px] rounded-3xl shadow-xl h-[80vh]"
             >
 
               <div className="w-full relative h-full bg-white shadow-xl rounded-3xl overflow-hidden flex flex-col justify-between">
@@ -167,7 +166,7 @@ const TinderCardsCom = () => {
                       <AnimatedSwipe text={<MdKeyboardDoubleArrowUp size={22} />} />
                     </button>
 
-                    <p className=" !justify-start center">{current?.name} {current.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>} {current?.profile.age && <span>, {current?.profile.age}</span>}</p>
+                    <p className=" !justify-start center">{current?.name} {current?.verified === true && <span className=" text-green-500"><RiVerifiedBadgeLine /></span>} {current?.profile.age && <span>, {current?.profile.age}</span>}</p>
                     {
                       onlineUser && user.id && onlineUser.includes(current?.id) && (
                         <span className='text-xs text-green-500'>Online</span>
@@ -206,13 +205,13 @@ const TinderCardsCom = () => {
               )}
             </AnimatePresence>
           </>
-        ) : (!isLoading &&
+        ) : ( 
           <motion.div
             key="empty"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-center  max-md:w-[95%] w-[400px] h-[80vh] text-gray-500 text-lg font-medium"
+            className="text-center relative  max-md:w-[95%] w-[400px] h-[80vh] text-gray-500 text-lg font-medium"
           >
             <LookingFor text={'Looking for '} />
           </motion.div>

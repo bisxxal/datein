@@ -40,10 +40,12 @@ const ChartMainPage = async () => {
   }
 
   return (
-    <div className=' relative w-full  min-h-screen'>
-      <UserNavbar />
+    <div className='border border-white relative w-full  min-h-screen'>
+      <UserNavbar /> 
 
-      <div className='px-3 w-full mt-10 '>
+      <div className='  mt-[100px]'>
+
+      <div className='px-3 w-full  ] '>
 
         {
           AllMatches.length !== 0 ? <>
@@ -59,6 +61,7 @@ const ChartMainPage = async () => {
         <p className="logo3 ml-5 text-7xl max-md:text-6xl text-[100px]  flex flex-col font-bold my-10 text-[#8d8d8d82] block mb-10">Made</p>
         <p className=" ml-5 logo3 text-7xl max-md:text-6xl text-[100px]  flex flex-col font-bold my-10 text-[#8d8d8d82]">
           With Love ♡.</p>
+      </div>
       </div>
     </div>
   )

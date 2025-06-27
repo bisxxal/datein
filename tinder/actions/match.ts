@@ -8,8 +8,8 @@ import { rateLimit } from "@/util/rateLimit"
 
 export const AllPublicUsers = async (page:number) => {
   try {
-    // console.log('featching agin',page)
-    const limit = 15; 
+    console.log('featching agin',page)
+    const limit = 10; 
     // const cookieStore = await cookies();
     // const ip = cookieStore.get('user-ip')?.value || 'anonymous';
 
@@ -71,9 +71,9 @@ export const AllPublicUsers = async (page:number) => {
           photos:{
             some:{}
           },
-          profile:{
-            gender
-          }
+          // profile:{
+          //   gender
+          // }
         },
         orderBy: {
           createdAt: 'asc',
@@ -115,13 +115,19 @@ export const AllPublicUsers = async (page:number) => {
           id: {
             notIn: [session.user.id, ...likedUserIds, ...reportedUserIds],
           },
+            photos:{
+            some:{}
+          },
+          //  profile:{
+          //   gender
+          // }
         },
       })
     ])
     //  const shuffled = shuffleArray(allUsers);
+    console.log(total )
     return JSON.parse(JSON.stringify({ user, shuffled: allUsers , total }))
     // return JSON.parse(JSON.stringify({user ,allUsers , total}))
-
   } catch (error) {
 
   }

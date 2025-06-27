@@ -261,12 +261,12 @@ text-shadow: -2px 1px 20px #ffffff;
   }
 }
 .popupcardAnimation {
-  animation: popupcardAnimation 1.2s ease-in-out forwards;
+  animation: popupcardAnimation 0.9s ease-in-out forwards;
 }
 @keyframes popupcardAnimation {
   0% {
     transform: translateY(100px);
-    opacity: 0.5;
+    /* opacity: 0; */
   }
   50% {
       transform: translateY(-30px); 
