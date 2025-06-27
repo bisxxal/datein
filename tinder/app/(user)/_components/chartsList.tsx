@@ -2,7 +2,6 @@
 import KitImage from '@/components/ui/KitImage';
 import { useSocket } from '@/hooks/useSocket';
 import moment from 'moment';
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { PiArrowBendUpLeft } from "react-icons/pi";

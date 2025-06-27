@@ -32,8 +32,8 @@ const MatchesList = ({ AllMatches }: { AllMatches: { photos: { url: string }[], 
             </motion.div>}
             <div className='flex gap-5 px-10 max-md:px-2 scrollbar overflow-x-auto '>
                 {AllMatches && AllMatches?.map((item, i) => (
-                    <div onClick={() => handelClicked(item?.id)} key={i} className=' cursor-pointer flex flex-col  ! w-[130px]'>
-                        <KitImage className=' border border-black/20 shadow-lg object-cover  w-full  h-[200px] rounded-3xl  ' src={item?.photos[0]?.url} alt={item?.name} width={400} height={600} />
+                    <div onClick={() => handelClicked(item?.id)} key={i} className=' cursor-pointer flex flex-col  !min-w-[130px]'>
+                        <KitImage className=' border border-black/20 shadow-lg object-cover !w-[130px]  h-[200px] rounded-3xl  ' src={item?.photos[0]?.url} alt={item?.name} width={400} height={600} />
                         <h1 className='pl-1 pt-1 text-sm text-gray-400'>{item.name}</h1>
                     </div>
                 ))}

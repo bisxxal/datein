@@ -212,9 +212,9 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
               <p><PiDotsThreeCircleLight className=' text-gray-500' size={25} /></p>
             </label>
             <input type="checkbox" hidden id="is" />
-            <div className='group-has-checked:flex hidden  group-hover:  absolute  py-4 w-52 flex flex-col gap-2 border  text-white p-2 border-black/30 rounded-3xl bg-black/20 backdrop-blur-[10px] -left-[180px] '>
-              <p className='pl-10 border-b pb-2 border-black/20 '>Chat theme</p>
-              <h1 className=' pl-10 cursor-pointer border-b pb-2 border-black/20 ' onClick={() => setShowPopUp(!showPopUp)}>Delete chat</h1>
+            <div className='group-has-checked:flex hidden  group-hover:  absolute  py-4 w-52 flex flex-col gap-2 border  text-white p-2 border-black/10 rounded-3xl bg-black/20 backdrop-blur-[10px] -left-[180px] '>
+              <p className='pl-10 border-b pb-2 border-black/10 '>Chat theme</p>
+              <h1 className=' pl-10 cursor-pointer border-b pb-2 border-black/10 ' onClick={() => setShowPopUp(!showPopUp)}>Clear all chat</h1>
               <Link className=' pl-10' href={`/report/${user?.id}?userid=${currentUserId}&chatid=${chatId}`}>Report & block </Link>
             </div>
           </div>

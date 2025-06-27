@@ -1,9 +1,9 @@
 
 import BlurText from "@/components/ui/blur-text";
 import MagnetLines from "@/components/ui/magnetline";
-import ShinyText from "@/components/ui/shiny";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -28,7 +28,7 @@ export default async function Home() {
 
           <div className="  h-screen  relative  flex items-center justify-center">
 
-            <img className=" w-full h-full object-cover" src="https://images.unsplash.com/photo-1548051072-b34898021f8b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+            <Image width={1000} height={1000} className=" w-full h-full object-cover" src="https://images.unsplash.com/photo-1548051072-b34898021f8b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="bg" />
               <div className=" absolute top-[60px] max-md:-[30vh] left-0 w-full h-full  text-[300px] text-white textshadow flex items-  justify-center">
                 <BlurText
                     text="Date in"

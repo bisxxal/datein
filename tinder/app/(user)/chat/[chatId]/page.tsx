@@ -7,5 +7,6 @@ export default async function ChatPage({ params }: { params: { chatId: string } 
 
   const session = await getServerSession(authOptions)
   const currentUserId = session?.user.id as string
-  return <ChatRoom chatId={params.chatId} currentUserId={currentUserId} />;
+  const {chatId} =await params;
+  return <ChatRoom chatId={chatId} currentUserId={currentUserId} />;
 }
