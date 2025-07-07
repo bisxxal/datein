@@ -5,11 +5,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
-import toast from 'react-hot-toast';
-import { RxCross1 } from "react-icons/rx";
-import { FiLoader, FiMinus } from "react-icons/fi";
+import toast from 'react-hot-toast';  
 import { resizeFile } from '@/util/imageCompress';
 import KitImage from '@/components/ui/KitImage';
+import { Loader, Minus, X } from 'lucide-react';
 
 const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }[], isLoading: boolean }) => {
   const router = useRouter()
@@ -36,21 +35,30 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
   const isUploading = uploadMutation?.isPending;
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = Array.from(e.target.files || []);
-    const limit = 6 - (data?.length || 6);
-    const newFiles = selectedFiles.slice(0, limit);
+     const selectedFiles = Array.from(e.target.files || []);
+    const limit = 6 - (data?.length || 0);
 
+    if (limit <= 0) {
+      toast.error('Maximum 6 images allowed');
+      return;
+    }
+    if (limit <= 0) {
+      toast.error('Maximum 6 images allowed');
+      return;
+    }
+    const newFiles = selectedFiles.slice(0, limit);
+    
     const resizedFiles = await Promise.all(
       newFiles.map((file) => resizeFile(file))
     );
+
 
     setFiles((prev) => [...prev, ...resizedFiles]);
     setPreviews((prev) => [
       ...prev,
       ...resizedFiles.map((file) => URL.createObjectURL(file)),
     ]);
-  };
-
+  }; 
   const handleRemovePreview = (index: number) => {
     setFiles(prev => prev.filter((_, i) => i !== index));
     setPreviews(prev => prev.filter((_, i) => i !== index));
@@ -89,7 +97,7 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
     toast.success('deleted successfuly')
     router.refresh()
   }
-  const handelChangeDelete = (id: string) => {
+  const handelChangeDelete = (id: string) => { 
     setDeleteId(prev => {
       if (prev.includes(id)) {
         // Remove ID if already selected
@@ -99,8 +107,7 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
         return [...prev, id];
       }
     });
-  };
-
+  }; 
   return (
     <div className='w-full px-5  max-md:px-0 '>
       <h1 className='my-9 ml-4'>
@@ -114,11 +121,10 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
 
           {existingImages && existingImages?.map((u: { id: string, url: string }, idx: number) => {
             return (
-
               <div key={`existing-${idx}`} onClick={() => handelChangeDelete(u?.id)} className='relative max-md:w-[47%] max-md:h-[230px]  w-[200px] h-[300px] rounded-2xl border border-black/20'>
-                {deleteId.includes(u?.id) ? <div className=' absolute -top-2 -right-2 buttongreen rounded-full text-lg !p-1 !py-1  '> <FiMinus /> </div>
+                {deleteId.includes(u?.id) ? <div className=' absolute -top-2 -right-2 buttongreen rounded-full text-lg !p-1 !py-1  '> <Minus /> </div>
                   :
-                  <div className=' absolute -top-2 -right-2 buttonred rounded-full !p-1 !py-1  '><RxCross1 /></div>
+                  <div className=' absolute -top-2 -right-2 buttonred rounded-full !p-1 !py-1  '><X /></div>
                 }
                 <KitImage src={u?.url} alt="Uploaded" height={1000} width={1000} className="  w-full h-full rounded-2xl  object-cover" />
               </div>
@@ -129,7 +135,7 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
               {isUploading && <div className=' absolute top-[40%] left-[20%] border border-white/20 text-white text-xs bg-[#ffffff2e] backdrop-blur-sm rounded-full px-3 py-1 z-10'>
                 Processing...
               </div>}
-              <div onClick={() => handleRemovePreview(idx)} className=' absolute -top-2 -right-2 border-2 border-red-500/50 text-red-500 backdrop-blur-[10px] rounded-full !p-1 !py-1  '><RxCross1 /></div>
+              <div onClick={() => handleRemovePreview(idx)} className=' absolute -top-2 -right-2 border-2 border-red-500/50 text-red-500 backdrop-blur-[10px] rounded-full !p-1 !py-1  '><X /></div>
               <Image height={1800} width={1500} key={`preview-${idx}`} src={src} alt="Preview" className=" h-full w-full rounded-2xl  object-cover" />
             </div>
           ))}
@@ -164,9 +170,9 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
         hidden={previews.length === 0}
         onClick={handleUpload}
         disabled={isUploading || files.length === 0}
-        className="my-10 px-3 py-3 rounded-full w-[300px]  center disable:bg-gray-200  mx-auto block buttonbg text-white"
+        className="my-10 px-3 py-3 rounded-full w-[300px]  center disabled:opacity-[0.6] disabled:cursor-not-allowed  mx-auto block buttonbg text-white"
       >
-        {isUploading ? <FiLoader className='text-xl animate-spin ' /> : 'Upload'}
+        {isUploading ? <Loader className='text-xl animate-spin ' /> : 'Upload'}
 
       </button>
 
@@ -176,7 +182,7 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
         disabled={deletPhotoMutation.isPending || deleteId.length === 0}
         className="my-10 px-3 py-3 rounded-full w-[300px]   mx-auto block buttonred text-white"
       >
-        {deletPhotoMutation.isPending ? <FiLoader className='text-xl animate-spin ml-2' /> : ' Delete Selected Photos'}
+        {deletPhotoMutation.isPending ? <Loader className='text-xl animate-spin ml-2' /> : ' Delete Selected Photos'}
       </button>
     </div>
   );

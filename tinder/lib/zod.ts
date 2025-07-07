@@ -20,7 +20,7 @@ export const createProfileForm = z.object({
 
 
   relationshipGoals: z.string().min(3, 'looking for must be atleast 3 characters'),
-  batch: z.string(),
+  batch: z.string().optional(),
   gender: z.string(),
   height: z.preprocess((val) => {
     if (val === '' || val === null || val === undefined) return undefined;

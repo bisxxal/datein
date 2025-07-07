@@ -4,8 +4,8 @@ export const resizeFile = (file: File): Promise<File> =>
   new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
-      800, // max width
-      800, // max height
+      1200, // max width
+      1200, // max height
       'WEBP', // format
       100, // quality (0-100)
       0, // rotation

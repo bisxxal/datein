@@ -1,10 +1,10 @@
 'use client'
 import KitImage from '@/components/ui/KitImage';
 import { useSocket } from '@/hooks/useSocket';
+import { CornerDownLeft } from 'lucide-react';
 import moment from 'moment';
 import Link from 'next/link'
 import React from 'react'
-import { PiArrowBendUpLeft } from "react-icons/pi";
 
 
 interface Chat {
@@ -71,7 +71,7 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
                                                     </h1>
                                                     {item?.chat?.messages[0]?.content && (
                                                         <p className=' pl-3 text-sm text-blue-300 center gap-2'>
-                                                            <PiArrowBendUpLeft size={21} />
+                                                            <CornerDownLeft size={21} />
                                                             {item?.chat?.messages[0]?.content.split(' ').slice(0, 10).join(' ')}
                                                             <span className='text-xs text-gray-400 mt-1'>
                                                                 {moment(item?.chat?.messages[0]?.createdAt).format(

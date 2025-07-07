@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { MdKeyboardDoubleArrowUp } from 'react-icons/md'
 
 const AnimatedSwipe = ({ text }: any) => {
   return (

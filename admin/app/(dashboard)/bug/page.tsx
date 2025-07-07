@@ -1,9 +1,8 @@
 import { fixBug, getBugReports } from '@/action/admin.action'
+import { Eye } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import React from 'react'
-import toast from 'react-hot-toast'
-import { IoEyeOutline } from 'react-icons/io5'
+import React from 'react' 
 
 const page = async () => {
   const data = await getBugReports()
@@ -33,7 +32,7 @@ const page = async () => {
             <form action={deleteBug} className=' flex items-center gap-4'>
             <button className=' buttonbg p-3 px-8 rounded-full shadow-xl '>Fixed</button>
             <input defaultValue={bug.id} type="text"  hidden name='id'  />
-            <Link className='block w-fit base2 text-4xl rounded-full glass p-3 textbase' href={`/view/${bug?.userId}`}><IoEyeOutline /></Link>
+            <Link className='block w-fit base2 text-4xl rounded-full glass p-3 textbase' href={`/view/${bug?.userId}`}><Eye /></Link>
             </form>
           </div>
         ))}

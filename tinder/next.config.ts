@@ -28,7 +28,14 @@ const nextConfig: NextConfig = {
       },
     ],
   }, 
+  experimental: {
+    webpackBuildWorker: true,
+     serverActions: {
+      bodySizeLimit: '6mb',
+    },
+  },
   devIndicators:false,
 };
 
 export default nextConfig;
+ 

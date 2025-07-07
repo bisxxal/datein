@@ -4,19 +4,20 @@ import { addInterests } from '@/actions/user.action'
 import Back from '@/components/ui/back'
 import BackgroundPatten from '@/components/ui/backgroundPatten'
 import { interestsData } from '@/util'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 const Intrestspage = () => {
   const [selected, setSelected] = useState<string[]>([])
-  const [submitting, setSubmitting] = useState(false)
   const [allInterests, setAllInterests] = useState<string[]>([])
-
+  const queryClient = useQueryClient();
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
     const initialInterests = searchParams.get('interest')?.split(',') || []
-
-    // Merge initialInterests and interestsData (deduplicate)
+    if (initialInterests.includes('')) {
+      initialInterests.length = 0
+    }
     const merged = Array.from(new Set([...initialInterests, ...interestsData]))
     setAllInterests(merged)
 
@@ -37,38 +38,38 @@ const Intrestspage = () => {
   }
 
   const handleSubmit = async () => {
-    setSubmitting(true)
-    try {
-      const res = await addInterests(selected)
-      if (res.status === 200) {
-        toast.success('Interests submitted successfully!')
-      } else {
-        toast.error('Failed to submit interests.')
-      }
-    } catch (err) {
-      toast.error('Failed to submit interests.')
-    } finally {
-      setSubmitting(false)
-    }
+    updatedMutation.mutate(selected);
   }
+  const updatedMutation = useMutation({
+    mutationFn: async (selected: string[]) => {
+      return await addInterests(selected);
+    },
+    onSuccess: (data) => {
+      toast.success('Interests submitted successfully!')
+      queryClient.invalidateQueries({ queryKey: ['fetchUsersProfile'] });
+    },
 
+    onError: (error) => {
+      toast.error('Failed to submit interests.')
+    },
+  });
   return (
     <BackgroundPatten>
       <div className='w-full px-10 max-md:px-2 py-10'>
         <Back url={'/profile/editprofile'} className='' />
-        <h1 className='my-5 text-3xl font-bold'>Interests</h1>
+        <h1 className='my-5 text-3xl text-gray-100 font-bold'>Interests</h1>
 
-        <div className='w-full flex h-[50px] overflow-x-auto gap-5 '>
+        <div className='w-full  flex h-[70px] overflow-x-auto gap-5 '>
           {selected.map((i, index) => (
-            <div
+            <h3
               key={index}
-              className='flex items-center gap-2 buttonbg text-white h-fit p-2 rounded-full px-5 whitespace-nowrap'
+              className='flex items-center cursor-pointer gap-2 buttonbg text-white h-fit  p-1 rounded-full px-4 whitespace-nowrap'
             >
-              {i}
-              <button onClick={() => toggleInterest(i)} className='text-red-400 font-bold hover:text-red-600'>
-                ❌
+              <button onClick={() => toggleInterest(i)} className='text-red-600 text-2xl'>
+                 ⅹ
               </button>
-            </div>
+              {i}
+            </h3>
           ))}
         </div>
 
@@ -83,16 +84,15 @@ const Intrestspage = () => {
             </h3>
           ))}
         </div>
-
-        {/* Submit Button */}
+ 
         <div className='mt-8 flex justify-center'>
           <button
             onClick={handleSubmit}
-            disabled={submitting || selected.length === 0}
-            hidden={selected.length === 0}
-            className='bg-blue-600 text-white px-6 py-2 rounded-full disabled:opacity-50'
+            disabled={updatedMutation.isPending || selected.length === 0}
+            hidden={selected.length === 0   }
+            className='buttonbg2 text-white px-6 py-2 rounded-full disabled:opacity-[0.6] disabled:cursor-not-allowed  '
           >
-            {submitting ? 'Submitting...' : 'Submit'}
+            {updatedMutation.isPending ? 'Submitting...' : 'Submit'}
           </button>
         </div>
       </div>

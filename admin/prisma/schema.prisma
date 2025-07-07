@@ -7,7 +7,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 model User {
   id            String @id @default(cuid())
   name          String?
@@ -91,7 +90,7 @@ model Photo {
   id       String @id @default(cuid())
   userId    String
   url       String
-  user      User   @relation(fields: [userId], references: [id])
+  user      User   @relation(fields: [userId], references: [id] , onDelete: Cascade)
 }
 
 model Like {
@@ -117,7 +116,6 @@ model bug {
   description String?
   createdAt DateTime @default(now())
 }
-
 model reportedUsers{
   id  String @id @default(cuid())
   reporterId String
@@ -175,4 +173,3 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verificationtokens")
 }
- 

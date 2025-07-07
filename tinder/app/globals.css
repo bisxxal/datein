@@ -50,6 +50,7 @@
 }
 .buttonbg{
   @apply bg-gradient-to-br text-white from-[#a9beff] font-medium to-[#5154f2];
+  box-shadow: inset -12px -3px 20px 2px #00000021, 0 8px 10px -6px rgb(0 0 0 / 0.1) ;
 }
  
 .buttonbg2{
@@ -115,7 +116,7 @@ button,a{
 }  
 
 .background {  
-  background: radial-gradient(125% 125% at 50% 100%, #fff 40%, #63e 100%);
+  background: radial-gradient(125% 125% at 50% 100%, #fff 40%, #3a3df1 100%);
   z-index: -10;
 }
 
@@ -162,7 +163,7 @@ button,a{
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(2px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 2rem;
+  border-radius: 1.5rem;
    
 }
 .glass2 {
@@ -173,20 +174,21 @@ button,a{
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
               inset 0 4px 20px rgba(255, 255, 255, 0.3);
 }
-/* .glass3 {
+ .glasscard {
+  /* position: relative; */
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(2px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.8);
-
+  border-radius: 2rem;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
               inset 0 4px 20px rgba(255, 255, 255, 0.3);
-} */
+}
 .glass3 ,select {
   @apply backdrop-blur-[2px] backdrop-saturate-[180%] border shadow-[0_8px_32px_rgba(31,38,135,0.2),inset_0_4px_20px_rgba(255,255,255,0.3)] border-solid border-[rgba(255,255,255,0.8)] after:content-[''] after:absolute after:w-full after:h-full after:backdrop-blur-[1px] after:shadow-[inset_-10px_-8px_0px_-11px_rgba(255,255,255,1),inset_0px_-9px_0px_-8px_rgba(255,255,255,1)] after:opacity-60 after:z-[-1] after:rounded-[2rem] after:left-0 after:top-0;
   background: rgba(255, 255, 255, 0.15);
   /* border-radius: 2rem; */
 }
-.glass::after , .glass2::after{
+.glass::after , .glass2::after , .glasscard::after {
   content: '';
   position: absolute;
   top: 0;
@@ -210,8 +212,8 @@ button,a{
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 2rem;
-  backdrop-filter: blur(1px);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(2px);
   box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
               inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
   opacity: 0.6;

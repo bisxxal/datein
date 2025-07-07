@@ -1,9 +1,9 @@
 'use client'
 import { deleteVerification, verifyUser } from '@/action/admin.action'
+import { Eye } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
-import toast from 'react-hot-toast'
-import { IoEyeOutline } from 'react-icons/io5'
+import toast from 'react-hot-toast' 
 
 const VerificationForm = ({ userId, id }: { userId: string, id: string }) => {
   const handelSumbit = async () => {
@@ -41,7 +41,7 @@ const VerificationForm = ({ userId, id }: { userId: string, id: string }) => {
 
   return (
     <div className=' flex items-center gap-4'>
-      <Link className=' base2 text-4xl rounded-full glass p-3 textbase' href={`/view/${userId}`}><IoEyeOutline /></Link>
+      <Link className=' base2 text-4xl rounded-full glass p-3 textbase' href={`/view/${userId}`}><Eye /></Link>
       <div className='flex items-center gap-4'>
         <button onClick={() => handelSumbit()} className=' buttonbg p-3 rounded-full shadow-xl px-7' type='submit'>Verified</button>
         <button onClick={() => deleteVerificationSumbit()} className=' buttonred p-3 rounded-full shadow-xl px-7' type='submit'>Delete </button>

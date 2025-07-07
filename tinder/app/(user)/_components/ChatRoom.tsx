@@ -1,20 +1,16 @@
 'use client';
+import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 import { useSocket } from '@/hooks/useSocket';
 import Back from '@/components/ui/back';
-import { LuSend } from "react-icons/lu";
-import { FiLoader } from 'react-icons/fi';
-import moment from 'moment';
 import PopUpCom from '@/components/ui/popUpCom';
-import { deleteSelectMessages } from '@/actions/chart';
-import toast from 'react-hot-toast';
-import { PiDotsThreeCircleLight } from "react-icons/pi";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { RxCross1 } from "react-icons/rx";
-import Link from 'next/link';
-import LoadingCom from '@/components/ui/loading';
-import { dummyMessages, dummyUserId } from '@/util';
+import moment from 'moment';
 import { useRouter } from 'next/navigation';
+import { deleteSelectMessages } from '@/actions/chart';
+import { dummyMessages, dummyUserId } from '@/util';
+import LoadingCom from '@/components/ui/loading';
+import toast from 'react-hot-toast';
+import {Ban, CircleEllipsis, Loader, Send, Trash} from 'lucide-react' 
 
 type Message = {
   id: string;
@@ -209,7 +205,7 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
 
           <div className='relative group'>
             <label htmlFor='is'>
-              <p><PiDotsThreeCircleLight className=' text-gray-500' size={25} /></p>
+              <p><CircleEllipsis  className=' text-gray-500' size={20} /></p>
             </label>
             <input type="checkbox" hidden id="is" />
             <div className='group-has-checked:flex hidden  group-hover:  absolute  py-4 w-52 flex flex-col gap-2 border  text-white p-2 border-black/10 rounded-3xl bg-black/20 backdrop-blur-[10px] -left-[180px] '>
@@ -220,15 +216,15 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
           </div>
         }
         {selectedMessages.size > 0 && (
-          <div className="flex justify-end  gap-5 ">
-            <button className=' px-5 py-3 ' onClick={() => setSelectedMessages(new Set())}>
-              <RxCross1 />
+          <div className="flex justify-end  bg-zinc-200 rounded-2xl gap-1 ">
+            <button className=' px-4 py-2 border-r border-black/20' onClick={() => setSelectedMessages(new Set())}>
+              <Ban />
             </button>
 
             <button
               onClick={deleteSelectedMessages}
-              className="text-sm center  px-5 py-1  gap-2 rounded" >
-              <RiDeleteBin5Line className=' text-red-500' size={23} />
+              className="text-sm center  px-4 py-1   gap-2 rounded" >
+              <Trash className=' text-red-500' size={23} />
               {selectedMessages.size}
             </button>
           </div>
@@ -242,7 +238,7 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
         <div className=" w-full scrollbar overflow-y-auto space-y-3 rounded-2xl h-[70vh] max-md:h-[76vh] ">
           {Object.entries(groupedMessages).length !== 0 ? Object.entries(groupedMessages).map(([dateKey, msgs]) => (
             <div key={dateKey}>
-              <div className="text-center w-fit bg-[#ffffff5c] border border-white/80 mx-auto rounded-full px-3  backdrop-blur-[10px] my-4 text-sm text-gray-700 font-medium">
+              <div className="text-center w-fit bg-[#ffffff5c] border border-white/80 mx-auto rounded-full px-3  backdrop-blur-[10px] my-4 text-sm text-gray-500 font-medium">
                 {formatDateLabel(dateKey)}
               </div>
               {msgs.map((msg) => {
@@ -255,7 +251,7 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
                     onTouchStart={() => handleLongPressStart(msg.id)}
                     onTouchEnd={handleLongPressEnd}
                     onClick={() => handleMessageClick(msg.id)}
-                    className={`relative w-full mt-3 flex flex-col text-base font-normal cursor-pointer`}>
+                    className={`relative w-full mt-3 cursor-pointer flex flex-col text-base font-normal cursor-pointer`}>
 
                     {isSelected && <div className=' w-full rounded-lg bas buttonbg opacity-[0.4] z-[10] h-full top-0 left-0 absolute'></div>}
                     <div className={` max-w-[80%] w-fit px-5 py-1.5 ${msg.senderId === currentUserId
@@ -306,8 +302,8 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
           <button
             onClick={sendMessage}
             disabled={!newMessage}
-            className={` ${!newMessage && " opacity-[0.5] "} base text-white center w-12 h-12 rounded-full center  hover:bg-blue-700 `}>
-            {megSending ? <FiLoader className='text-xl animate-spin ' /> : <LuSend size={21} />}
+            className={` ${!newMessage && " opacity-[0.5] "} base text-white center w-12 h-12 rounded-full center  hover:bg-blue-700 disabled:opacity-[0.6] disabled:cursor-not-allowed`}>
+            {megSending ? <Loader className='text-xl animate-spin ' /> : <Send size={23} strokeWidth={1.25} />  }
           </button>
         </div>
       </div>

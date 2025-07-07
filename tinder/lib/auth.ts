@@ -1,4 +1,3 @@
-
 import NextAuth, { AuthOptions, Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -28,14 +27,7 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
 
-  callbacks: {
-    //   async session({ session, user }) {
-    //     // Attach user ID to the session object
-    //     if (session.user) {
-    //       session.user.id = user.id;
-    //     }
-    //     return session;
-    //   },
+  callbacks: { 
     async jwt({ token, user }) {
       return token;
     },

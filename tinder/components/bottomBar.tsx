@@ -1,18 +1,15 @@
-'use client'
-import { RiHome2Line } from "react-icons/ri";
-import { FaRegUser } from "react-icons/fa";
-import { IoChatbubbleOutline } from "react-icons/io5";
+'use client' 
 import { useRouter } from 'next/navigation';
-import Dock from './ui/docs';
-import { FaUserGroup } from "react-icons/fa6";
+import Dock from './ui/docs'; 
+import { House, MessageCircle, UserRoundPen, Users } from "lucide-react";
 const BottomBar = () => {
   const router = useRouter()
 
   const items = [
-    { icon: <RiHome2Line className=" text-black/50" size={18} />, label: 'Match', onClick: () => router.push(`/match`) },
-    { icon: <FaUserGroup className=" text-black/50" size={18} />, label: 'Group', onClick: () => router.push(`/group`) },
-    { icon: <IoChatbubbleOutline className=" text-black/50" size={18} />, label: 'Chat', onClick: () => router.push(`/chat`) },
-    { icon: <FaRegUser className=" text-black/50" size={18} />, label: 'Profile', onClick: () => router.push(`/profile`) },
+    { icon: <House className=" text-black/50" size={18} />, label: 'Match', onClick: () => router.push(`/match`) },
+    { icon: <Users className=" text-black/50" size={18} />, label: 'Group', onClick: () => router.push(`/group`) },
+    { icon: <MessageCircle className=" text-black/50" size={18} />, label: 'Chat', onClick: () => router.push(`/chat`) },
+    { icon: <UserRoundPen className=" text-black/50" size={18} />, label: 'Profile', onClick: () => router.push(`/profile`) },
   ];
   const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
   return (

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import QuaryClient from "@/quary/QuaryClient";
-import BottomBar from "@/components/bottomBar";
 import { Poppins } from "next/font/google";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });

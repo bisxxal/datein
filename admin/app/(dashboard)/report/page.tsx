@@ -1,7 +1,7 @@
 import { getReportedUsers } from '@/action/admin.action'
 import Link from 'next/link'
 import React from 'react'
-import { IoEyeOutline } from 'react-icons/io5'
+import { Eye } from "lucide-react";
 
 const ReportPage = async () => {
 
@@ -18,7 +18,7 @@ const ReportPage = async () => {
               <p className='text-gray-500'>Reported on: {new Date(user?.createdAt).toLocaleDateString()}</p>
             </div>
 
-            <Link className='block w-fit base2 text-4xl rounded-full glass p-3 textbase' href={`/view/${user.reportedId}`}><IoEyeOutline /></Link>
+            <Link className='block w-fit base2 text-4xl rounded-full glass p-3 textbase' href={`/view/${user.reportedId}`}><Eye /></Link>
           </div>
         ))}
       </div>

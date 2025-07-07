@@ -1,11 +1,10 @@
-'use client';
-import { CiLock } from "react-icons/ci";
+'use client'; 
 import { motion } from "framer-motion";
 import Link from "next/link";
 import moment from "moment";
-import { useState } from "react";
-import { FiLoader } from "react-icons/fi";
+import { useState } from "react"; 
 import { dummyMessages, dummyUserId } from "@/util";
+import { LockKeyhole } from "lucide-react";
 const GroupPage = () => {
   const isVerified = true;
  
@@ -60,7 +59,7 @@ const GroupPage = () => {
                   />
                   <button
                     disabled={!newMessage}
-                    className={` ${!newMessage && " opacity-[0.5] "} base text-white px-5 max-md:px-2 rounded-3xl center  hover:bg-blue-700 `}>
+                    className={` ${!newMessage && " opacity-[0.5] "} disabled:opacity-[0.6] disabled:cursor-not-allowed base text-white px-5 max-md:px-2 rounded-3xl center  hover:bg-blue-700 `}>
                     send
                   </button>
                 </div>
@@ -77,7 +76,7 @@ const GroupPage = () => {
               <div className=" h-[200px] blur-[2px] w-[200px] absolute  -left-9 -top-11 rounded-full !duration-700  center backdrop-blur-[10px] buttonbg  animate-ping  "></div>
               <div className=" h-[140px] blur-[2px] w-[140px]  absolute  -top-4  -left-1.5  rounded-full !duration-700  center backdrop-blur-[10px] delay-1  buttonbg animate-ping  "></div>
               <div className=" h-[80px] w-[80px]  shadow-xl  top-15 left-15 rounded-full !duration-700  center backdrop-blur-[10px] bg-blue-60 buttonbg   ">
-                <CiLock className=" text-3xl text-blue-800" />
+                <LockKeyhole className=" text-3xl text-blue-800" />
               </div>
             </div>
           </div>

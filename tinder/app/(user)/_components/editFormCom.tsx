@@ -5,11 +5,10 @@ import { createProfileForm, TCreateProfileForm } from "@/lib/zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import GlareHover from '@/components/ui/glassHover'
-import { VscVerified } from 'react-icons/vsc'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import { FiLoader } from 'react-icons/fi'
 import { useEffect } from 'react'
+import { BadgeCheck, Loader } from 'lucide-react'
 
 interface UserProfileProps {
     age?: number,
@@ -40,7 +39,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     name: name || "",
                     bio: data?.bio || "",
                     age: data?.age || undefined,
-                    batch: data?.batch || "bca",
+                    batch: data?.batch || "bca" ,
                     gender: data?.gender || "male",
                     height: data?.height || undefined,
                     languages: data?.languages || "",
@@ -98,7 +97,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     className="bg-transparent  !rounded-3xl mx-auto  w-full text-white flex-col !h-[300px]">
 
                     <Link href={'/verified'} className=" w-full px-5 flex-col h-full border-2 border-green-600 bg-green-600/30  rounded-3xl center">
-                        <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4">  Get Verified <VscVerified /></p>
+                        <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4">  Get Verified <BadgeCheck /></p>
                         <p className=" max-md:text-xs">Not Verified yet.</p>
                     </Link>
                 </GlareHover>
@@ -109,7 +108,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                 <div>
                     <p className=' text-xl font-semibold '>About me</p>
                     <input className='p-3 w-full my-5 rounded-xl bg-[#00000014] backdrop-blur-[10px] '   {...register("bio")} placeholder='Write something about yourself...' />
-                    {errors?.bio && <span className=' text-red-500'>{errors?.bio?.message}</span>}
+                    {errors?.bio && <span className=' text-sm text-red-500'>{errors?.bio?.message}</span>}
                 </div>
 
                 <div>
@@ -117,7 +116,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     <div className='p-3 w-full h-12 px-6 center !justify-between rounded-xl bg-[#00000014] backdrop-blur-[10px] '>
                         <input className='w-full h-full  outline-none placeholder:text-gray-400 textbase' {...register("name")} type="text" placeholder='jhone deo' />
                     </div>
-                    {errors?.name && <span className=' text-red-500'>{errors?.name?.message}</span>}
+                    {errors?.name && <span className=' text-sm text-red-500'>{errors?.name?.message}</span>}
                 </div>
 
                 <div>
@@ -125,7 +124,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     <div className='p-3 w-full h-12 px-6 center !justify-between rounded-xl bg-[#00000014] backdrop-blur-[10px] '>
                         <input className='w-full h-full outline-none placeholder:text-gray-400 textbase'  {...register("age")} type="number" placeholder='20' />
                     </div>
-                    {errors?.age && <span className=' text-red-500'>{errors?.age?.message}</span>}
+                    {errors?.age && <span className=' text-sm text-red-500'>{errors?.age?.message}</span>}
                 </div>
                 <div>
                     <p className=' text-xl font-semibold '>Intrests</p>
@@ -133,6 +132,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                         <div> {data?.keywords?.length !== 0 ? data?.keywords?.map((i: { name: string }, index: number) => (<span key={index} className='textbase mx-1'>{i?.name} ,</span>)) : 'Add your intrests'}</div>
                         <span className='tex-xl block'> &gt; </span>
                     </Link>
+                    { data?.keywords?.length === 0  && <span className='text-sm text-red-500'>Add atleast 2 intrests </span>}
                 </div>
 
                 <div>
@@ -145,7 +145,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                             <option value="long-term">Long-term Partner</option>
                         </select>
 
-                        {errors?.relationshipGoals && <span className=' text-red-500'>{errors?.relationshipGoals?.message}</span>}
+                        {errors?.relationshipGoals && <span className=' text-sm text-red-500'>{errors?.relationshipGoals?.message}</span>}
                     </div>
                 </div>
 
@@ -161,7 +161,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                             <option value="bba">Bba</option>
                         </select>
                     </div>
-                    {errors?.batch && <span className=' text-red-500'>{errors?.batch?.message}</span>}
+                    {errors?.batch && <span className=' text-sm text-red-500'>{errors?.batch?.message}</span>}
                 </div>
 
                 <div className='bg-[#00000014] backdrop-blur-[10px]  rounded-xl'>
@@ -174,7 +174,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
 
                         </select>
                     </div>
-                    {errors?.gender && <span className=' text-red-500'>{errors?.gender?.message}</span>}
+                    {errors?.gender && <span className=' text-sm text-red-500'>{errors?.gender?.message}</span>}
                 </div>
 
                 <div>
@@ -183,7 +183,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     <div className='p-3 w-full h-12 px-6 center !justify-between rounded-xl bg-[#00000014] backdrop-blur-[10px] '>
                         <input className='w-full h-full outline-none placeholder:text-gray-400 textbase'  {...register("height")} type="number" placeholder='3.3 ft' />ft
                     </div>
-                    {errors?.height && <span className=' text-red-500'>{errors?.height?.message}</span>}
+                    {errors?.height && <span className=' text-sm text-red-500'>{errors?.height?.message}</span>}
                 </div>
 
                 <div>
@@ -192,7 +192,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     <div className='p-3 w-full h-12 px-6 center !justify-between rounded-xl bg-[#00000014] backdrop-blur-[10px] '>
                         <input className='w-full h-full outline-none placeholder:text-gray-400 textbase' {...register("languages")} type="text" placeholder='hindi , english' />
                     </div>
-                    {errors?.languages && <span className=' text-red-500'>{errors?.languages?.message}</span>}
+                    {errors?.languages && <span className=' text-sm text-red-500'>{errors?.languages?.message}</span>}
                 </div>
 
                 <div>
@@ -201,7 +201,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     <div className='p-3 w-full h-12 px-6 center !justify-between rounded-xl bg-[#00000014] backdrop-blur-[10px] '>
                         <input className='w-full h-full outline-none placeholder:text-gray-400 textbase' {...register("job")} type="text" placeholder='google ' />
                     </div>
-                    {errors?.job && <span className=' text-red-500'>{errors?.job?.message}</span>}
+                    {errors?.job && <span className=' text-sm text-red-500'>{errors?.job?.message}</span>}
                 </div>
 
                 <div>
@@ -209,11 +209,11 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     <div className='p-3 w-full h-12 px-6 center !justify-between rounded-xl bg-[#00000014] backdrop-blur-[10px] '>
                         <input className='w-full h-full outline-none placeholder:text-gray-400 textbase ' {...register("livingIn")} type="text" placeholder='Bhubaneswar' />
                     </div>
-                    {errors?.livingIn && <span className=' text-red-500'>{errors?.livingIn?.message}</span>}
+                    {errors?.livingIn && <span className=' text-sm text-red-500'>{errors?.livingIn?.message}</span>}
                 </div>
 
-                <button disabled={updatedMutation.isPending || !isDirty} className={` ${!isDirty || isSubmitting ? ' opacity-[0.5] ' : ' '} center disabled:cursor-notallowed py-2 w-[300px w-full mx-auto !rounded-3xl  buttonbg2`} type="submit">
-                    {updatedMutation.isPending ? <FiLoader className='text-xl animate-spin ml-2' /> : 'Save Changes'}
+                <button disabled={updatedMutation.isPending || !isDirty} className={` ${!isDirty || isSubmitting ? ' opacity-[0.5] ' : ' '} center disabled:opacity-[0.6] disabled:cursor-not-allowed py-2 w-[300px w-full mx-auto !rounded-3xl  buttonbg2`} type="submit">
+                    {updatedMutation.isPending ? <Loader className='text-xl animate-spin ml-2' /> : 'Save Changes'}
                 </button>
             </form>
         </div>
