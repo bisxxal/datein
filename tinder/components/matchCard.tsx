@@ -14,6 +14,7 @@ import dynamic from 'next/dynamic';
 import { useSocket } from "@/hooks/useSocket";
 import { ArrowUp, Heart, Loader, BadgeCheck,RotateCw, X } from "lucide-react"; 
 import { AllPublicUserActions } from "@/actions/match";
+import toast from "react-hot-toast";
 
 const PopUp = dynamic(() => import('./popUpCard'), {
   loading: () => <div className="text-white">  <Loader className='text-lg mt-5 animate-spin ' /> </div>,
@@ -46,6 +47,10 @@ const TinderCardsCom = () => {
       const shuffled = shuffleArray(person);
       setShuffledPerson(shuffled);
       setIndex(shuffled.length - 1);
+    }
+    console.log(data)
+    if(data?.status === 429) {
+      toast.error(data.message);
     }
   }, [person]);
 
@@ -99,14 +104,7 @@ const TinderCardsCom = () => {
     }
 
     if (shouldReshuffle && !isPaginating) {
-      setIsPaginating(true);
-      // const timeout = setTimeout(() => {
-        // const reshuffled = shuffleArray(person);
-        // setShuffledPerson(reshuffled);
-        // setIndex(reshuffled.length - 1);
-        // setIsPaginating(false);
-      // }, 500);
-      // return () => clearTimeout(timeout);
+      setIsPaginating(true); 
       setCurrentPage(1);
     }
 
@@ -118,17 +116,17 @@ const TinderCardsCom = () => {
 
   console.log("Total pages are " , totalPages)
   return (
-    <div className="flex flex-col mt-[100px] relative items-center    space-y-6 w-full">
+    <div className="flex flex-col mt-[80px] relative items-center    space-y-6 w-full">
 
       {!isLoading && <div className=" w-[380px] bottombaranimation absolute rounded-3xl top-4 bg-[#0000001f] h-[80vh] max-md:w-[90%]"></div>}
 
-      {isLoading && <LoadingCom boxes={1} width='w-[450px] appear !rounded-3xl h-[80vh] max-md:w-[99%]' margin=' !rounded-xl' />}
+      {isLoading && <LoadingCom boxes={1} child='w-[400px] appear !rounded-3xl h-[80vh] max-md:w-[99%]' parent=' !rounded-xl' />}
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait"  >
         {current && !isLoading ? (
           <>
             <motion.div
-              key={current.id}
+              key={current?.id}
               initial={{ x: 0, opacity: 1 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{
@@ -137,10 +135,10 @@ const TinderCardsCom = () => {
                 scale: 0.95,
                 transition: { duration: 0.3 },
               }}
-              className="relative  overflow-hidden max-md:w-[95%] w-[450px] rounded-3xl shadow-xl h-[80vh]"
+              className="relative  overflow-hidden max-md:w-[95%] w-[400px] rounded-3xl shadow-xl h-[80vh]"
             >
 
-              <div className="w-full relative h-full bg-white shadow-xl rounded-3xl overflow-hidden flex flex-col justify-between">
+              <div className="w-full h-full bg-white shadow-xl rounded-3xl overflow-hidden flex flex-col justify-between">
                 <SwiperComponent photo={current} />
 
                 {showPing && <div className=" w-[200px] h-[200px] absolute top-[35%] 70 left-[24%]  rounded-full center  z-10">

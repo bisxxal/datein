@@ -6,6 +6,7 @@ import UserNavbar from "../../../components/Navbar";
 import { redirect } from "next/navigation";
 import KitImage from "@/components/ui/KitImage";
 import { BadgeCheck, Bug, Pencil, Share } from "lucide-react";
+import ShareCom from "@/components/ui/share";
 
 const UserProfile = async () => {
   const user = await getUserProfilePic()
@@ -18,7 +19,7 @@ const UserProfile = async () => {
     <BackgroundPatten>
       <div className=" w-full min-h-screen  relativ overflow-hidden">
         <UserNavbar />
-        <div className=" flex relative mt-[100px] w-fit mx-auto flex-col items-center  justify-center  ">
+        <div className=" flex relative mt-[80px] w-fit mx-auto flex-col items-center  justify-center  ">
           <GlareHover
             glareColor="#ffffff"
             glareOpacity={0.4}
@@ -40,9 +41,8 @@ const UserProfile = async () => {
           {user?.verified === false && <p className="text-lg text-gray-400 center gap-3 mt-3">Not verified yet. ⚠️ </p>}
         </div>
 
-        <div className="mt-20 pb-10   max-md:mt-10 max-md:px-2 px-10 text-white">
-          <div className=" mx-auto glass appear center gap-2 !justify-evenly h-[350px] max-md:h-[400px] max-md:flex-col w-fit  max-md:w-full max-md:rounded-3xl max-md:p-1 max-md:py-2 p-10">
-
+        <div className="mt-20 pb-10  flex-warp max-md:mt-10 max-md:px-2 px-10 text-white">
+          <div className=" mx-auto flex-warp glass appear center gap-2 !justify-evenly h-[350px] max-lg:h-[400px] max-lg:flex-col w-fit  max-lg:w-full max-md:rounded-3xl max-md:p-1 max-md:py-2 p-10">
             {user?.verified === false && <GlareHover
               glareColor="#ffffff"
               glareOpacity={0.4}
@@ -50,7 +50,7 @@ const UserProfile = async () => {
               glareSize={300}
               transitionDuration={1000}
               playOnce={false}
-              className="bg-transparent w-[400px]  !rounded-3xl max-md:w-[90%] flex-col !h-full"
+              className="bg-transparent w-[400px]  !rounded-3xl max-lg:w-[90%] flex-col !h-full"
             >
               <Link href={'/verified'} className=" w-full px-5 flex-col h-full border-2 border-green-600 bg-green-600/30  rounded-3xl center">
                 <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4">  Get Verified <BadgeCheck /></p>
@@ -65,12 +65,13 @@ const UserProfile = async () => {
               glareSize={300}
               transitionDuration={1000}
               playOnce={false}
-              className="bg-transparent w-[400px] !rounded-3xl max-md:w-[90%] flex-col !h-full"
+              className="bg-transparent w-[400px] !rounded-3xl max-lg:w-[90%] flex-col !h-full"
             >
-              <div className=" w-full px-5 flex-col h-full border-2 border-blue-500 bg-blue-600/30  rounded-3xl center">
+               <ShareCom />
+              {/* <div className=" w-full px-5 flex-col h-full border-2 border-blue-500 bg-blue-600/30  rounded-3xl center">
                 <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4"> Share Date in. <Share /> </p>
                 <p className=" max-md:text-xs text-center "> share Date in .</p>
-              </div>
+              </div> */}
             </GlareHover>
             <GlareHover
               glareColor="#ffffff"
@@ -79,7 +80,7 @@ const UserProfile = async () => {
               glareSize={300}
               transitionDuration={1000}
               playOnce={false}
-              className="bg-transparent  w-[400px] !rounded-3xl max-md:w-[90%] flex-col !h-full"
+              className="bg-transparent  w-[400px] !rounded-3xl max-lg:w-[90%] flex-col !h-full"
             >
               <Link href={'/bug'} className=" w-full px-5 flex-col h-full border-2 border-red-500 bg-red-600/30  rounded-3xl center">
                 <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4"> Report Bug  <Bug /></p>

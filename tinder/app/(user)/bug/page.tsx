@@ -45,11 +45,11 @@ const BugPage = () => {
           <form onSubmit={handleSubmit(onSubmit)} className='w-full flex flex-col items-center justify-center mt-10'>
             <div className='flex flex-col !justify-start w-[40%]  max-md:w-[85%] '>
               <p className=' !text-gray-800  max-md:text-base text-xl'>Title</p>
-              <input   {...register("title")} className='textbase font-semibold  border-2 outline-none bg-white/70 text-xl px-5 max-md:px-3 my-3    w-full mx-auto max-md:text-base rounded-3xl h-14 max-md:h-10' type="text" />
+              <input   {...register("title")} className='textbase font-medium  border-2 outline-none bg-white/70 text-lg  px-3 my-3    w-full mx-auto max-md:text-base rounded-xl  h-10' type="text" />
               {errors?.title && <span className=' text-sm  text-red-500'>{errors?.title?.message}</span>}
               <p className='!text-gray-800  max-md:text-base text-xl'>Description</p>
               <textarea
-                {...register('description')} className='  border-black/20  border-2 outline-none bg-white/70 text-xl px-5 py-1 max-md:px-3 my-3  w-full mx-auto max-md:text-base rounded-3xl max-md:h-10 h-14 ' />
+                {...register('description')} rows={10} className='  border-black/20  border-2 outline-none bg-white/70 py-1 px-3 my-3  w-full mx-auto max-md:text-base rounded-3xl  ' />
               {errors?.description && <span className='  text-sm text-red-500'>{errors?.description?.message}</span>}
             </div>
             <button type='submit' disabled={isPending} className=' disabled:opacity-[0.6] disabled:cursor-not-allowed max-w-full buttonbg2 text-white px-10 py-3 rounded-full text-xl'>

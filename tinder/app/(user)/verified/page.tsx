@@ -38,9 +38,9 @@ const VerifiedPage = () => {
         <p className="mt-2 text-gray-400 text-lg">This will help us to verify you.</p>
 
         <form action={handleSubmit} className='w-full flex flex-col items-center justify-center mt-10'>
-          <input name='roll' required className='textbase uppercase border-2 outline-none bg-white/70 text-2xl px-5 max-md:px-3 my-10 w-[500px] max-md:w-[80%] max-md:text-base rounded-3xl h-14 max-md:h-12' type="text" placeholder=' eg : 232313bfjnvjewg3' />
+          <input name='roll' required className='textbase uppercase border-2 outline-none bg-white/70 text-xl  px-3 my-10 w-[500px] max-md:w-[80%] max-md:text-base rounded-3xl  h-12' type="text" placeholder=' eg : 232313bfjnvjewg3' />
           <button type='submit' className='w-[500px] center max-md:w-[80%] buttonbg2 text-white px-10 py-3 rounded-full text-xl'>
-            {isPending ? <Loader className='text-xl animate-spin ' /> : 'verify'}</button>
+            {isPending ? <Loader className='text-xl animate-spin ' /> : 'Verify'}</button>
         </form>
 
         {
@@ -51,7 +51,7 @@ const VerifiedPage = () => {
         :
         <div className=' mt-[100px]  center flex-col gap-5'>
           <p className=' text-center text-green-500 text-3xl font-semibold'>Thanks for  verifying !</p>
-          <p className=' text-gray-500'>We will review your roll no to verified you</p>
+          <p className=' text-gray-500'>We will review your Roll-No to verified you</p>
           <Link className=' textbase text-lg hover:underline  ' href={'/match'}>Continue Find your match.</Link>
         </div>
       }

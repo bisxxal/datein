@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import LoadingCom from '@/components/ui/loading';
 
 const Charts = dynamic(() => import('../_components/chartsList'), {
-  loading: () => <LoadingCom boxes={3} width=" !rounded-3xl w-full h-[100px] " margin=" !items-start !justify-between  !px-0 gap-5 flex-col " />,
+  loading: () => <LoadingCom boxes={3} child =" !rounded-3xl w-full h-[100px] " parent=" !items-start !justify-between  !px-0 gap-5 flex-col " />,
 });
 
 interface MatchesProps {
@@ -43,9 +43,9 @@ const ChartMainPage = async () => {
     <div className='border border-white relative w-full  min-h-screen'>
       <UserNavbar /> 
 
-      <div className='  mt-[100px]'>
+      <div className='  mt-[80px]'>
 
-      <div className='px-3 w-full  ] '>
+      <div className='min-h-[70vh] px-3 w-full '>
 
         {
           AllMatches.length !== 0 ? <>
@@ -57,7 +57,7 @@ const ChartMainPage = async () => {
         }
         <Charts userId={data?.userId} chats={data?.chats} />
       </div>
-      <div>
+      <div  >
         <p className="logo3 ml-5 text-7xl max-md:text-6xl text-[100px]  flex flex-col font-bold my-10 text-[#8d8d8d82] block mb-10">Made</p>
         <p className=" ml-5 logo3 text-7xl max-md:text-6xl text-[100px]  flex flex-col font-bold my-10 text-[#8d8d8d82]">
           With Love ♡.</p>

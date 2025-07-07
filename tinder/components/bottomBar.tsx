@@ -13,7 +13,7 @@ const BottomBar = () => {
   ];
   const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
   return (
-    <div className='  fixed bottom-[15px] max-md:bottom-[10px]   z-[100] left-[5%] justify-between px-3    w-[90%] h-[60px]  rounded-3xl '>
+    <div className='  fixed  bottom-[10px]   z-[100] left-[5%] justify-between px-3    w-[90%] h-[60px]  rounded-3xl '>
      <Dock
         className=' glass2 bottombaranimation shadow-xl  '
         items={items}

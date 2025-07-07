@@ -99,8 +99,6 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
                     })
                 :
                 (
-                    //     isLoading ?
-                    //    <LoadingCom boxes={3} width=" !rounded-3xl w-full h-[100px] " margin=" !items-start !justify-between  !px-0 gap-5 flex-col " />
                     <p className='text-center text-gray-500'>No Messages found</p>
                 )
             }

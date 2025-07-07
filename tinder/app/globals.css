@@ -91,7 +91,7 @@ button,a{
 .pulseShimmer{
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), inset 0 4px 20px rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(2px) saturate(180%);
-  animation:   pulseShimmer 6.2s infinite linear; ;
+  animation:   pulseShimmer 10s infinite linear; ;
  }
   @keyframes pulseShimmer {
     0% {
@@ -247,16 +247,13 @@ text-shadow: -2px 1px 20px #ffffff;
 }
 
 .menuanimation {
-  animation: menuanimation 1.2s ease-in-out forwards;
+  animation: menuanimation 0.5s ease-in-out forwards;
 }
 @keyframes menuanimation {
   0% {
     transform: translateY(-100px);
     opacity: 0;
-  }
-  50% {
-      transform: translateY(30px); 
-    }
+  } 
   100% {
     transform: translateY(0px);
     opacity: 1; 

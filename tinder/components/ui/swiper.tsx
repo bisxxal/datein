@@ -28,7 +28,7 @@ const SwiperComponent = ({ photo }: SwiperComponentProps) => {
     <div className="relative w-[450px] max-md:w-[100%] h-full">
       {/* Custom segmented progress bar */}
       <div className="absolute top-5 left-1/2 transform -translate-x-1/2 z-20 flex w-[90%] gap-2">
-        {photo.photos.length > 1 && photo.photos.map((_, idx) => (
+        {photo?.photos?.length > 1 && photo?.photos?.map((_, idx) => (
           <div
             key={idx}
             className={`
@@ -62,14 +62,14 @@ const SwiperComponent = ({ photo }: SwiperComponentProps) => {
         modules={[Navigation]}
         className="mySwiper h-full"
       >
-        {photo.photos.map((p, index) => (
+        {photo?.photos?.map((p, index) => (
           <SwiperSlide
             key={index}
             className="flex items-center justify-center h-full"
           >
             <KitImage 
               className="w-[100%] h-full object-cover "
-              src={p.url}
+              src={p?.url}
               alt={`Photo ${index + 1}`}
               width={900}
               height={900}

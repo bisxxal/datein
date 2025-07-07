@@ -94,10 +94,10 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     glareSize={300}
                     transitionDuration={1000}
                     playOnce={false}
-                    className="bg-transparent  !rounded-3xl mx-auto  w-full text-white flex-col !h-[300px]">
+                    className="bg-transparent  !rounded-3xl mx-auto  w-full text-white flex-col !h-[100px]">
 
                     <Link href={'/verified'} className=" w-full px-5 flex-col h-full border-2 border-green-600 bg-green-600/30  rounded-3xl center">
-                        <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4">  Get Verified <BadgeCheck /></p>
+                        <p className=" center my-2 max-md:my-1 text-3xl max-md:text-xl gap-4">  Get Verified <BadgeCheck /></p>
                         <p className=" max-md:text-xs">Not Verified yet.</p>
                     </Link>
                 </GlareHover>

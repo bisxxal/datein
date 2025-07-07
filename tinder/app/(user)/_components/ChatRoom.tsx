@@ -197,7 +197,7 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
                 <span className='text-xs text-red-500'>Offline</span>
               )}
           </> :
-            <LoadingCom width='w-60 max-md:w-38 max-md:h-8' boxes={1} margin=' w-10 h-10' />
+            <LoadingCom child='w-60 max-md:w-38 max-md:h-8' boxes={1} parent=' w-10 h-10' />
           }
         </div>
 
@@ -274,7 +274,7 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
                 return (
                   <div
                     className={`max-w-[80%] mt-3 w-fit  h-20  flex flex-col   ${msg.senderId === dummyUserId ? '  ml-auto ' : ' '}`}>
-                    <LoadingCom width={` max-md:h-10 border border-white/20 w-60 max-md:w-52`} boxes={1} margin=' w-10 h-full' />
+                    <LoadingCom child={` max-md:h-10 border border-white/20 w-60 max-md:w-52`} boxes={1} parent=' w-10 h-full' />
                   </div>
                 );
               }

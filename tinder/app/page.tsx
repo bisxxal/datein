@@ -35,16 +35,10 @@ export default async function Home() {
                     delay={150}
                     animateBy="words"
                     direction="top"
-                    // onAnimationComplete={handleAnimationComplete}
                     className="text-[300px] max-md:text-[90px]  blurtext max-md:mt-[30vh]"
                   /> 
               </div>
           </div>
-          {/* <h1 className=" text-gray-500 text-center text-3xl font-bold w-full h-full flex items-center justify-center">
-            Sign In to find your match
-          </h1> */}
-
-
           <div className=" base3 flex items-center justify-center w-full h-[50vh]">
 
               <div>

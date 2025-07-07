@@ -105,28 +105,28 @@ import { rateLimit } from "@/util/rateLimit"
 //   }
 // };
 
-export const AllPublicUserActions = async (page:number) => {
+export const AllPublicUserActions = async (page: number) => {
   try {
-    console.log('featching agin',page)
+    console.log('featching agin', page)
     const limit = 10;
-     const session = await getServerSession(authOptions)
+    const session = await getServerSession(authOptions)
     if (!session || !session.user) {
       return JSON.parse(JSON.stringify({ status: 500, message: 'Not authorized user' }));
     }
-   const cookieStore = await cookies();
-    const ip = cookieStore.get('user-ip')?.value || 'anonymous';
+    //  const cookieStore = await cookies();
+    //   const ip = cookieStore.get('user-ip')?.value || 'anonymous';
 
-    const rl = await rateLimit({
-      key: ip,
-      limit: 3,
-      windowInSeconds: 60,
-    });
+    //   const rl = await rateLimit({
+    //     key: ip,
+    //     limit: 3,
+    //     windowInSeconds: 60,
+    //   });
 
-    if (!rl.success) {
-      console.log(`Rate limit exceeded. Try again in ${rl.retryAfter}s.`);
-      return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
-    }
-    
+    //   if (!rl.success) {
+    //     console.log(`Too many request. Try again in ${rl.retryAfter}s.`);
+    //     return JSON.parse(JSON.stringify({ status: 429, message: `Rate limit exceeded. Try again in ${rl.retryAfter}s.` }));
+    //   }
+
     const user = await prisma.user.findUnique({
       where: {
         id: session?.user.id!,
@@ -157,19 +157,19 @@ export const AllPublicUserActions = async (page:number) => {
     })
 
     const reportedUserIds = user?.reported?.map((u: { reportedId: string }) => u.reportedId) || [];
-    const likedUserIds = user?.likesGiven?.map((like:{receiverId:string}) => like.receiverId) || [];
-    const gender = user?.profile?.gender === 'male' ? 'female' :'male'
+    const likedUserIds = user?.likesGiven?.map((like: { receiverId: string }) => like.receiverId) || [];
+    const gender = user?.profile?.gender === 'male' ? 'female' : 'male'
 
-    const [allUsers , total] = await prisma.$transaction([
+    const [allUsers, total] = await prisma.$transaction([
       prisma.user.findMany({
-        skip: (page - 1) * limit,  
+        skip: (page - 1) * limit,
         take: limit,
         where: {
           id: {
             notIn: [session.user.id, ...likedUserIds, ...reportedUserIds],
           },
-          photos:{
-            some:{}
+          photos: {
+            some: {}
           },
           // profile:{
           //   gender
@@ -215,21 +215,19 @@ export const AllPublicUserActions = async (page:number) => {
           id: {
             notIn: [session.user.id, ...likedUserIds, ...reportedUserIds],
           },
-            photos:{
-            some:{}
+          photos: {
+            some: {}
           },
           //  profile:{
           //   gender
           // }
         },
       })
-    ]) 
- 
-    return JSON.parse(JSON.stringify({ user, shuffled: allUsers , total }))
-    // return JSON.parse(JSON.stringify({user ,allUsers , total}))
+    ])
+
+    return JSON.parse(JSON.stringify({ user, shuffled: allUsers, total }))
   } catch (error) {
 
   }
 }
-     
- 
+

@@ -8,7 +8,7 @@ const KeywordButton = dynamic(() => import("./ui/keywordButton"), { ssr: false }
 const PopUp = ({ current, displayed, setDisplayed, user }: PopUpPropsExtended) => {
   return (
     <div
-      className={` popupcardAnimation text-white h-[75vh] shadow-xl absolute z-[20]  border-white/70 bg-[#0000002e]   backdrop-blur-[20px] justify-between w-[450px] max-md:w-[95%] mt-14 p x-5 bottom-0 pt-[0px] rounded-3xl flex`}>
+      className={` popupcardAnimation text-white h-[75vh] shadow-xl absolute z-[20]  border-white/70 bg-[#0000002e]   backdrop-blur-[20px] justify-between w-[400px] max-md:w-[95%] mt-14 p x-5 bottom-0 pt-[0px] rounded-3xl flex`}>
 
       <div className="  flex text-lg flex-col gap-5 w-full  rounded-3xl scrollbar overflow-y-auto">
         <h2 onClick={() => { setDisplayed(!displayed) }} className={` ${displayed ? 'w-full pt-2 pr-3 flex  items-end justify-end ' : ' hidden '} text-white mx-auto  cursor-pointer  `}>
