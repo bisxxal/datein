@@ -1,4 +1,4 @@
- 
+
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 
@@ -46,43 +46,43 @@ const portraitUrls = [
 
 async function main() {
   const lookingForOptions = ['long-term', 'short-term'];
-  const sampleKeywords = [  "Poetry","Music","Traveling","Hiking","Photography",
-  "Dancing",
-  "Cooking",
-  "Reading",
-  "Movies",
-  "Fitness",
-  "Yoga",
-  "Gaming",
-  "Drawing",
-  "Writing",
-  "Painting",
-  "Cycling",
-  "Camping",
-  "Swimming",
-  "Running",
-  "Tech",
-  "Fashion",
-  "Meditation",
-  "Crafting",
-  "Board Games",
-  "Volunteering",
-  "Gardening",
-  "Sports",
-  "Skiing",
-  "Snowboarding",
-  "Skateboarding",
-  "Animals",
-  "Astrology",
-  "Karaoke",
-  "Podcasts",
-  "Comedy",
-  "Theater",
-  "Languages",
-  "Wine Tasting",
-  "Coffee Lover",
-  "Foodie",
-  "Live Music"];
+  const sampleKeywords = ["Poetry", "Music", "Traveling", "Hiking", "Photography",
+    "Dancing",
+    "Cooking",
+    "Reading",
+    "Movies",
+    "Fitness",
+    "Yoga",
+    "Gaming",
+    "Drawing",
+    "Writing",
+    "Painting",
+    "Cycling",
+    "Camping",
+    "Swimming",
+    "Running",
+    "Tech",
+    "Fashion",
+    "Meditation",
+    "Crafting",
+    "Board Games",
+    "Volunteering",
+    "Gardening",
+    "Sports",
+    "Skiing",
+    "Snowboarding",
+    "Skateboarding",
+    "Animals",
+    "Astrology",
+    "Karaoke",
+    "Podcasts",
+    "Comedy",
+    "Theater",
+    "Languages",
+    "Wine Tasting",
+    "Coffee Lover",
+    "Foodie",
+    "Live Music"];
   const samplePhotos = [];
 
   for (let i = 1; i <= 20; i++) {
@@ -93,7 +93,7 @@ async function main() {
   for (let i = 0; i < 20; i++) {
     const keywordNames = faker.helpers.arrayElements(sampleKeywords, faker.number.int({ min: 2, max: 4 }));
     const keywordRecords = [];
-const userPhotos = portraitUrls.slice(i * 4, i * 4 + 4);
+    const userPhotos = portraitUrls.slice(i * 4, i * 4 + 4);
     for (const keyword of keywordNames) {
       const keywordEntry = await prisma.keyword.upsert({
         where: { name: keyword },
@@ -109,10 +109,10 @@ const userPhotos = portraitUrls.slice(i * 4, i * 4 + 4);
         email: faker.internet.email(),
         image: samplePhotos[i],
         photos: {
-            create:  userPhotos.map((url) => ({
-          url,
-        })),
-          },
+          create: userPhotos.map((url) => ({
+            url,
+          })),
+        },
         profile: {
           create: {
             bio: faker.lorem.sentence(),
@@ -135,6 +135,39 @@ const userPhotos = portraitUrls.slice(i * 4, i * 4 + 4);
 
     console.log(`Created user: ${user.name}`);
   }
+  // for (let i = 0; i < 20; i++) {
+
+  //   await prisma.message.create({
+  //     data: {
+  //       senderId : 'cmckm6ezf0000t0grf1ixzfyz',
+  //       chatId:'cmctb6ahz0000ji04w6unj2te',
+  //       content:'Hello, bro!',
+  //       createdAt: new Date(Date.now() + 1),
+  //       // cmckm6ezf0000t0grf1ixzfyz
+  //       // cmckn0bsl0003t05orax17za2
+  //     },
+  //     include: {
+  //       sender: {
+  //         select: { id: true, name: true },
+  //       },
+  //     },
+  //   });
+  //    await prisma.message.create({
+  //     data: {
+  //       senderId : 'cmckn0bsl0003t05orax17za2',
+  //       chatId:'cmctb6ahz0000ji04w6unj2te',
+  //       content:  `good morning, bro! ${i}`,
+  //       createdAt: new Date(Date.now() + 1),
+  //       // cmckm6ezf0000t0grf1ixzfyz
+  //       // cmckn0bsl0003t05orax17za2
+  //     },
+  //     include: {
+  //       sender: {
+  //         select: { id: true, name: true },
+  //       },
+  //     },
+  //   });
+  // }
 }
 
 main()
@@ -147,4 +180,3 @@ main()
     return prisma.$disconnect();
   });
 
-  

@@ -5,6 +5,7 @@ import Back from '@/components/ui/back'
 import BackgroundPatten from '@/components/ui/backgroundPatten'
 import { interestsData } from '@/util'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -12,6 +13,7 @@ const Intrestspage = () => {
   const [selected, setSelected] = useState<string[]>([])
   const [allInterests, setAllInterests] = useState<string[]>([])
   const queryClient = useQueryClient();
+  const router = useRouter();
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
     const initialInterests = searchParams.get('interest')?.split(',') || []
@@ -47,6 +49,7 @@ const Intrestspage = () => {
     onSuccess: (data) => {
       toast.success('Interests submitted successfully!')
       queryClient.invalidateQueries({ queryKey: ['fetchUsersProfile'] });
+      router.push('/profile/editprofile');
     },
 
     onError: (error) => {

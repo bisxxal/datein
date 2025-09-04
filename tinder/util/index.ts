@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const interestsData = [
   "Poetry",
   "Music",
@@ -53,3 +55,20 @@ export const dummyMessages = [
   ];
 
 export   const dummyUserId = "user1";
+
+export const formatDateLabel = (dateStr: string): string => {
+    const date = moment(dateStr);
+    if (date.isSame(moment(), 'day')) return 'Today';
+    if (date.isSame(moment().subtract(1, 'day'), 'day')) return 'Yesterday';
+    return date.format('D MMMM');
+  };
+
+export const demoMessages = [
+  "Hii 👋🏻",
+  "What up?",
+  "Hello?",
+  "Do you have any plans for the weekend?",
+  "What's your favorite hobby?",
+  "Have you read any good books recently?",
+  "Do you like to travel? Where have you been?",
+]

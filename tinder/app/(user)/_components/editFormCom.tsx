@@ -103,6 +103,16 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                 </GlareHover>
             </div>}
 
+               <div>
+                    <p className=' text-xl font-semibold '>Intrests</p>
+                    <Link className=' bg-[#00000014] backdrop-blur-[10px]  flex justify-between items-center p-2 px-5 h-12 mt-4 rounded-xl' href={`/profile/editprofile/interest?interest=${interest}`}>
+                        <div> {data?.keywords?.length !== 0 ? data?.keywords?.map((i: { name: string }, index: number) => (<span key={index} className='textbase mx-1'>{i?.name} ,</span>)) : 'Add your intrests'}</div>
+                        <span className='tex-xl block'> &gt; </span>
+                    </Link>
+                    { data?.keywords?.length === 0  && <span className='text-sm text-red-500'>Add atleast 2 intrests </span>}
+                </div>
+                
+
             <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col gap-6'>
 
                 <div>
@@ -126,14 +136,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                     </div>
                     {errors?.age && <span className=' text-sm text-red-500'>{errors?.age?.message}</span>}
                 </div>
-                <div>
-                    <p className=' text-xl font-semibold '>Intrests</p>
-                    <Link className=' bg-[#00000014] backdrop-blur-[10px]  flex justify-between items-center p-2 px-5 h-12 mt-4 rounded-xl' href={`/profile/editprofile/interest?interest=${interest}`}>
-                        <div> {data?.keywords?.length !== 0 ? data?.keywords?.map((i: { name: string }, index: number) => (<span key={index} className='textbase mx-1'>{i?.name} ,</span>)) : 'Add your intrests'}</div>
-                        <span className='tex-xl block'> &gt; </span>
-                    </Link>
-                    { data?.keywords?.length === 0  && <span className='text-sm text-red-500'>Add atleast 2 intrests </span>}
-                </div>
+              
 
                 <div>
                     <p className=' max-md:text-base text-xl mb-5 font-bold'>Relationship Goals</p>

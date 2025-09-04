@@ -2,7 +2,7 @@
 import Back from '@/components/ui/back'
 import BlurText from '@/components/ui/blur-text'
 import SignInButton from '@/components/ui/SignInButton'
-import { getSession, useSession } from 'next-auth/react'
+import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 
@@ -18,7 +18,7 @@ const SignInPage = () => {
     myFunction()
   }, [])
   return (
-    <div className=' w-full  h-screen '>
+    <div className=' w-full  h-screen overflow-hidden'>
 
       <Back url='/' className='m-4' />
       <div className='w-full h-full center flex-col '>
@@ -29,10 +29,13 @@ const SignInPage = () => {
             direction="top"
             className="text-[200px] max-md:text-[90px]  max-md:mt-[30vh] textbase font-extrabold"
           />
-          <SignInButton text={'Loging with google'} />
+          <h1 className='text-xl text-gray-600 mt-10 appear'>Live && Enjoy && Date.</h1>
+          <SignInButton text={'Login with google'} />
       </div>
     </div>
   )
 }
 
 export default SignInPage
+
+ 

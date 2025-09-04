@@ -38,21 +38,21 @@ const BugPage = () => {
     <div className=' w-full h-screen overflow-hidden'>
       <Back url={'/profile'} className=' m-5' />
       <div className="flex flex-col w-full items-center justify-center mt-20">
-        <h1 className="text-3xl center gap-4 font-bold">Report a bug ! <Bug className=' text-gray-500' /></h1>
+        <h1 className="text-3xl center gap-4 font-bold">Report a bug ! <Bug className=' text-red-500' /></h1>
         <p className="mt-4 text-gray-500 text-center text-lg">Report a bug ! help us to improve our app.</p>
 
         {!show ? <>
           <form onSubmit={handleSubmit(onSubmit)} className='w-full flex flex-col items-center justify-center mt-10'>
             <div className='flex flex-col !justify-start w-[40%]  max-md:w-[85%] '>
-              <p className=' !text-gray-800  max-md:text-base text-xl'>Title</p>
-              <input   {...register("title")} className='textbase font-medium  border-2 outline-none bg-white/70 text-lg  px-3 my-3    w-full mx-auto max-md:text-base rounded-xl  h-10' type="text" />
+              <p className=' !text-gray-800  '>Title</p>
+              <input   {...register("title")} className='textbase font-medium  border outline-none bg-white/70 text-lg  px-3 my-3    w-full mx-auto rounded-2xl  h-10' type="text" />
               {errors?.title && <span className=' text-sm  text-red-500'>{errors?.title?.message}</span>}
-              <p className='!text-gray-800  max-md:text-base text-xl'>Description</p>
+              <p className='!text-gray-800  '>Description</p>
               <textarea
-                {...register('description')} rows={10} className='  border-black/20  border-2 outline-none bg-white/70 py-1 px-3 my-3  w-full mx-auto max-md:text-base rounded-3xl  ' />
+                {...register('description')} rows={4} className='  border-black/20  border-2 outline-none bg-white/70 py-1 px-3 my-3  w-full mx-auto rounded-3xl  ' />
               {errors?.description && <span className='  text-sm text-red-500'>{errors?.description?.message}</span>}
             </div>
-            <button type='submit' disabled={isPending} className=' disabled:opacity-[0.6] disabled:cursor-not-allowed max-w-full buttonbg2 text-white px-10 py-3 rounded-full text-xl'>
+            <button type='submit' disabled={isPending} className=' disabled:opacity-[0.6] disabled:cursor-not-allowed max-w-full buttonbg2 text-white px-10 py-3 rounded-full text-lg'>
 
               {isPending ? <Loader className='text-xl animate-spin ' /> : ' Sumbit'}</button>
           </form>

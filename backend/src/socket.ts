@@ -16,7 +16,7 @@ export const initSocket = (server: HttpServer) => {
     cors: {
       origin: ['http://localhost:3000', 'http://localhost:3001', 'https://datein.vercel.app'],
       methods: ['GET', 'POST'],
-       credentials: true 
+      credentials: true
     },
   });
 
@@ -30,15 +30,16 @@ export const initSocket = (server: HttpServer) => {
       // console.warn(`Invalid userId on connection: ${userId}`);
     }
     io.emit('getOnlineUsers', Object.keys(userSocketMap));
+    
     socket.on('join', (chatId) => {
       socket.join(chatId);
       // console.log(`User joined room: ${chatId}`);
     });
 
     // Example Node.js socket code
-socket.on('message_deleted', ({ chatId, messageIds }) => {
-  socket.to(chatId).emit('message_deleted', { chatId, messageIds });
-});
+    socket.on('message_deleted', ({ chatId, messageIds }) => {
+      socket.to(chatId).emit('message_deleted', { chatId, messageIds });
+    });
 
 
     socket.on('disconnect', () => {

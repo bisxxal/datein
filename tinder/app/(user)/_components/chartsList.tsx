@@ -50,7 +50,7 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
                             <Link
                                 href={`/chat/${item.chatId}`}
                                 key={i}
-                                className='w-[95%] max-md:w-[98%] mx-auto glass rounded-3xl center mb-3 shadow-lg border-black/10 p-2 !justify-start '
+                                className='w-[95%] max-md:w-[98%] mx-auto rounded-3xl bg-[#d9d9d95e] center mb-3 shadow border-black/10 p-2 !justify-start '
                             >
                                 {item.chat.participants
                                     .filter((participant) => participant.user.id !== userId)
@@ -59,7 +59,7 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
                                             <div className=' flex items-center gap-2'>
                                                 <KitImage
                                                     loading='lazy'
-                                                    className='!w-[80px] !h-[80px] rounded-4xl border border-black/20 object-cover'
+                                                    className='!w-[80px] !h-[80px] rounded-3xl border border-black/20 object-cover'
                                                     src={participant?.user?.photos[0]?.url}
                                                     alt={participant.user.name}
                                                     width={300}
@@ -85,10 +85,8 @@ const Charts = ({ chats, userId }: { chats: ChartsProps, userId: string }) => {
 
                                             <div>
                                                 {
-                                                    onlineUser && participant.user.id && onlineUser.includes(participant?.user?.id) ? (
+                                                    onlineUser && participant.user.id && onlineUser.includes(participant?.user?.id) && (
                                                         <span className='text-xs text-green-500'>Online</span>
-                                                    ) : (
-                                                        <span className='text-xs text-red-500'>Offline</span>
                                                     )
                                                 }
                                             </div>

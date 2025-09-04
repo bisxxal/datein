@@ -37,7 +37,7 @@ const UserProfile = async () => {
               }
           </GlareHover>
 
-          <Link href={'/profile/editprofile'} className="   glass text-white absolute   w-[50px] h-[50px]   backdrop-blur-[8px] - bottom-2 - right-2 flex justify-center items-center gap-3">  <Pencil size={21} /></Link>
+          <Link href={'/profile/editprofile'} className="   glass text-white absolute   w-[50px] h-[50px]   backdrop-blur-[8px] - bottom-2 - right-2 flex justify-center items-center gap-3">  <Pencil color="#2B7FFF" size={21} /></Link>
           {user?.verified === false && <p className="text-lg text-gray-400 center gap-3 mt-3">Not verified yet. ⚠️ </p>}
         </div>
 
@@ -68,10 +68,6 @@ const UserProfile = async () => {
               className="bg-transparent w-[400px] !rounded-3xl max-lg:w-[90%] flex-col !h-full"
             >
                <ShareCom />
-              {/* <div className=" w-full px-5 flex-col h-full border-2 border-blue-500 bg-blue-600/30  rounded-3xl center">
-                <p className=" center my-4 max-md:my-1 text-3xl max-md:text-xl gap-4"> Share Date in. <Share /> </p>
-                <p className=" max-md:text-xs text-center "> share Date in .</p>
-              </div> */}
             </GlareHover>
             <GlareHover
               glareColor="#ffffff"

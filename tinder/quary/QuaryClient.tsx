@@ -9,12 +9,10 @@ type Props = { children: React.ReactNode }
 const client = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+      retry: false, 
       refetchInterval: false,
-      staleTime:  Infinity 
+      staleTime: Infinity
     }
   }
 })

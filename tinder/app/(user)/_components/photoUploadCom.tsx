@@ -152,7 +152,7 @@ const PhotoUploadCom = ({ data, isLoading }: { data: { id: string; url: string }
           ))}
         </> :
 
-          <LoadingCom boxes={6} child=" max-md:w-[47%] max-md:h-[230px] !rounded-2xl !w-[200px] !h-[300px] " parent=" !items-start !justify-between  py-0 max-md:px-0   flex-row " />
+          <LoadingCom boxes={6} child=" max-md:w-[47%] max-md:h-[230px] !rounded-2xl w-[200px] h-[300px] " parent=" !items-start !justify-between  py-0 max-md:px-0  w-full flex-wrap  flex-row " />
 
         }
       </div>

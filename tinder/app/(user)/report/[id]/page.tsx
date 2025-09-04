@@ -65,7 +65,7 @@ const Reportpage = () => {
           <h1 className="text-3xl center gap-4 textbase font-bold">Report user !  </h1>
           <p className="mt-4 text-gray-500 text-centertext-lg">Can you tell us what happedned ?</p>
           <form action={handleClick} className='w-full h-[50vh] flex flex-col items-center justify-between mt-10'>
-            <input name='reason' placeholder='Reason' required className='textbase shadow-xl placeholder:text-gray-300  border-1 outline-none bg-white/70 text- px-5 max-md:px-3 my-3 w-[500px] max-md:w-[80%] mx-auto max-md:text-base rounded-3xl h-14 max-md:h-12' type="text" />
+            <input name='reason' placeholder='Reason' required className='textbase shadow-xl placeholder:text-gray-300  border-1 outline-none bg-white/70  px-3 my-3 w-[500px] max-md:w-[80%] mx-auto max-md:text-base rounded-3xl h-12' type="text" />
             <div className=' center flex-col'>
               <p className=' !text-xs mb-2'>We Won't tell you repoted them</p>
               <button disabled={isPending} type='submit' className='w-[500px] disabled:opacity-[0.6] disabled:cursor-not-allowed center shadow-xl max-md:w-[100%] buttonbg2 text-white px-10 py-3 rounded-full max-md:text-base text-xl'>

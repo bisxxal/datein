@@ -10,7 +10,7 @@ const UserNavbar = async () => {
   }
 
   return (
-    <div className="fixed !h-[60px] z-[100] menuanimation border-t border-x border-black/10 backdrop-blur-[50px]   w-full   shadow-lg   items-center text-white flex justify-between px-20 max-md:px-5">
+    <div className="fixed !h-[60px] z-[100] menuanimation border-t border-x border-black/10 backdrop-blur-[50px]   w-full   shadow-lg   items-center text-white flex justify-between px-10 max-md:px-5">
       <Link className="text-2xl font-bold logo2" href={'/match'}>Date in.</Link>
       <div className="flex !text-3xl  items-center gap-5">
         <Link className=" text-gray-400 " href={'/bug'}><Bug /></Link>
