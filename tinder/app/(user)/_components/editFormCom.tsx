@@ -105,8 +105,8 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
 
                <div>
                     <p className=' text-xl font-semibold '>Intrests</p>
-                    <Link className=' bg-[#00000014] backdrop-blur-[10px]  flex justify-between items-center p-2 px-5 h-12 mt-4 rounded-xl' href={`/profile/editprofile/interest?interest=${interest}`}>
-                        <div> {data?.keywords?.length !== 0 ? data?.keywords?.map((i: { name: string }, index: number) => (<span key={index} className='textbase mx-1'>{i?.name} ,</span>)) : 'Add your intrests'}</div>
+                    <Link className=' bg-[#00000014] backdrop-blur-[10px]  flex justify-between items-center p-3 px-3 h-14 mt-4 rounded-xl' href={`/profile/editprofile/interest?interest=${interest}`}>
+                        <div> {data?.keywords?.length !== 0 ? data?.keywords?.map((i: { name: string }, index: number) => (<span key={index} className='textbase rounded-2xl p-2 buttonbg2 mx-1'>{i?.name}</span>)) : 'Add your intrests'}</div>
                         <span className='tex-xl block'> &gt; </span>
                     </Link>
                     { data?.keywords?.length === 0  && <span className='text-sm text-red-500'>Add atleast 2 intrests </span>}
@@ -199,7 +199,7 @@ const EditFormCom = ({ data, name, verified, isLoading }: { data: UserProfilePro
                 </div>
 
                 <div>
-                    <p className=' max-md:text-base text-xl mb-5 font-bold'>Job title <span className='bg-blue-500  font-normal max-md:text-sm text-white rounded-full px-2'>IMPORTANT</span> </p>
+                    <p className=' max-md:text-base text-xl mb-5 font-bold'>Job title <span className='bg-blue-500  font-normal text-sm text-white rounded-full px-2'>IMPORTANT</span> </p>
 
                     <div className='p-3 w-full h-12 px-6 center !justify-between rounded-xl bg-[#00000014] backdrop-blur-[10px] '>
                         <input className='w-full h-full outline-none placeholder:text-gray-400 textbase' {...register("job")} type="text" placeholder='google ' />

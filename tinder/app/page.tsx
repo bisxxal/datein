@@ -81,7 +81,7 @@ const CompleteDatingApp =  async() => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Link href={`/match`} className="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center group">
+              <Link href={`/match`} className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center group">
                 Start Matching
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -149,79 +149,7 @@ const CompleteDatingApp =  async() => {
       </div>
  
     </div>
-  );
-
-  const FeaturesPage = () => (
-    <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">Why Choose DateIn?</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Advanced features designed to help you find meaningful connections safely and efficiently.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            {
-              icon: <Target className="w-8 h-8" />,
-              title: "Smart Matching",
-              description: "Our AI algorithm analyzes compatibility based on interests, values, and lifestyle preferences.",
-              color: "from-pink-500 to-rose-500"
-            },
-            {
-              icon: <Shield className="w-8 h-8" />,
-              title: "Safe & Secure",
-              description: "Advanced verification, photo authentication, and 24/7 safety monitoring for your protection.",
-              color: "from-blue-500 to-indigo-500"
-            },
-            {
-              icon: <Zap className="w-8 h-8" />,
-              title: "Instant Connections",
-              description: "Real-time messaging, video calls, and interactive features to build genuine relationships.",
-              color: "from-purple-500 to-violet-500"
-            },
-            {
-              icon: <MapPin className="w-8 h-8" />,
-              title: "Location-Based",
-              description: "Find people nearby or expand your search globally. Distance filters help you control your radius.",
-              color: "from-green-500 to-emerald-500"
-            },
-            {
-              icon: <Camera className="w-8 h-8" />,
-              title: "Photo Verification",
-              description: "Verified profiles ensure you're talking to real people. Selfie verification prevents catfishing.",
-              color: "from-orange-500 to-red-500"
-            },
-            {
-              icon: <Award className="w-8 h-8" />,
-              title: "Success Stories",
-              description: "Join thousands of couples who found love through DateIn. Your story could be next!",
-              color: "from-teal-500 to-cyan-500"
-            }
-          ].map((feature, index) => (
-            <div key={index} className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 border border-gray-200/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-              <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-6 text-white`}>
-                {feature.icon}
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-20 bg-gradient-to-r from-pink-500 to-purple-600 rounded-3xl p-12 text-center text-white">
-          <h3 className="text-4xl font-bold mb-4">Ready to Find Your Match?</h3>
-          <p className="text-xl opacity-90 mb-8">Join millions of people who have found love through DateIn</p>
-          <button className="px-8 py-4 bg-white text-pink-600 rounded-full font-bold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
-            Start Your Journey
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
- 
+  ); 
 
   const Footer = () => (
     <footer className="bg-gray-900 text-white py-16">
@@ -261,7 +189,7 @@ const CompleteDatingApp =  async() => {
     <div className="font-sans">
       <Navigation />
        <HomePage />
-       <FeaturesPage />
+       {/* <FeaturesPage /> */}
       <Footer />
     </div>
   );

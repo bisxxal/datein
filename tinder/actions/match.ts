@@ -171,9 +171,9 @@ export const AllPublicUserActions = async (page: number) => {
           photos: {
             some: {}
           },
-          // profile:{
-          //   gender
-          // }
+          profile:{
+            gender
+          }
         },
         orderBy: {
           createdAt: 'desc',
