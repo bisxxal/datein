@@ -87,7 +87,7 @@ export const reportUser = async (receiverId: string, reason: string, giverId: st
       return JSON.parse(JSON.stringify({ status: 300, message: "Failed to report user" }));
     }
   } catch (error) {
-console.log(error)
+
     return JSON.parse(JSON.stringify({ status: 500, message: "Server error", error }));
   }
 }

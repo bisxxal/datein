@@ -54,7 +54,6 @@ export const getMessages = async (req, res) => {
         });
         const isParticipant = participants.some(p => p.userId === userId);
         if (!isParticipant) {
-            console.log('User is not a participant in this chat');
             return res.status(403).json({ status: 403, error: 'User is not a participant in this chat' });
         }
         const messageQueryOptions = {

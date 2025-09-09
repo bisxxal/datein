@@ -219,7 +219,7 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
       }, 50);
     }
   }, [isLoading, data]);
-  
+
   return (
     <div className="flex relative flex-col h-screen w-full  min- h-screeen mx-auto px-4">
       <div className='fixed w-full h-[60px] z-[30] pr-4 bg-[#c2c2c240] backdrop-blur-[18px] top-0 left-0  !justify-between center shadow-xl '>
@@ -289,7 +289,9 @@ const ChatRoom: React.FC<Props> = ({ chatId, currentUserId }) => {
               <div className="text-center w-fit bg-[#ffffff5c] border border-white/80 mx-auto rounded-full px-3  backdrop-blur-[10px] my-4 text-sm text-gray-500 font-medium">
                 {formatDateLabel(dateKey)}
               </div>
+              
               {msgs.map((msg) => {
+               
                 const isSelected = selectedMessages.has(msg.id);
                 return (
                   <div

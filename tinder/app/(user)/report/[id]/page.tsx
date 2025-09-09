@@ -14,8 +14,6 @@ const Reportpage = () => {
   const s = useSearchParams()
   const chatId = s.get('chatid') as string;
   const userId = s.get('userid') as string;
-
- console.log('id', id, 'chatId', chatId, 'userId', userId);
   const queryClient = useQueryClient();
   const handleClick = async (formData: FormData) => {
     try {

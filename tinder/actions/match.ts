@@ -107,7 +107,7 @@ import { rateLimit } from "@/util/rateLimit"
 
 export const AllPublicUserActions = async (page: number) => {
   try {
-    console.log('featching agin', page)
+    // console.log('featching agin', page)
     const limit = 10;
     const session = await getServerSession(authOptions)
     if (!session || !session.user) {

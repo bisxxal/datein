@@ -17,7 +17,7 @@ export const getMatches = async () => {
         }
         const chats = await prisma.chatParticipant.findMany({
             where: {
-                userId: session.user.id
+                userId: session.user.id,
             },
             select: {
                 chatId: true,

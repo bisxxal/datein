@@ -1,20 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SwiperComponent from "./ui/swiper";
-import {  MdOutlineInterests } from "react-icons/md";
+import { MdOutlineInterests } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSwipe from "./ui/animatedSwipe";
 import KeywordButton from "./ui/keywordButton";
-import { likeUser } from "@/actions/user.action"; 
+import { likeUser } from "@/actions/user.action";
 import { useQuery } from '@tanstack/react-query';
 import LoadingCom from "./ui/loading";
 import { shuffleArray } from "@/util/algoLogic";
 import LookingFor from "./ui/lookingFor";
-import dynamic from 'next/dynamic'; 
+import dynamic from 'next/dynamic';
 import { useSocket } from "@/hooks/useSocket";
-import { ArrowUp, Heart, Loader, BadgeCheck,RotateCw, X } from "lucide-react"; 
+import { ArrowUp, Heart, Loader, BadgeCheck, RotateCw, X } from "lucide-react";
 import { AllPublicUserActions } from "@/actions/match";
 import toast from "react-hot-toast";
+import ShareCom from "./ui/share";
 
 const PopUp = dynamic(() => import('./popUpCard'), {
   loading: () => <div className="text-white">  <Loader className='text-lg mt-5 animate-spin ' /> </div>,
@@ -26,7 +27,7 @@ const TinderCardsCom = () => {
   const { isLoading, data } = useQuery({
     queryKey: ['fetchUsers', currentPage],
     queryFn: async () => await AllPublicUserActions(currentPage),
-    staleTime: Infinity, 
+    staleTime: Infinity,
   });
 
   const person = data?.shuffled || [];
@@ -48,8 +49,8 @@ const TinderCardsCom = () => {
       setShuffledPerson(shuffled);
       setIndex(shuffled.length - 1);
     }
-    console.log(data)
-    if(data?.status === 429) {
+    // console.log(data)
+    if (data?.status === 429) {
       toast.error(data.message);
     }
   }, [person]);
@@ -104,7 +105,7 @@ const TinderCardsCom = () => {
     }
 
     if (shouldReshuffle && !isPaginating) {
-      setIsPaginating(true); 
+      setIsPaginating(true);
       setCurrentPage(1);
     }
 
@@ -114,7 +115,6 @@ const TinderCardsCom = () => {
     }
   }, [index, person, currentPage, totalPages, isPaginating]);
 
-  console.log("Total pages are " , totalPages)
   return (
     <div className="flex flex-col mt-[80px] relative items-center    space-y-6 w-full">
 
@@ -166,13 +166,13 @@ const TinderCardsCom = () => {
                         <span className='text-xs text-green-500'>Online</span>
                       )
                     }
-                  {current?.profile?.keywords.length !== 0  ? (<p className="text-base max-md:text-sm flex items-center gap-3 mt-2 font-normal">
+                    {current?.profile?.keywords.length !== 0 ? (<p className="text-base max-md:text-sm flex items-center gap-3 mt-2 font-normal">
                       <MdOutlineInterests size={22} /> Interests
                     </p>) :
                       current.profile.lookingFor && <div className=" !text-sm flex center font-medium !justify-start gap-2"  >
-                          <p>Looking for : </p>
-                          <h1  >{current.profile.lookingFor} </h1>
-                        </div>
+                        <p>Looking for : </p>
+                        <h1  >{current.profile.lookingFor} </h1>
+                      </div>
                     }
                     <KeywordButton current={current} user={user} />
                   </div>
@@ -185,7 +185,7 @@ const TinderCardsCom = () => {
                       <RotateCw size={30} />
                     </button>
                     <button onClick={() => handleSwipe("left")} className={`   ${showPing ? '  text-red-500 ' : ' text-white '} py-1 px-2 bg-[#c2c2c240] glasscard text-2xl cursor-pointer rounded-full hover:bg-[#ffffff1a] transition `}>
-                         <Heart size={30} />
+                      <Heart size={30} />
                     </button>
                   </div>
                 </div>
@@ -204,15 +204,33 @@ const TinderCardsCom = () => {
               )}
             </AnimatePresence>
           </>
-        ) : ( 
+        ) : (
+          // <motion.div
+          //   key="empty"
+          //   initial={{ opacity: 0 }}
+          //   animate={{ opacity: 1 }}
+          //   exit={{ opacity: 0 }}
+          //   className="text-center relative  max-md:w-[95%] w-[400px] h-[80vh] text-gray-500 text-lg font-medium"
+          // >
+          //   <LookingFor text={'Looking for '} />
+          // </motion.div>
+
           <motion.div
             key="empty"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-center relative  max-md:w-[95%] w-[400px] h-[80vh] text-gray-500 text-lg font-medium"
+            className="text-center relative max-md:w-[95%] w-[400px] h-[80vh] text-gray-500 text-lg font-medium flex items-center justify-center"
           >
-            <LookingFor text={'Looking for '} />
+            {index < 0 && currentPage >= totalPages && !isLoading ? (
+              <div>No more users 😥
+                <div className=" text-white">
+                <ShareCom/>
+                </div>
+              </div>
+            ) : (
+              <LookingFor text={'Looking for '} />
+            )}
           </motion.div>
         )}
       </AnimatePresence>

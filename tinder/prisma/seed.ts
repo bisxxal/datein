@@ -85,89 +85,85 @@ async function main() {
     "Live Music"];
   const samplePhotos = [];
 
-  for (let i = 1; i <= 20; i++) {
-    const gender = i % 2 === 0 ? 'women' : 'men';
-    samplePhotos.push(`https://randomuser.me/api/portraits/${gender}/${i}.jpg`);
-  }
+  // for (let i = 1; i <= 20; i++) {
+  //   const gender = i % 2 === 0 ? 'women' : 'men';
+  //   samplePhotos.push(`https://randomuser.me/api/portraits/${gender}/${i}.jpg`);
+  // }
 
+  // for (let i = 0; i < 20; i++) {
+  //   const keywordNames = faker.helpers.arrayElements(sampleKeywords, faker.number.int({ min: 2, max: 4 }));
+  //   const keywordRecords = [];
+  //   const userPhotos = portraitUrls.slice(i * 4, i * 4 + 4);
+  //   for (const keyword of keywordNames) {
+  //     const keywordEntry = await prisma.keyword.upsert({
+  //       where: { name: keyword },
+  //       update: {},
+  //       create: { name: keyword },
+  //     });
+  //     keywordRecords.push(keywordEntry);
+  //   }
+
+  //   const user = await prisma.user.create({
+  //     data: {
+  //       name: `${faker.person.firstName()}_${i}`,
+  //       email: faker.internet.email(),
+  //       image: samplePhotos[i],
+  //       photos: {
+  //         create: userPhotos.map((url) => ({
+  //           url,
+  //         })),
+  //       },
+  //       profile: {
+  //         create: {
+  //           bio: faker.lorem.sentence(),
+  //           age: faker.number.int({ min: 18, max: 45 }),
+  //           lookingFor: faker.helpers.arrayElement(lookingForOptions),
+  //           height: faker.number.int({ min: 150, max: 200 }),
+  //           location: faker.location.city(),
+  //           gender: faker.person.sexType(),
+  //           languages: faker.helpers.arrayElement(['English', 'Spanish', 'French', 'German']),
+  //           job: faker.person.jobTitle(),
+  //           livingIn: faker.location.city(),
+  //           batch: faker.helpers.arrayElement(['btech', 'mca', 'bba', 'bca']),
+  //           keywords: {
+  //             connect: keywordRecords.map(k => ({ id: k.id })),
+  //           },
+  //         },
+  //       },
+  //     },
+  //   });
+
+  //   console.log(`Created user: ${user.name}`);
+  // }
   for (let i = 0; i < 20; i++) {
-    const keywordNames = faker.helpers.arrayElements(sampleKeywords, faker.number.int({ min: 2, max: 4 }));
-    const keywordRecords = [];
-    const userPhotos = portraitUrls.slice(i * 4, i * 4 + 4);
-    for (const keyword of keywordNames) {
-      const keywordEntry = await prisma.keyword.upsert({
-        where: { name: keyword },
-        update: {},
-        create: { name: keyword },
-      });
-      keywordRecords.push(keywordEntry);
-    }
 
-    const user = await prisma.user.create({
+    await prisma.message.create({
       data: {
-        name: `${faker.person.firstName()}_${i}`,
-        email: faker.internet.email(),
-        image: samplePhotos[i],
-        photos: {
-          create: userPhotos.map((url) => ({
-            url,
-          })),
-        },
-        profile: {
-          create: {
-            bio: faker.lorem.sentence(),
-            age: faker.number.int({ min: 18, max: 45 }),
-            lookingFor: faker.helpers.arrayElement(lookingForOptions),
-            height: faker.number.int({ min: 150, max: 200 }),
-            location: faker.location.city(),
-            gender: faker.person.sexType(),
-            languages: faker.helpers.arrayElement(['English', 'Spanish', 'French', 'German']),
-            job: faker.person.jobTitle(),
-            livingIn: faker.location.city(),
-            batch: faker.helpers.arrayElement(['btech', 'mca', 'bba', 'bca']),
-            keywords: {
-              connect: keywordRecords.map(k => ({ id: k.id })),
-            },
-          },
+        senderId : 'cmf76tbq90000t0uw0ut1omga',
+        chatId:'cmfb4q8x90002jp04g5z6et92',
+        content:'Hello, bro!',
+        createdAt: new Date(Date.now() + 1), 
+      },
+      include: {
+        sender: {
+          select: { id: true, name: true },
         },
       },
     });
-
-    console.log(`Created user: ${user.name}`);
+     await prisma.message.create({
+      data: {
+        senderId : 'cmfb4o6xi0000l804g1ecmksz',
+        chatId:'cmfb4q8x90002jp04g5z6et92',
+        content:  `good morning, bro! ${i}`,
+        createdAt: new Date(Date.now() + 1), 
+      },
+      include: {
+        sender: {
+          select: { id: true, name: true },
+        },
+      },
+    });
   }
-  // for (let i = 0; i < 20; i++) {
-
-  //   await prisma.message.create({
-  //     data: {
-  //       senderId : 'cmckm6ezf0000t0grf1ixzfyz',
-  //       chatId:'cmctb6ahz0000ji04w6unj2te',
-  //       content:'Hello, bro!',
-  //       createdAt: new Date(Date.now() + 1),
-  //       // cmckm6ezf0000t0grf1ixzfyz
-  //       // cmckn0bsl0003t05orax17za2
-  //     },
-  //     include: {
-  //       sender: {
-  //         select: { id: true, name: true },
-  //       },
-  //     },
-  //   });
-  //    await prisma.message.create({
-  //     data: {
-  //       senderId : 'cmckn0bsl0003t05orax17za2',
-  //       chatId:'cmctb6ahz0000ji04w6unj2te',
-  //       content:  `good morning, bro! ${i}`,
-  //       createdAt: new Date(Date.now() + 1),
-  //       // cmckm6ezf0000t0grf1ixzfyz
-  //       // cmckn0bsl0003t05orax17za2
-  //     },
-  //     include: {
-  //       sender: {
-  //         select: { id: true, name: true },
-  //       },
-  //     },
-  //   });
-  // }
 }
 
 main()
